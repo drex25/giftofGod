@@ -56,7 +56,7 @@ const RoomsList: React.FC = () => {
     return true;
   });
 
-  const roomTypes = [...new Set(rooms.map(room => room.type))];
+  const roomTypes = Array.from(new Set(rooms.map(room => room.type)));
 
   return (
     <div className="min-h-screen bg-gray-50">
