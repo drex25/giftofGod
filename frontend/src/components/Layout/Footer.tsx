@@ -3,16 +3,17 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { 
-  Phone, 
-  Mail, 
-  MapPin, 
-  Instagram, 
-  Facebook, 
-  Twitter,
-  Heart,
-  ArrowUp,
-  Building
-} from 'lucide-react';
+  PhoneIcon, 
+  EnvelopeIcon, 
+  MapPinIcon, 
+  BuildingOfficeIcon,
+  HeartIcon,
+  ArrowUpIcon,
+  GlobeAltIcon,
+  CalendarDaysIcon,
+  UserIcon,
+  Cog6ToothIcon
+} from '@heroicons/react/24/outline';
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
@@ -21,10 +22,31 @@ const Footer: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const quickLinks = [
+    { name: t('nav.home'), path: '/' },
+    { name: t('nav.rooms'), path: '/rooms' },
+    { name: 'Nosotros', path: '/about' },
+    { name: 'Contacto', path: '/contact' },
+  ];
+
+  const services = [
+    { name: t('footer.accommodation'), path: '/rooms' },
+    { name: t('footer.tours'), path: '/tours' },
+    { name: t('footer.transport'), path: '/transport' },
+    { name: 'Eventos', path: '/events' },
+  ];
+
+  const socialLinks = [
+    { name: 'Facebook', url: '#', icon: '📘' },
+    { name: 'Instagram', url: '#', icon: '📷' },
+    { name: 'Twitter', url: '#', icon: '🐦' },
+    { name: 'YouTube', url: '#', icon: '📺' },
+  ];
+
   return (
     <footer className="bg-neutral-900 text-white">
       {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="container-modern py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand Section */}
           <div className="lg:col-span-1">
@@ -35,44 +57,31 @@ const Footer: React.FC = () => {
               viewport={{ once: true }}
             >
               <div className="flex items-center space-x-3 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
-                  <Building className="h-6 w-6 text-white" />
+                <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center shadow-medium">
+                  <BuildingOfficeIcon className="h-6 w-6 text-white" />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold gradient-text">Gift of God</h3>
                   <p className="text-xs text-neutral-400 font-medium">
-                    HOTEL & RESORT
+                    HOSTEL & EXPERIENCES
                   </p>
                 </div>
               </div>
               <p className="text-neutral-400 mb-6 leading-relaxed body-medium">
-                Descubre el lujo y la comodidad en nuestro exclusivo hotel. Ofrecemos experiencias únicas y servicios de primera clase para hacer de tu estadía algo inolvidable.
+                {t('footer.description')}
               </p>
               <div className="flex space-x-4">
-                <motion.a
-                  href="#"
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="w-10 h-10 bg-neutral-800 hover:bg-primary-500 rounded-lg flex items-center justify-center text-neutral-400 hover:text-white transition-all duration-300"
-                >
-                  <Facebook className="w-5 h-5" />
-                </motion.a>
-                <motion.a
-                  href="#"
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="w-10 h-10 bg-neutral-800 hover:bg-primary-500 rounded-lg flex items-center justify-center text-neutral-400 hover:text-white transition-all duration-300"
-                >
-                  <Instagram className="w-5 h-5" />
-                </motion.a>
-                <motion.a
-                  href="#"
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="w-10 h-10 bg-neutral-800 hover:bg-primary-500 rounded-lg flex items-center justify-center text-neutral-400 hover:text-white transition-all duration-300"
-                >
-                  <Twitter className="w-5 h-5" />
-                </motion.a>
+                {socialLinks.map((social) => (
+                  <motion.a
+                    key={social.name}
+                    href={social.url}
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="w-10 h-10 bg-neutral-800 hover:bg-primary-500 rounded-lg flex items-center justify-center text-neutral-400 hover:text-white transition-all duration-300 shadow-medium"
+                  >
+                    <span className="text-lg">{social.icon}</span>
+                  </motion.a>
+                ))}
               </div>
             </motion.div>
           </div>
@@ -84,40 +93,18 @@ const Footer: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
           >
-            <h4 className="heading-4 mb-6 text-white">Enlaces Rápidos</h4>
+            <h4 className="heading-4 mb-6 text-white">{t('footer.quickLinks')}</h4>
             <ul className="space-y-3">
-              <li>
-                <Link 
-                  to="/rooms" 
-                  className="text-neutral-400 hover:text-primary-400 transition-colors duration-300 body-medium"
-                >
-                  Habitaciones
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  to="/about" 
-                  className="text-neutral-400 hover:text-primary-400 transition-colors duration-300 body-medium"
-                >
-                  Nosotros
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  to="/contact" 
-                  className="text-neutral-400 hover:text-primary-400 transition-colors duration-300 body-medium"
-                >
-                  Contacto
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  to="/dashboard" 
-                  className="text-neutral-400 hover:text-primary-400 transition-colors duration-300 body-medium"
-                >
-                  Mi Cuenta
-                </Link>
-              </li>
+              {quickLinks.map((link) => (
+                <li key={link.path}>
+                  <Link 
+                    to={link.path} 
+                    className="text-neutral-400 hover:text-primary-400 transition-colors duration-300 body-medium hover:translate-x-1 inline-block"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </motion.div>
 
@@ -128,28 +115,18 @@ const Footer: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h4 className="heading-4 mb-6 text-white">Servicios</h4>
+            <h4 className="heading-4 mb-6 text-white">{t('footer.services')}</h4>
             <ul className="space-y-3">
-              <li>
-                <a href="#" className="text-neutral-400 hover:text-primary-400 transition-colors duration-300 body-medium">
-                  Alojamiento Premium
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-neutral-400 hover:text-primary-400 transition-colors duration-300 body-medium">
-                  Tours Guiados
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-neutral-400 hover:text-primary-400 transition-colors duration-300 body-medium">
-                  Transporte Privado
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-neutral-400 hover:text-primary-400 transition-colors duration-300 body-medium">
-                  Traslado Aeropuerto
-                </a>
-              </li>
+              {services.map((service) => (
+                <li key={service.path}>
+                  <Link 
+                    to={service.path} 
+                    className="text-neutral-400 hover:text-primary-400 transition-colors duration-300 body-medium hover:translate-x-1 inline-block"
+                  >
+                    {service.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </motion.div>
 
@@ -160,35 +137,35 @@ const Footer: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
           >
-            <h4 className="heading-4 mb-6 text-white">Contacto</h4>
+            <h4 className="heading-4 mb-6 text-white">{t('footer.contact')}</h4>
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center shadow-lg">
-                  <Phone className="w-4 h-4 text-white" />
+                <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center shadow-medium">
+                  <PhoneIcon className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm text-neutral-400 caption">Teléfono</p>
+                  <p className="text-sm text-neutral-400">Teléfono</p>
                   <p className="text-white body-medium">+1 234 567 890</p>
                 </div>
               </div>
               
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center shadow-lg">
-                  <Mail className="w-4 h-4 text-white" />
+                <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center shadow-medium">
+                  <EnvelopeIcon className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm text-neutral-400 caption">Email</p>
+                  <p className="text-sm text-neutral-400">Email</p>
                   <p className="text-white body-medium">info@giftofgod.com</p>
                 </div>
               </div>
               
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center shadow-lg">
-                  <MapPin className="w-4 h-4 text-white" />
+                <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center shadow-medium">
+                  <MapPinIcon className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm text-neutral-400 caption">Dirección</p>
-                  <p className="text-white body-small">123 Paradise Street, Resort City, RC 12345</p>
+                  <p className="text-sm text-neutral-400">Dirección</p>
+                  <p className="text-white body-small">{t('footer.address')}</p>
                 </div>
               </div>
             </div>
@@ -196,9 +173,37 @@ const Footer: React.FC = () => {
         </div>
       </div>
 
+      {/* Newsletter Section */}
+      <div className="border-t border-neutral-800">
+        <div className="container-modern py-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <h4 className="heading-4 mb-4 text-white">Mantente Conectado</h4>
+            <p className="text-neutral-400 body-medium mb-6 max-w-2xl mx-auto">
+              Suscríbete a nuestro newsletter para recibir ofertas especiales y noticias
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <input
+                type="email"
+                placeholder="Tu email"
+                className="flex-1 px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg text-white placeholder-neutral-400 focus:outline-none focus:border-primary-500 transition-colors"
+              />
+              <button className="btn btn-primary px-6 py-3">
+                Suscribirse
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
       {/* Bottom Footer */}
       <div className="border-t border-neutral-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="container-modern py-6">
           <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -208,8 +213,8 @@ const Footer: React.FC = () => {
               className="flex items-center space-x-2 text-neutral-400 body-small"
             >
               <span>© 2024 Gift of God.</span>
-              <span>Todos los derechos reservados.</span>
-              <Heart className="w-4 h-4 text-primary-500" />
+              <span>{t('footer.rights')}</span>
+              <HeartIcon className="w-4 h-4 text-primary-500" />
             </motion.div>
 
             <motion.div
@@ -219,15 +224,15 @@ const Footer: React.FC = () => {
               viewport={{ once: true }}
               className="flex items-center space-x-6 text-sm text-neutral-400"
             >
-              <a href="#" className="hover:text-primary-400 transition-colors body-small">
+              <Link to="/privacy" className="hover:text-primary-400 transition-colors body-small">
                 Política de Privacidad
-              </a>
-              <a href="#" className="hover:text-primary-400 transition-colors body-small">
+              </Link>
+              <Link to="/terms" className="hover:text-primary-400 transition-colors body-small">
                 Términos de Servicio
-              </a>
-              <a href="#" className="hover:text-primary-400 transition-colors body-small">
+              </Link>
+              <Link to="/cookies" className="hover:text-primary-400 transition-colors body-small">
                 Política de Cookies
-              </a>
+              </Link>
             </motion.div>
 
             {/* Scroll to Top Button */}
@@ -239,9 +244,9 @@ const Footer: React.FC = () => {
               transition={{ duration: 0.3 }}
               viewport={{ once: true }}
               onClick={scrollToTop}
-              className="w-12 h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center text-white hover:shadow-lg transition-all duration-300 shadow-md"
+              className="w-12 h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center text-white hover:shadow-glow transition-all duration-300 shadow-medium"
             >
-              <ArrowUp className="w-5 h-5" />
+              <ArrowUpIcon className="w-5 h-5" />
             </motion.button>
           </div>
         </div>
