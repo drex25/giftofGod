@@ -7,6 +7,7 @@ use App\Models\Room;
 use App\Models\RoomAvailability;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class RoomController extends Controller
 {

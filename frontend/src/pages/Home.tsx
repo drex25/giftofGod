@@ -1,229 +1,243 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Star, MapPin, Wifi, Car, Coffee, Shield } from 'lucide-react';
-import SearchForm from '../components/Booking/SearchForm';
-import RoomCard from '../components/Rooms/RoomCard';
-import Button from '../components/UI/Button';
-import LoadingSpinner from '../components/UI/LoadingSpinner';
-import { Room } from '../types';
-import { roomsAPI } from '../services/api';
+import { motion } from 'framer-motion';
+import { 
+  Wifi, 
+  MapPin, 
+  Users, 
+  Star, 
+  Calendar,
+  ArrowRight,
+  CheckCircle
+} from 'lucide-react';
 
 const Home: React.FC = () => {
-  const [featuredRooms, setFeaturedRooms] = useState<Room[]>([]);
-  const [loading, setLoading] = useState(true);
+  const features = [
+    {
+      icon: Wifi,
+      title: 'WiFi Gratuito',
+      description: 'Conectividad de alta velocidad en todas las áreas'
+    },
+    {
+      icon: MapPin,
+      title: 'Ubicación Céntrica',
+      description: 'A minutos de los principales puntos turísticos'
+    },
+    {
+      icon: Users,
+      title: 'Comunidad Internacional',
+      description: 'Conoce viajeros de todo el mundo'
+    },
+    {
+      icon: Star,
+      title: 'Excelente Calificación',
+      description: '4.8/5 estrellas en las principales plataformas'
+    }
+  ];
 
-  useEffect(() => {
-    const fetchFeaturedRooms = async () => {
-      try {
-        const response = await roomsAPI.getAll();
-        setFeaturedRooms(response.data.rooms.slice(0, 3));
-      } catch (error) {
-        console.error('Error fetching rooms:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchFeaturedRooms();
-  }, []);
+  const testimonials = [
+    {
+      name: 'María García',
+      country: 'España',
+      text: 'Excelente ubicación y ambiente muy acogedor. Definitivamente volveré.',
+      rating: 5
+    },
+    {
+      name: 'John Smith',
+      country: 'Estados Unidos',
+      text: 'Las habitaciones están muy limpias y el personal es muy amigable.',
+      rating: 5
+    },
+    {
+      name: 'Sofia Chen',
+      country: 'Australia',
+      text: 'Perfecto para mochileros. Muy buena relación calidad-precio.',
+      rating: 4
+    }
+  ];
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: 'url(https://images.pexels.com/photos/1134176/pexels-photo-1134176.jpeg)',
-          }}
-        >
-          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-        </div>
-        
-        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Tu hogar lejos de casa
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 text-gray-200">
-            Descubre habitaciones cómodas y asequibles para tu próxima aventura
-          </p>
-          <div className="max-w-2xl mx-auto">
-            <SearchForm />
+      <section className="relative bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 text-white overflow-hidden">
+        <div className="absolute inset-0 bg-black opacity-20"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <h1 className="text-4xl lg:text-6xl font-bold mb-6">
+                Tu Hogar
+                <span className="block text-yellow-300">Lejos de Casa</span>
+              </h1>
+              <p className="text-xl mb-8 text-blue-100">
+                Descubre habitaciones únicas y conecta con viajeros de todo el mundo. 
+                Reserva fácil, paga seguro y vive experiencias inolvidables.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  to="/rooms"
+                  className="bg-yellow-400 text-gray-900 px-8 py-4 rounded-lg font-semibold hover:bg-yellow-300 transition-colors flex items-center justify-center space-x-2"
+                >
+                  <span>Explorar Habitaciones</span>
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+                <Link
+                  to="/register"
+                  className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-gray-900 transition-colors"
+                >
+                  Registrarse Gratis
+                </Link>
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative"
+            >
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+                <h3 className="text-2xl font-bold mb-6">Buscar Disponibilidad</h3>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Check-in</label>
+                      <input
+                        type="date"
+                        className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-blue-200"
+                        placeholder="Fecha de llegada"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Check-out</label>
+                      <input
+                        type="date"
+                        className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-blue-200"
+                        placeholder="Fecha de salida"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Huéspedes</label>
+                    <select className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white">
+                      <option>1 huésped</option>
+                      <option>2 huéspedes</option>
+                      <option>3 huéspedes</option>
+                      <option>4+ huéspedes</option>
+                    </select>
+                  </div>
+                  <button className="w-full bg-yellow-400 text-gray-900 py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors">
+                    Buscar Habitaciones
+                  </button>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              ¿Por qué elegir HostelBooking?
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              ¿Por qué elegir HostelPro?
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Ofrecemos la mejor experiencia de hospedaje con servicios de calidad y precios accesibles
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Ofrecemos la mejor experiencia para viajeros que buscan comodidad, 
+              comunidad y aventura en un solo lugar.
             </p>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <MapPin className="h-8 w-8 text-primary-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Ubicación Privilegiada</h3>
-              <p className="text-gray-600">
-                Ubicados en el corazón de la ciudad, cerca de las principales atracciones turísticas
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="h-8 w-8 text-primary-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Seguridad 24/7</h3>
-              <p className="text-gray-600">
-                Tu seguridad es nuestra prioridad. Contamos con vigilancia las 24 horas del día
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Wifi className="h-8 w-8 text-primary-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">WiFi Gratuito</h3>
-              <p className="text-gray-600">
-                Internet de alta velocidad gratuito en todas las áreas del hostel
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Rooms Section */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Habitaciones Destacadas
-            </h2>
-            <p className="text-lg text-gray-600">
-              Descubre nuestras habitaciones más populares
-            </p>
-          </div>
-          
-          {loading ? (
-            <div className="flex justify-center">
-              <LoadingSpinner size="lg" />
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-              {featuredRooms.map((room) => (
-                <RoomCard key={room.id} room={room} />
-              ))}
-            </div>
-          )}
-          
-          <div className="text-center">
-            <Link to="/rooms">
-              <Button size="lg">Ver todas las habitaciones</Button>
-            </Link>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="text-center p-6 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors"
+              >
+                <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <feature.icon className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600">
+                  {feature.description}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
               Lo que dicen nuestros huéspedes
             </h2>
+            <p className="text-xl text-gray-600">
+              Más de 10,000 viajeros han confiado en nosotros
+            </p>
           </div>
-          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="flex items-center mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
-                ))}
-              </div>
-              <p className="text-gray-600 mb-4">
-                "Excelente ubicación y muy limpio. El personal es muy amable y siempre dispuesto a ayudar."
-              </p>
-              <div className="flex items-center">
-                <img
-                  src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg"
-                  alt="María García"
-                  className="w-10 h-10 rounded-full mr-3"
-                />
-                <div>
-                  <p className="font-semibold text-gray-900">María García</p>
-                  <p className="text-sm text-gray-500">España</p>
+            {testimonials.map((testimonial, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                className="bg-white p-6 rounded-xl shadow-lg"
+              >
+                <div className="flex items-center mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                  ))}
                 </div>
-              </div>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="flex items-center mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
-                ))}
-              </div>
-              <p className="text-gray-600 mb-4">
-                "Perfecto para viajeros jóvenes. Ambiente muy social y precios increíbles."
-              </p>
-              <div className="flex items-center">
-                <img
-                  src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg"
-                  alt="John Smith"
-                  className="w-10 h-10 rounded-full mr-3"
-                />
-                <div>
-                  <p className="font-semibold text-gray-900">John Smith</p>
-                  <p className="text-sm text-gray-500">Estados Unidos</p>
+                <p className="text-gray-600 mb-4">"{testimonial.text}"</p>
+                <div className="flex items-center">
+                  <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
+                    {testimonial.name.charAt(0)}
+                  </div>
+                  <div className="ml-3">
+                    <p className="font-semibold text-gray-900">{testimonial.name}</p>
+                    <p className="text-sm text-gray-500">{testimonial.country}</p>
+                  </div>
                 </div>
-              </div>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="flex items-center mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
-                ))}
-              </div>
-              <p className="text-gray-600 mb-4">
-                "Las instalaciones están muy bien mantenidas y el WiFi funciona perfecto."
-              </p>
-              <div className="flex items-center">
-                <img
-                  src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg"
-                  alt="Sophie Martin"
-                  className="w-10 h-10 rounded-full mr-3"
-                />
-                <div>
-                  <p className="font-semibold text-gray-900">Sophie Martin</p>
-                  <p className="text-sm text-gray-500">Francia</p>
-                </div>
-              </div>
-            </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-primary-600">
+      <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-white mb-4">
+          <h2 className="text-3xl lg:text-4xl font-bold mb-6">
             ¿Listo para tu próxima aventura?
           </h2>
-          <p className="text-xl text-primary-100 mb-8">
-            Reserva ahora y obtén los mejores precios para tu estadía
+          <p className="text-xl mb-8 text-blue-100">
+            Únete a miles de viajeros que ya han descubierto el mundo con HostelPro
           </p>
-          <Link to="/rooms">
-            <Button variant="secondary" size="lg">
-              Reservar Ahora
-            </Button>
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              to="/register"
+              className="bg-yellow-400 text-gray-900 px-8 py-4 rounded-lg font-semibold hover:bg-yellow-300 transition-colors"
+            >
+              Crear Cuenta Gratis
+            </Link>
+            <Link
+              to="/rooms"
+              className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-gray-900 transition-colors"
+            >
+              Ver Habitaciones
+            </Link>
+          </div>
         </div>
       </section>
     </div>

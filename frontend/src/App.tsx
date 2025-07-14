@@ -1,81 +1,43 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
-import Layout from './components/Layout/Layout';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import Navbar from './components/Layout/Navbar';
+import Footer from './components/Layout/Footer';
 import Home from './pages/Home';
+import Rooms from './pages/Rooms/RoomsList';
+import RoomDetail from './pages/Rooms/RoomDetail';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
-import RoomsList from './pages/Rooms/RoomsList';
-import RoomDetail from './pages/Rooms/RoomDetail';
-import UserDashboard from './pages/Dashboard/UserDashboard';
-import LoadingSpinner from './components/UI/LoadingSpinner';
-import './index.css';
-
-// Protected Route Component
-const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { user, loading } = useAuth();
-  
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <LoadingSpinner size="lg" />
-      </div>
-    );
-  }
-  
-  return user ? <>{children}</> : <Navigate to="/login" replace />;
-};
-
-// Public Route Component (redirect if authenticated)
-const PublicRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { user, loading } = useAuth();
-  
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <LoadingSpinner size="lg" />
-      </div>
-    );
-  }
-  
-  return !user ? <>{children}</> : <Navigate to="/dashboard" replace />;
-};
+import Dashboard from './pages/Dashboard/Dashboard';
+import Reservations from './pages/Dashboard/Reservations';
+import AdminDashboard from './pages/Admin/AdminDashboard';
+import './App.css';
 
 function App() {
   return (
     <AuthProvider>
       <Router>
-        <Layout>
-          <Routes>
-            {/* Public Routes */}
-            <Route path="/" element={<Home />} />
-            <Route path="/rooms" element={<RoomsList />} />
-            <Route path="/search" element={<RoomsList />} />
-            <Route path="/rooms/:id" element={<RoomDetail />} />
-            
-            {/* Auth Routes */}
-            <Route path="/login" element={
-              <PublicRoute>
-                <Login />
-              </PublicRoute>
-            } />
-            <Route path="/register" element={
-              <PublicRoute>
-                <Register />
-              </PublicRoute>
-            } />
-            
-            {/* Protected Routes */}
-            <Route path="/dashboard" element={
-              <ProtectedRoute>
-                <UserDashboard />
-              </ProtectedRoute>
-            } />
-            
-            {/* Catch all route */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </Layout>
+        <div className="min-h-screen bg-gray-50">
+          <Navbar />
+          <main className="flex-1">
+            <Routes>
+              {/* Public Routes */}
+              <Route path="/" element={<Home />} />
+              <Route path="/rooms" element={<Rooms />} />
+              <Route path="/rooms/:id" element={<RoomDetail />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              
+              {/* Protected Routes */}
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/reservations" element={<Reservations />} />
+              
+              {/* Admin Routes */}
+              <Route path="/admin" element={<AdminDashboard />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
       </Router>
     </AuthProvider>
   );

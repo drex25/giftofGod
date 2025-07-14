@@ -32,10 +32,14 @@ const RoomsList: React.FC = () => {
       try {
         let response;
         if (searchData) {
+          console.log('Fetching available rooms with search data:', searchData);
           response = await roomsAPI.checkAvailability(searchData);
+          console.log('Available rooms response:', response.data);
           setRooms(response.data.available_rooms);
         } else {
+          console.log('Fetching all rooms');
           response = await roomsAPI.getAll();
+          console.log('All rooms response:', response.data);
           setRooms(response.data.rooms);
         }
       } catch (error) {
