@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { 
@@ -7,13 +7,24 @@ import {
   UserCircleIcon,
   HomeIcon,
   BuildingOfficeIcon,
-  UserIcon
+  UserIcon,
+  CpuChipIcon,
+  BoltIcon
 } from '@heroicons/react/24/outline';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { user, logout } = useAuth();
   const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navigation = [
     { name: 'Inicio', href: '/', icon: HomeIcon },
@@ -23,168 +34,185 @@ const Navbar: React.FC = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="bg-white shadow-lg border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          {/* Logo */}
-          <div className="flex items-center">
-            <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">H</span>
+    <>
+      {/* Navbar futurista */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled ? 'glass-dark backdrop-blur-xl' : 'bg-transparent'
+      }`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-20">
+            {/* Logo futurista */}
+            <Link to="/" className="flex items-center space-x-3 group">
+              <div className="relative">
+                <div className="w-12 h-12 bg-gradient-to-br from-neon-cyan to-neon-pink rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-all duration-300">
+                  <CpuChipIcon className="w-7 h-7 text-white" />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-br from-neon-cyan to-neon-pink rounded-lg blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
               </div>
-              <span className="text-xl font-bold text-gray-900">HostelPro</span>
+              <div className="hidden sm:block">
+                <h1 className="text-2xl font-display font-bold gradient-text">
+                  CyberHostel
+                </h1>
+                <p className="text-xs text-gray-400 font-mono">FUTURE.STAY.EXPERIENCE</p>
+              </div>
             </Link>
-          </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  isActive(item.href)
-                    ? 'text-blue-600 bg-blue-50'
-                    : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
-                }`}
-              >
-                <item.icon className="w-4 h-4" />
-                <span>{item.name}</span>
-              </Link>
-            ))}
-          </div>
-
-          {/* User Menu */}
-          <div className="hidden md:flex items-center space-x-4">
-            {user ? (
-              <div className="flex items-center space-x-4">
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-1">
+              {navigation.map((item) => (
                 <Link
-                  to="/dashboard"
-                  className="text-gray-700 hover:text-blue-600 transition-colors"
+                  key={item.name}
+                  to={item.href}
+                  className={`nav-link ${isActive(item.href) ? 'active text-neon-cyan' : ''}`}
                 >
-                  Mi Cuenta
+                  <div className="flex items-center space-x-2">
+                    <item.icon className="w-4 h-4" />
+                    <span className="font-medium">{item.name}</span>
+                  </div>
                 </Link>
-                {user.role === 'admin' && (
+              ))}
+            </div>
+
+            {/* User Menu */}
+            <div className="hidden md:flex items-center space-x-4">
+              {user ? (
+                <div className="flex items-center space-x-4">
                   <Link
-                    to="/admin"
-                    className="bg-purple-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-purple-700 transition-colors"
+                    to="/dashboard"
+                    className="nav-link flex items-center space-x-2"
                   >
-                    Admin
+                    <UserIcon className="w-4 h-4" />
+                    <span>Dashboard</span>
                   </Link>
-                )}
-                <button
-                  onClick={logout}
-                  className="text-gray-700 hover:text-red-600 transition-colors"
-                >
-                  Cerrar Sesión
-                </button>
-              </div>
-            ) : (
-              <div className="flex items-center space-x-4">
-                <Link
-                  to="/login"
-                  className="text-gray-700 hover:text-blue-600 transition-colors"
-                >
-                  Iniciar Sesión
-                </Link>
-                <Link
-                  to="/register"
-                  className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors"
-                >
-                  Registrarse
-                </Link>
-              </div>
-            )}
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-700 hover:text-blue-600 transition-colors"
-            >
-              {isOpen ? (
-                <XMarkIcon className="w-6 h-6" />
+                  {user.role === 'admin' && (
+                    <Link
+                      to="/admin"
+                      className="cyber-button text-sm"
+                    >
+                      <BoltIcon className="w-4 h-4 mr-2" />
+                      Admin Panel
+                    </Link>
+                  )}
+                  <button
+                    onClick={logout}
+                    className="text-gray-400 hover:text-red-400 transition-colors duration-300"
+                  >
+                    Logout
+                  </button>
+                </div>
               ) : (
-                <Bars3Icon className="w-6 h-6" />
+                <div className="flex items-center space-x-4">
+                  <Link
+                    to="/login"
+                    className="nav-link"
+                  >
+                    Iniciar Sesión
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="cyber-button text-sm"
+                  >
+                    Registrarse
+                  </Link>
+                </div>
               )}
-            </button>
+            </div>
+
+            {/* Mobile menu button */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="text-gray-300 hover:text-neon-cyan transition-colors duration-300 p-2"
+              >
+                {isOpen ? (
+                  <XMarkIcon className="w-6 h-6" />
+                ) : (
+                  <Bars3Icon className="w-6 h-6" />
+                )}
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Mobile Navigation */}
-      {isOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={`flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium transition-colors ${
-                  isActive(item.href)
-                    ? 'text-blue-600 bg-blue-50'
-                    : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
-                }`}
-                onClick={() => setIsOpen(false)}
-              >
-                <item.icon className="w-5 h-5" />
-                <span>{item.name}</span>
-              </Link>
-            ))}
-            
-            {user ? (
-              <div className="pt-4 border-t border-gray-200">
+        {/* Mobile Navigation */}
+        <div className={`md:hidden transition-all duration-500 overflow-hidden ${
+          isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        }`}>
+          <div className="glass-dark backdrop-blur-xl border-t border-white/10">
+            <div className="px-4 py-6 space-y-4">
+              {navigation.map((item) => (
                 <Link
-                  to="/dashboard"
-                  className="flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                  key={item.name}
+                  to={item.href}
+                  className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-300 ${
+                    isActive(item.href) 
+                      ? 'bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30' 
+                      : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                  }`}
                   onClick={() => setIsOpen(false)}
                 >
-                  <UserIcon className="w-5 h-5" />
-                  <span>Mi Cuenta</span>
+                  <item.icon className="w-5 h-5" />
+                  <span className="font-medium">{item.name}</span>
                 </Link>
-                {user.role === 'admin' && (
+              ))}
+              
+              {user ? (
+                <div className="pt-4 border-t border-white/10 space-y-3">
                   <Link
-                    to="/admin"
-                    className="flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium bg-purple-600 text-white hover:bg-purple-700"
+                    to="/dashboard"
+                    className="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white transition-all duration-300"
                     onClick={() => setIsOpen(false)}
                   >
-                    <span>Admin</span>
+                    <UserIcon className="w-5 h-5" />
+                    <span>Dashboard</span>
                   </Link>
-                )}
-                <button
-                  onClick={() => {
-                    logout();
-                    setIsOpen(false);
-                  }}
-                  className="flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-red-600 hover:bg-gray-50 w-full text-left"
-                >
-                  <span>Cerrar Sesión</span>
-                </button>
-              </div>
-            ) : (
-              <div className="pt-4 border-t border-gray-200 space-y-2">
-                <Link
-                  to="/login"
-                  className="flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <span>Iniciar Sesión</span>
-                </Link>
-                <Link
-                  to="/register"
-                  className="flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium bg-blue-600 text-white hover:bg-blue-700"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <span>Registrarse</span>
-                </Link>
-              </div>
-            )}
+                  {user.role === 'admin' && (
+                    <Link
+                      to="/admin"
+                      className="flex items-center space-x-3 px-4 py-3 rounded-lg bg-gradient-to-r from-neon-purple/20 to-neon-pink/20 text-neon-purple border border-neon-purple/30"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <BoltIcon className="w-5 h-5" />
+                      <span>Admin Panel</span>
+                    </Link>
+                  )}
+                  <button
+                    onClick={() => {
+                      logout();
+                      setIsOpen(false);
+                    }}
+                    className="flex items-center space-x-3 px-4 py-3 rounded-lg text-red-400 hover:bg-red-500/10 transition-all duration-300 w-full text-left"
+                  >
+                    <span>Cerrar Sesión</span>
+                  </button>
+                </div>
+              ) : (
+                <div className="pt-4 border-t border-white/10 space-y-3">
+                  <Link
+                    to="/login"
+                    className="flex items-center justify-center px-4 py-3 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white transition-all duration-300"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Iniciar Sesión
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="cyber-button w-full text-center"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Registrarse
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      )}
-    </nav>
+      </nav>
+
+      {/* Spacer para el navbar fijo */}
+      <div className="h-20"></div>
+    </>
   );
 };
 
-export default Navbar; 
+export default Navbar;
