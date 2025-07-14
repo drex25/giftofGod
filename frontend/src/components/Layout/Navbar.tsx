@@ -2,15 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { 
-  Bars3Icon, 
-  XMarkIcon, 
-  UserCircleIcon,
-  HomeIcon,
-  BuildingOfficeIcon,
-  UserIcon,
-  CpuChipIcon,
-  BoltIcon
-} from '@heroicons/react/24/outline';
+  Menu, 
+  X, 
+  User,
+  Home,
+  Building,
+  Cpu,
+  Zap
+} from 'lucide-react';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,8 +26,8 @@ const Navbar: React.FC = () => {
   }, []);
 
   const navigation = [
-    { name: 'Inicio', href: '/', icon: HomeIcon },
-    { name: 'Habitaciones', href: '/rooms', icon: BuildingOfficeIcon },
+    { name: 'Inicio', href: '/', icon: Home },
+    { name: 'Habitaciones', href: '/rooms', icon: Building },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -45,7 +44,7 @@ const Navbar: React.FC = () => {
             <Link to="/" className="flex items-center space-x-3 group">
               <div className="relative">
                 <div className="w-12 h-12 bg-gradient-to-br from-neon-cyan to-neon-pink rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-all duration-300">
-                  <CpuChipIcon className="w-7 h-7 text-white" />
+                  <Cpu className="w-7 h-7 text-white" />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-br from-neon-cyan to-neon-pink rounded-lg blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
               </div>
@@ -81,7 +80,7 @@ const Navbar: React.FC = () => {
                     to="/dashboard"
                     className="nav-link flex items-center space-x-2"
                   >
-                    <UserIcon className="w-4 h-4" />
+                    <User className="w-4 h-4" />
                     <span>Dashboard</span>
                   </Link>
                   {user.role === 'admin' && (
@@ -89,7 +88,7 @@ const Navbar: React.FC = () => {
                       to="/admin"
                       className="cyber-button text-sm"
                     >
-                      <BoltIcon className="w-4 h-4 mr-2" />
+                      <Zap className="w-4 h-4 mr-2" />
                       Admin Panel
                     </Link>
                   )}
@@ -125,9 +124,9 @@ const Navbar: React.FC = () => {
                 className="text-gray-300 hover:text-neon-cyan transition-colors duration-300 p-2"
               >
                 {isOpen ? (
-                  <XMarkIcon className="w-6 h-6" />
+                  <X className="w-6 h-6" />
                 ) : (
-                  <Bars3Icon className="w-6 h-6" />
+                  <Menu className="w-6 h-6" />
                 )}
               </button>
             </div>
@@ -163,7 +162,7 @@ const Navbar: React.FC = () => {
                     className="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white transition-all duration-300"
                     onClick={() => setIsOpen(false)}
                   >
-                    <UserIcon className="w-5 h-5" />
+                    <User className="w-5 h-5" />
                     <span>Dashboard</span>
                   </Link>
                   {user.role === 'admin' && (
@@ -172,7 +171,7 @@ const Navbar: React.FC = () => {
                       className="flex items-center space-x-3 px-4 py-3 rounded-lg bg-gradient-to-r from-neon-purple/20 to-neon-pink/20 text-neon-purple border border-neon-purple/30"
                       onClick={() => setIsOpen(false)}
                     >
-                      <BoltIcon className="w-5 h-5" />
+                      <Zap className="w-5 h-5" />
                       <span>Admin Panel</span>
                     </Link>
                   )}

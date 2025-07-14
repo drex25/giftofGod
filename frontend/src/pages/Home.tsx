@@ -9,13 +9,13 @@ import {
   Calendar,
   ArrowRight,
   CheckCircle,
-  ShieldCheckIcon,
-  GlobeAltIcon,
-  SparklesIcon,
-  RocketLaunchIcon,
-  CpuChipIcon,
-  BoltIcon
-} from '@heroicons/react/24/outline';
+  Shield,
+  Globe,
+  Sparkles,
+  Rocket,
+  Cpu,
+  Zap
+} from 'lucide-react';
 
 const Home: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -30,25 +30,25 @@ const Home: React.FC = () => {
 
   const features = [
     {
-      icon: CpuChipIcon,
+      icon: Cpu,
       title: 'Smart Rooms',
       description: 'Habitaciones inteligentes con tecnología IoT y control automatizado',
       color: 'from-neon-cyan to-blue-500'
     },
     {
-      icon: GlobeAltIcon,
+      icon: Globe,
       title: 'Global Network',
       description: 'Conecta con viajeros de todo el mundo en nuestra red global',
       color: 'from-neon-pink to-purple-500'
     },
     {
-      icon: ShieldCheckIcon,
+      icon: Shield,
       title: 'Quantum Security',
       description: 'Seguridad de nivel cuántico para proteger tu información',
       color: 'from-neon-green to-emerald-500'
     },
     {
-      icon: RocketLaunchIcon,
+      icon: Rocket,
       title: 'Instant Booking',
       description: 'Reservas instantáneas con confirmación en tiempo real',
       color: 'from-neon-purple to-violet-500'
@@ -82,7 +82,7 @@ const Home: React.FC = () => {
   const stats = [
     { number: '10K+', label: 'Cyber Travelers', icon: Users },
     { number: '50+', label: 'Smart Cities', icon: MapPin },
-    { number: '99.9%', label: 'Uptime', icon: BoltIcon },
+    { number: '99.9%', label: 'Uptime', icon: Zap },
     { number: '4.9★', label: 'Rating', icon: Star }
   ];
 
@@ -196,7 +196,7 @@ const Home: React.FC = () => {
             >
               <div className="cyber-card p-8 data-stream">
                 <div className="flex items-center mb-6">
-                  <SparklesIcon className="w-6 h-6 text-neon-cyan mr-3" />
+                  <Sparkles className="w-6 h-6 text-neon-cyan mr-3" />
                   <h3 className="text-2xl font-display font-bold text-white">
                     Quantum Search
                   </h3>
@@ -368,7 +368,7 @@ const Home: React.FC = () => {
                 to="/register"
                 className="cyber-button group"
               >
-                <RocketLaunchIcon className="w-5 h-5 mr-2" />
+                <Rocket className="w-5 h-5 mr-2" />
                 <span>Crear Cuenta Neural</span>
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>

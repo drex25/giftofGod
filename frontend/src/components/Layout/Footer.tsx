@@ -7,9 +7,9 @@ import {
   Facebook,
   Instagram,
   Twitter,
-  CpuChipIcon,
-  BoltIcon,
-  GlobeAltIcon
+  Cpu,
+  Zap,
+  Globe
 } from 'lucide-react';
 
 const Footer: React.FC = () => {
@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
             <div className="flex items-center space-x-3 mb-6">
               <div className="relative">
                 <div className="w-12 h-12 bg-gradient-to-br from-neon-cyan to-neon-pink rounded-lg flex items-center justify-center">
-                  <CpuChipIcon className="w-7 h-7 text-white" />
+                  <Cpu className="w-7 h-7 text-white" />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-br from-neon-cyan to-neon-pink rounded-lg blur-lg opacity-50"></div>
               </div>
@@ -57,7 +57,7 @@ const Footer: React.FC = () => {
           {/* Navigation Links */}
           <div>
             <h4 className="text-lg font-display font-semibold text-white mb-6 flex items-center">
-              <BoltIcon className="w-5 h-5 text-neon-cyan mr-2" />
+              <Zap className="w-5 h-5 text-neon-cyan mr-2" />
               Neural Links
             </h4>
             <ul className="space-y-3">
@@ -87,7 +87,7 @@ const Footer: React.FC = () => {
           {/* Contact Info */}
           <div>
             <h4 className="text-lg font-display font-semibold text-white mb-6 flex items-center">
-              <GlobeAltIcon className="w-5 h-5 text-neon-green mr-2" />
+              <Globe className="w-5 h-5 text-neon-green mr-2" />
               Connect.sys
             </h4>
             <div className="space-y-4">
