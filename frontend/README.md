@@ -1,46 +1,250 @@
-# Getting Started with Create React App
+# Gift Of God - Frontend Multilingual
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Un frontend moderno y profesional para el sistema de hostal "Gift Of God" con soporte completo para múltiples idiomas (Inglés y Francés).
 
-## Available Scripts
+## 🌟 Características Principales
 
-In the project directory, you can run:
+### 🎨 Diseño Profesional
+- **Paleta de colores cálida y profesional**: Naranja, azul, púrpura y tonos tierra
+- **Interfaz moderna**: Gradientes, sombras elegantes, animaciones suaves
+- **Responsive design**: Optimizado para todos los dispositivos
+- **Componentes reutilizables**: Sistema de diseño consistente
 
-### `npm start`
+### 🌍 Sistema Multilingüe Completo
+- **Inglés (idioma principal)**: Traducciones completas
+- **Francés**: Traducciones completas
+- **Selector de idioma elegante**: Con banderas y nombres nativos
+- **Detección automática**: Basada en navegador y localStorage
+- **Interpolación dinámica**: Soporte para variables en traducciones
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### 🏠 Páginas Principales
+- **Home**: Hero section, búsqueda, amenidades, tipos de habitaciones, testimonios
+- **Rooms**: Lista de habitaciones con filtros avanzados
+- **Room Detail**: Detalles completos de habitaciones
+- **Auth**: Login y registro con validaciones
+- **Dashboard**: Panel de usuario y administrador
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 🔧 Componentes UI
+- **Navbar**: Navegación responsive con selector de idioma
+- **Footer**: Información completa con enlaces y contacto
+- **SearchForm**: Formulario de búsqueda inteligente
+- **RoomCard**: Tarjetas de habitaciones elegantes
+- **LanguageSelector**: Selector de idioma profesional
 
-### `npm test`
+## 🚀 Tecnologías Utilizadas
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **React 18** con TypeScript
+- **Tailwind CSS** para estilos
+- **Framer Motion** para animaciones
+- **React Router** para navegación
+- **React i18next** para internacionalización
+- **Lucide React** para iconos
+- **Context API** para estado global
 
-### `npm run build`
+## 📦 Instalación y Configuración
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Prerrequisitos
+- Node.js 16+
+- npm o yarn
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Instalación
+```bash
+# Instalar dependencias
+npm install
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Iniciar servidor de desarrollo
+npm start
 
-### `npm run eject`
+# Construir para producción
+npm run build
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 🌍 Sistema de Internacionalización
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Estructura de Archivos
+```
+src/i18n/
+├── index.ts          # Configuración principal
+└── locales/
+    ├── en.json       # Traducciones en inglés
+    └── fr.json       # Traducciones en francés
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Uso en Componentes
+```typescript
+import { useTranslation } from 'react-i18next';
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+const MyComponent = () => {
+  const { t } = useTranslation();
+  
+  return (
+    <div>
+      <h1>{t('home.hero.title')}</h1>
+      <p>{t('home.hero.description')}</p>
+    </div>
+  );
+};
+```
 
-## Learn More
+### Agregar Nuevos Idiomas
+1. Crear archivo de traducciones en `src/i18n/locales/`
+2. Agregar al array de idiomas en `LanguageSelector.tsx`
+3. Importar en `src/i18n/index.ts`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🎨 Paleta de Colores
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Colores Principales
+- **Primary**: `#f97316` (Naranja cálido)
+- **Secondary**: `#3b82f6` (Azul profesional)
+- **Tertiary**: `#8b5cf6` (Púrpura elegante)
+
+### Colores de Tierra
+- **Earth-50**: `#fafaf9`
+- **Earth-100**: `#f5f5f4`
+- **Earth-500**: `#78716c`
+- **Earth-700**: `#44403c`
+- **Earth-800**: `#292524`
+- **Earth-900**: `#1c1917`
+
+### Colores Cálidos
+- **Warm-50**: `#fffbeb`
+- **Warm-100**: `#fef3c7`
+- **Warm-500**: `#f59e0b`
+- **Warm-700**: `#b45309`
+
+## 📱 Componentes Principales
+
+### LanguageSelector
+Selector de idioma elegante con:
+- Banderas de países
+- Nombres nativos
+- Animaciones suaves
+- Detección automática
+
+### Navbar
+Navegación responsive con:
+- Logo animado
+- Menú hamburguesa
+- Selector de idioma
+- Estados de autenticación
+
+### SearchForm
+Formulario de búsqueda con:
+- Campos de ubicación, fechas, huéspedes
+- Validación en tiempo real
+- Diseño responsive
+- Integración con traducciones
+
+### RoomCard
+Tarjetas de habitaciones con:
+- Imágenes con overlay
+- Información detallada
+- Amenidades con iconos
+- Botones de acción
+
+## 🔄 Flujo de Datos
+
+### Estado Global
+- **AuthContext**: Manejo de autenticación
+- **i18n**: Configuración de idiomas
+- **React Router**: Navegación
+
+### API Integration
+- Servicios modulares para cada entidad
+- Manejo de errores centralizado
+- Interceptores para tokens
+
+## 📊 Estructura de Traducciones
+
+### Organización
+```json
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error"
+  },
+  "navigation": {
+    "home": "Home",
+    "rooms": "Rooms"
+  },
+  "home": {
+    "hero": {
+      "title": "Gift Of God",
+      "description": "Discover comfort..."
+    }
+  }
+}
+```
+
+### Características
+- **Interpolación**: `{{variable}}`
+- **Pluralización**: `count_plural`
+- **Anidación**: Estructura jerárquica
+- **Fallbacks**: Idioma por defecto
+
+## 🎯 Funcionalidades Destacadas
+
+### Búsqueda Inteligente
+- Filtros por tipo de habitación
+- Rango de precios
+- Capacidad de huéspedes
+- Búsqueda por ubicación
+
+### Sistema de Reservas
+- Selección de fechas
+- Cálculo de precios
+- Validación de disponibilidad
+- Confirmación de reserva
+
+### Panel de Usuario
+- Historial de reservas
+- Perfil personalizable
+- Preferencias de idioma
+- Notificaciones
+
+## 🚀 Despliegue
+
+### Variables de Entorno
+```env
+REACT_APP_API_URL=http://localhost:8000/api
+REACT_APP_ENVIRONMENT=development
+```
+
+### Scripts Disponibles
+```bash
+npm start          # Desarrollo
+npm run build      # Producción
+npm run test       # Tests
+npm run eject      # Eject (no recomendado)
+```
+
+## 📈 Próximas Mejoras
+
+- [ ] Agregar más idiomas (Español, Alemán)
+- [ ] Implementar PWA
+- [ ] Optimización de imágenes
+- [ ] Tests unitarios completos
+- [ ] Integración con analytics
+- [ ] Modo oscuro
+
+## 🤝 Contribución
+
+1. Fork el proyecto
+2. Crear rama feature (`git checkout -b feature/AmazingFeature`)
+3. Commit cambios (`git commit -m 'Add AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abrir Pull Request
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para detalles.
+
+## 📞 Contacto
+
+- **Desarrollador**: Gift Of God Team
+- **Email**: info@giftofgod.com
+- **Proyecto**: [https://github.com/giftofgod/frontend](https://github.com/giftofgod/frontend)
+
+---
+
+**Gift Of God** - Donde cada huésped es tratado como familia. 🌟

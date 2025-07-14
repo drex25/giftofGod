@@ -1,0 +1,250 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "apply": "Apply",
+    "close": "Close",
+    "open": "Open",
+    "yes": "Yes",
+    "no": "No",
+    "or": "or",
+    "and": "and",
+    "from": "from",
+    "to": "to",
+    "per": "per",
+    "night": "night",
+    "person": "person",
+    "people": "people"
+  },
+  "navigation": {
+    "home": "Home",
+    "rooms": "Rooms",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "dashboard": "Dashboard",
+    "reservations": "Reservations",
+    "profile": "Profile",
+    "settings": "Settings",
+    "admin": "Admin"
+  },
+  "home": {
+    "hero": {
+      "title": "Gift Of God",
+      "subtitle": "Hostel",
+      "tagline": "UNIQUE EXPERIENCE",
+      "description": "Discover comfort and hospitality at its finest. Where every guest is treated like family.",
+      "exploreButton": "Explore Rooms",
+      "bookButton": "Book Now"
+    },
+    "search": {
+      "title": "Find Your Perfect Room",
+      "subtitle": "Book easily with our intelligent search system",
+      "location": "Location",
+      "locationPlaceholder": "Where are you going?",
+      "checkIn": "Check-in",
+      "checkOut": "Check-out",
+      "guests": "Guests",
+      "searchButton": "Search",
+      "tip": "💡 Tip: Book in advance to get the best prices"
+    },
+    "amenities": {
+      "title": "Services & Amenities",
+      "subtitle": "Everything you need for a perfect and memorable stay",
+      "wifi": "Free WiFi",
+      "wifiDesc": "High-speed connection",
+      "breakfast": "Breakfast Included",
+      "breakfastDesc": "Daily continental breakfast",
+      "beds": "Comfortable Beds",
+      "bedsDesc": "Premium bedding",
+      "kitchen": "Equipped Kitchen",
+      "kitchenDesc": "Complete kitchen available",
+      "parking": "Parking",
+      "parkingDesc": "Free parking",
+      "laundry": "Laundry",
+      "laundryDesc": "Laundry service",
+      "tv": "Smart TV",
+      "tvDesc": "Smart televisions",
+      "security": "24/7 Security",
+      "securityDesc": "Continuous surveillance"
+    },
+    "roomTypes": {
+      "title": "Room Types",
+      "subtitle": "Choose the option that best suits your needs",
+      "single": {
+        "name": "Single Room",
+        "description": "Perfect for solo travelers",
+        "price": "From $25/night",
+        "features": ["1 single bed", "Private bathroom", "Free WiFi", "Breakfast included"]
+      },
+      "double": {
+        "name": "Double Room",
+        "description": "Ideal for couples or friends",
+        "price": "From $35/night",
+        "features": ["1 double bed", "Private bathroom", "Free WiFi", "Breakfast included"]
+      },
+      "family": {
+        "name": "Family Room",
+        "description": "Spacious for families",
+        "price": "From $50/night",
+        "features": ["2 double beds", "Private bathroom", "Free WiFi", "Breakfast included"]
+      },
+      "viewDetails": "View Details"
+    },
+    "testimonials": {
+      "title": "What Our Guests Say",
+      "subtitle": "Real experiences from travelers who chose Gift Of God",
+      "maria": {
+        "name": "Maria Gonzalez",
+        "country": "Spain",
+        "text": "Excellent attention and very clean rooms. The staff is very friendly and the breakfast is delicious."
+      },
+      "carlos": {
+        "name": "Carlos Rodriguez",
+        "country": "Mexico",
+        "text": "Perfect location, close to everything. The rooms are comfortable and the price is very good."
+      },
+      "ana": {
+        "name": "Ana Silva",
+        "country": "Brazil",
+        "text": "I loved the decoration and cozy atmosphere. I will definitely return."
+      }
+    },
+    "stats": {
+      "happyGuests": "Happy Guests",
+      "destinations": "Destinations",
+      "rating": "Rating",
+      "support": "Support"
+    },
+    "cta": {
+      "title": "Ready for Your Next Adventure?",
+      "subtitle": "Join hundreds of travelers who have chosen Gift Of God for their best experiences",
+      "bookNow": "Book Now",
+      "contact": "Contact"
+    }
+  },
+  "rooms": {
+    "title": "Our Rooms",
+    "subtitle": "Discover comfort and hospitality in each of our carefully designed rooms",
+    "availableRooms": "Available Rooms",
+    "noRooms": "No rooms found",
+    "noRoomsDesc": "No rooms available with the selected filters. Try adjusting your search criteria.",
+    "clearFilters": "Clear Filters",
+    "filters": {
+      "title": "Filters",
+      "roomType": "Room Type",
+      "allTypes": "All types",
+      "single": "Single",
+      "double": "Double",
+      "triple": "Triple",
+      "family": "Family",
+      "minPrice": "Minimum Price",
+      "maxPrice": "Maximum Price",
+      "minCapacity": "Minimum Capacity",
+      "anyCapacity": "Any capacity",
+      "person": "person",
+      "people": "people"
+    },
+    "card": {
+      "perNight": "/night",
+      "viewDetails": "View Details",
+      "includedAmenities": "Included amenities:",
+      "capacity": "{{count}} Person",
+      "capacity_plural": "{{count}} People"
+    }
+  },
+  "footer": {
+    "tagline": "HOSPITALITY & COMFORT",
+    "description": "Where every guest is treated like family. Discover comfort and hospitality at its finest.",
+    "quickLinks": "Quick Links",
+    "services": "Our Services",
+    "contactInfo": "Contact Information",
+    "address": "123 Main Street",
+    "city": "City, Country 12345",
+    "phone": "+1 (555) 123-4567",
+    "email": "info@giftofgod.com",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "cookies": "Cookie Policy",
+    "copyright": "© {{year}} Gift Of God Hostel. All rights reserved."
+  },
+  "auth": {
+    "login": {
+      "title": "Sign In",
+      "subtitle": "Welcome back! Please sign in to your account.",
+      "email": "Email",
+      "password": "Password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot your password?",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up here",
+      "signInButton": "Sign In",
+      "or": "or",
+      "continueWithGoogle": "Continue with Google",
+      "continueWithFacebook": "Continue with Facebook"
+    },
+    "register": {
+      "title": "Create Account",
+      "subtitle": "Join our community and start your journey with us.",
+      "name": "Full Name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "phone": "Phone Number",
+      "address": "Address",
+      "agreeTerms": "I agree to the",
+      "terms": "Terms of Service",
+      "and": "and",
+      "privacy": "Privacy Policy",
+      "createAccount": "Create Account",
+      "alreadyAccount": "Already have an account?",
+      "signIn": "Sign in here"
+    }
+  },
+  "booking": {
+    "title": "Book Your Stay",
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "guests": "Guests",
+    "roomType": "Room Type",
+    "totalPrice": "Total Price",
+    "bookNow": "Book Now",
+    "specialRequests": "Special Requests",
+    "specialRequestsPlaceholder": "Any special requests or requirements?",
+    "confirmation": "Booking Confirmation",
+    "confirmationMessage": "Your booking has been confirmed! You will receive a confirmation email shortly.",
+    "bookingNumber": "Booking Number",
+    "thankYou": "Thank you for choosing Gift Of God!"
+  },
+  "errors": {
+    "required": "This field is required",
+    "invalidEmail": "Please enter a valid email address",
+    "passwordTooShort": "Password must be at least 8 characters",
+    "passwordsDoNotMatch": "Passwords do not match",
+    "invalidPhone": "Please enter a valid phone number",
+    "networkError": "Network error. Please try again.",
+    "serverError": "Server error. Please try again later.",
+    "notFound": "Page not found",
+    "unauthorized": "You are not authorized to access this page",
+    "forbidden": "Access forbidden"
+  },
+  "success": {
+    "bookingCreated": "Booking created successfully!",
+    "profileUpdated": "Profile updated successfully!",
+    "passwordChanged": "Password changed successfully!",
+    "emailSent": "Email sent successfully!"
+  }
+} 

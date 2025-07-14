@@ -1,0 +1,250 @@
+{
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "clear": "Effacer",
+    "apply": "Appliquer",
+    "close": "Fermer",
+    "open": "Ouvrir",
+    "yes": "Oui",
+    "no": "Non",
+    "or": "ou",
+    "and": "et",
+    "from": "de",
+    "to": "à",
+    "per": "par",
+    "night": "nuit",
+    "person": "personne",
+    "people": "personnes"
+  },
+  "navigation": {
+    "home": "Accueil",
+    "rooms": "Chambres",
+    "about": "À propos",
+    "contact": "Contact",
+    "login": "Connexion",
+    "register": "S'inscrire",
+    "logout": "Déconnexion",
+    "dashboard": "Tableau de bord",
+    "reservations": "Réservations",
+    "profile": "Profil",
+    "settings": "Paramètres",
+    "admin": "Administration"
+  },
+  "home": {
+    "hero": {
+      "title": "Gift Of God",
+      "subtitle": "Auberge",
+      "tagline": "EXPÉRIENCE UNIQUE",
+      "description": "Découvrez le confort et l'hospitalité dans leur plus belle expression. Où chaque invité est traité comme un membre de la famille.",
+      "exploreButton": "Explorer les Chambres",
+      "bookButton": "Réserver Maintenant"
+    },
+    "search": {
+      "title": "Trouvez Votre Chambre Parfaite",
+      "subtitle": "Réservez facilement avec notre système de recherche intelligent",
+      "location": "Localisation",
+      "locationPlaceholder": "Où allez-vous ?",
+      "checkIn": "Arrivée",
+      "checkOut": "Départ",
+      "guests": "Voyageurs",
+      "searchButton": "Rechercher",
+      "tip": "💡 Conseil : Réservez à l'avance pour obtenir les meilleurs prix"
+    },
+    "amenities": {
+      "title": "Services et Équipements",
+      "subtitle": "Tout ce dont vous avez besoin pour un séjour parfait et mémorable",
+      "wifi": "WiFi Gratuit",
+      "wifiDesc": "Connexion haute vitesse",
+      "breakfast": "Petit-déjeuner Inclus",
+      "breakfastDesc": "Petit-déjeuner continental quotidien",
+      "beds": "Lits Confortables",
+      "bedsDesc": "Literie premium",
+      "kitchen": "Cuisine Équipée",
+      "kitchenDesc": "Cuisine complète disponible",
+      "parking": "Parking",
+      "parkingDesc": "Parking gratuit",
+      "laundry": "Blanchisserie",
+      "laundryDesc": "Service de blanchisserie",
+      "tv": "TV Intelligente",
+      "tvDesc": "Téléviseurs intelligents",
+      "security": "Sécurité 24/7",
+      "securityDesc": "Surveillance continue"
+    },
+    "roomTypes": {
+      "title": "Types de Chambres",
+      "subtitle": "Choisissez l'option qui convient le mieux à vos besoins",
+      "single": {
+        "name": "Chambre Individuelle",
+        "description": "Parfaite pour les voyageurs solos",
+        "price": "À partir de 25$/nuit",
+        "features": ["1 lit simple", "Salle de bain privée", "WiFi gratuit", "Petit-déjeuner inclus"]
+      },
+      "double": {
+        "name": "Chambre Double",
+        "description": "Idéale pour les couples ou amis",
+        "price": "À partir de 35$/nuit",
+        "features": ["1 lit double", "Salle de bain privée", "WiFi gratuit", "Petit-déjeuner inclus"]
+      },
+      "family": {
+        "name": "Chambre Familiale",
+        "description": "Spacieuse pour les familles",
+        "price": "À partir de 50$/nuit",
+        "features": ["2 lits doubles", "Salle de bain privée", "WiFi gratuit", "Petit-déjeuner inclus"]
+      },
+      "viewDetails": "Voir les Détails"
+    },
+    "testimonials": {
+      "title": "Ce que Disent Nos Invités",
+      "subtitle": "Expériences réelles de voyageurs qui ont choisi Gift Of God",
+      "maria": {
+        "name": "Maria Gonzalez",
+        "country": "Espagne",
+        "text": "Excellente attention et chambres très propres. Le personnel est très amical et le petit-déjeuner est délicieux."
+      },
+      "carlos": {
+        "name": "Carlos Rodriguez",
+        "country": "Mexique",
+        "text": "Emplacement parfait, près de tout. Les chambres sont confortables et le prix est très bon."
+      },
+      "ana": {
+        "name": "Ana Silva",
+        "country": "Brésil",
+        "text": "J'ai adoré la décoration et l'atmosphère chaleureuse. Je reviendrai certainement."
+      }
+    },
+    "stats": {
+      "happyGuests": "Invités Heureux",
+      "destinations": "Destinations",
+      "rating": "Évaluation",
+      "support": "Support"
+    },
+    "cta": {
+      "title": "Prêt pour Votre Prochaine Aventure ?",
+      "subtitle": "Rejoignez des centaines de voyageurs qui ont choisi Gift Of God pour leurs meilleures expériences",
+      "bookNow": "Réserver Maintenant",
+      "contact": "Contact"
+    }
+  },
+  "rooms": {
+    "title": "Nos Chambres",
+    "subtitle": "Découvrez le confort et l'hospitalité dans chacune de nos chambres soigneusement conçues",
+    "availableRooms": "Chambres Disponibles",
+    "noRooms": "Aucune chambre trouvée",
+    "noRoomsDesc": "Aucune chambre disponible avec les filtres sélectionnés. Essayez d'ajuster vos critères de recherche.",
+    "clearFilters": "Effacer les Filtres",
+    "filters": {
+      "title": "Filtres",
+      "roomType": "Type de Chambre",
+      "allTypes": "Tous les types",
+      "single": "Individuelle",
+      "double": "Double",
+      "triple": "Triple",
+      "family": "Familiale",
+      "minPrice": "Prix Minimum",
+      "maxPrice": "Prix Maximum",
+      "minCapacity": "Capacité Minimum",
+      "anyCapacity": "Toute capacité",
+      "person": "personne",
+      "people": "personnes"
+    },
+    "card": {
+      "perNight": "/nuit",
+      "viewDetails": "Voir les Détails",
+      "includedAmenities": "Équipements inclus :",
+      "capacity": "{{count}} Personne",
+      "capacity_plural": "{{count}} Personnes"
+    }
+  },
+  "footer": {
+    "tagline": "HOSPITALITÉ ET CONFORT",
+    "description": "Où chaque invité est traité comme un membre de la famille. Découvrez le confort et l'hospitalité dans leur plus belle expression.",
+    "quickLinks": "Liens Rapides",
+    "services": "Nos Services",
+    "contactInfo": "Informations de Contact",
+    "address": "123 Rue Principale",
+    "city": "Ville, Pays 12345",
+    "phone": "+1 (555) 123-4567",
+    "email": "info@giftofgod.com",
+    "privacy": "Politique de Confidentialité",
+    "terms": "Conditions de Service",
+    "cookies": "Politique des Cookies",
+    "copyright": "© {{year}} Gift Of God Hostel. Tous droits réservés."
+  },
+  "auth": {
+    "login": {
+      "title": "Se Connecter",
+      "subtitle": "Bon retour ! Veuillez vous connecter à votre compte.",
+      "email": "Email",
+      "password": "Mot de passe",
+      "rememberMe": "Se souvenir de moi",
+      "forgotPassword": "Mot de passe oublié ?",
+      "noAccount": "Vous n'avez pas de compte ?",
+      "signUp": "Inscrivez-vous ici",
+      "signInButton": "Se Connecter",
+      "or": "ou",
+      "continueWithGoogle": "Continuer avec Google",
+      "continueWithFacebook": "Continuer avec Facebook"
+    },
+    "register": {
+      "title": "Créer un Compte",
+      "subtitle": "Rejoignez notre communauté et commencez votre voyage avec nous.",
+      "name": "Nom Complet",
+      "email": "Email",
+      "password": "Mot de passe",
+      "confirmPassword": "Confirmer le Mot de passe",
+      "phone": "Numéro de Téléphone",
+      "address": "Adresse",
+      "agreeTerms": "J'accepte les",
+      "terms": "Conditions de Service",
+      "and": "et la",
+      "privacy": "Politique de Confidentialité",
+      "createAccount": "Créer un Compte",
+      "alreadyAccount": "Vous avez déjà un compte ?",
+      "signIn": "Connectez-vous ici"
+    }
+  },
+  "booking": {
+    "title": "Réserver Votre Séjour",
+    "checkIn": "Arrivée",
+    "checkOut": "Départ",
+    "guests": "Voyageurs",
+    "roomType": "Type de Chambre",
+    "totalPrice": "Prix Total",
+    "bookNow": "Réserver Maintenant",
+    "specialRequests": "Demandes Spéciales",
+    "specialRequestsPlaceholder": "Des demandes ou exigences spéciales ?",
+    "confirmation": "Confirmation de Réservation",
+    "confirmationMessage": "Votre réservation a été confirmée ! Vous recevrez un email de confirmation sous peu.",
+    "bookingNumber": "Numéro de Réservation",
+    "thankYou": "Merci d'avoir choisi Gift Of God !"
+  },
+  "errors": {
+    "required": "Ce champ est requis",
+    "invalidEmail": "Veuillez entrer une adresse email valide",
+    "passwordTooShort": "Le mot de passe doit contenir au moins 8 caractères",
+    "passwordsDoNotMatch": "Les mots de passe ne correspondent pas",
+    "invalidPhone": "Veuillez entrer un numéro de téléphone valide",
+    "networkError": "Erreur réseau. Veuillez réessayer.",
+    "serverError": "Erreur serveur. Veuillez réessayer plus tard.",
+    "notFound": "Page non trouvée",
+    "unauthorized": "Vous n'êtes pas autorisé à accéder à cette page",
+    "forbidden": "Accès interdit"
+  },
+  "success": {
+    "bookingCreated": "Réservation créée avec succès !",
+    "profileUpdated": "Profil mis à jour avec succès !",
+    "passwordChanged": "Mot de passe modifié avec succès !",
+    "emailSent": "Email envoyé avec succès !"
+  }
+} 

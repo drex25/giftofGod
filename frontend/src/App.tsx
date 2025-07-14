@@ -1,38 +1,42 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
+import './i18n'; // Import i18n configuration
+
+// Layout Components
 import Navbar from './components/Layout/Navbar';
 import Footer from './components/Layout/Footer';
+
+// Pages
 import Home from './pages/Home';
-import Rooms from './pages/Rooms/RoomsList';
+import RoomsList from './pages/Rooms/RoomsList';
 import RoomDetail from './pages/Rooms/RoomDetail';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
 import Dashboard from './pages/Dashboard/Dashboard';
+import UserDashboard from './pages/Dashboard/UserDashboard';
 import Reservations from './pages/Dashboard/Reservations';
 import AdminDashboard from './pages/Admin/AdminDashboard';
-import './App.css';
+
+// UI Components
+import LoadingSpinner from './components/UI/LoadingSpinner';
 
 function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen flex flex-col">
           <Navbar />
-          <main className="flex-1">
+          <main className="flex-grow">
             <Routes>
-              {/* Public Routes */}
               <Route path="/" element={<Home />} />
-              <Route path="/rooms" element={<Rooms />} />
+              <Route path="/rooms" element={<RoomsList />} />
               <Route path="/rooms/:id" element={<RoomDetail />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              
-              {/* Protected Routes */}
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/user-dashboard" element={<UserDashboard />} />
               <Route path="/reservations" element={<Reservations />} />
-              
-              {/* Admin Routes */}
               <Route path="/admin" element={<AdminDashboard />} />
             </Routes>
           </main>

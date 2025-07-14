@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X, User, LogOut, Calendar, Home } from 'lucide-react';
+import { Menu, X, User, LogOut, Calendar, Home, Zap, Cpu } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 
 const Header: React.FC = () => {
@@ -15,28 +15,36 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="bg-white shadow-lg sticky top-0 z-50">
+    <header className="glass-dark sticky top-0 z-50 border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <Home className="h-8 w-8 text-primary-600" />
-            <span className="text-xl font-bold text-gray-900">HostelBooking</span>
+          <Link to="/" className="flex items-center space-x-3 group">
+            <div className="relative">
+              <div className="w-10 h-10 bg-gradient-to-br from-neon-cyan to-neon-pink rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Cpu className="h-6 w-6 text-white" />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-br from-neon-cyan to-neon-pink rounded-xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
+            </div>
+            <div>
+              <span className="text-2xl font-display font-bold gradient-text">CyberHostel</span>
+              <p className="text-xs text-gray-400 font-mono">FUTURE.STAY.EXPERIENCE</p>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-gray-700 hover:text-primary-600 transition-colors">
-              Inicio
+            <Link to="/" className="nav-link">
+              <span className="font-mono text-sm">&gt; Home.exe</span>
             </Link>
-            <Link to="/rooms" className="text-gray-700 hover:text-primary-600 transition-colors">
-              Habitaciones
+            <Link to="/rooms" className="nav-link">
+              <span className="font-mono text-sm">&gt; Rooms.db</span>
             </Link>
-            <Link to="/about" className="text-gray-700 hover:text-primary-600 transition-colors">
-              Nosotros
+            <Link to="/about" className="nav-link">
+              <span className="font-mono text-sm">&gt; About.sys</span>
             </Link>
-            <Link to="/contact" className="text-gray-700 hover:text-primary-600 transition-colors">
-              Contacto
+            <Link to="/contact" className="nav-link">
+              <span className="font-mono text-sm">&gt; Contact.net</span>
             </Link>
           </nav>
 
@@ -44,23 +52,27 @@ const Header: React.FC = () => {
           <div className="hidden md:flex items-center space-x-4">
             {user ? (
               <div className="relative group">
-                <button className="flex items-center space-x-2 text-gray-700 hover:text-primary-600 transition-colors">
-                  <User className="h-5 w-5" />
-                  <span>{user.name}</span>
+                <button className="flex items-center space-x-3 glass-primary px-4 py-2 rounded-xl hover:scale-105 transition-all duration-300">
+                  <div className="w-8 h-8 bg-gradient-to-br from-neon-cyan to-neon-pink rounded-lg flex items-center justify-center">
+                    <User className="h-4 w-4 text-white" />
+                  </div>
+                  <span className="text-white font-medium">{user.name}</span>
+                  <Zap className="h-4 w-4 text-neon-cyan" />
                 </button>
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <div className="absolute right-0 mt-3 w-56 glass-primary rounded-xl shadow-elegant py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                   <Link
                     to="/dashboard"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2"
+                    className="block px-4 py-3 text-sm text-white hover:bg-white hover:bg-opacity-10 transition-colors flex items-center space-x-3"
                   >
-                    <Calendar className="h-4 w-4" />
+                    <Calendar className="h-4 w-4 text-neon-cyan" />
                     <span>Mis Reservas</span>
                   </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2"
-                  >
-                    <LogOut className="h-4 w-4" />
+                  <div className="border-t border-white/10 my-2"></div>
+                                      <button
+                      onClick={handleLogout}
+                      className="w-full text-left block px-4 py-3 text-sm text-white hover:bg-white hover:bg-opacity-10 transition-colors flex items-center space-x-3"
+                    >
+                    <LogOut className="h-4 w-4 text-neon-pink" />
                     <span>Cerrar Sesión</span>
                   </button>
                 </div>
@@ -69,15 +81,15 @@ const Header: React.FC = () => {
               <div className="flex items-center space-x-4">
                 <Link
                   to="/login"
-                  className="text-gray-700 hover:text-primary-600 transition-colors"
+                  className="text-gray-300 hover:text-neon-cyan transition-colors font-mono text-sm"
                 >
-                  Iniciar Sesión
+                  &gt; Login.auth
                 </Link>
                 <Link
                   to="/register"
-                  className="bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700 transition-colors"
+                  className="cyber-button rounded-xl"
                 >
-                  Registrarse
+                  &gt; Register.new
                 </Link>
               </div>
             )}
@@ -86,7 +98,7 @@ const Header: React.FC = () => {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-md text-gray-700 hover:text-primary-600 hover:bg-gray-100"
+            className="md:hidden glass-primary p-3 rounded-xl text-white hover:scale-105 transition-all duration-300"
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -94,71 +106,79 @@ const Header: React.FC = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200">
+          <div className="md:hidden glass-primary rounded-xl mt-4 p-6 border border-white/10">
             <div className="flex flex-col space-y-4">
               <Link
                 to="/"
-                className="text-gray-700 hover:text-primary-600 transition-colors"
+                className="text-white hover:text-neon-cyan transition-colors font-mono text-sm"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Inicio
+                &gt; Home.exe
               </Link>
               <Link
                 to="/rooms"
-                className="text-gray-700 hover:text-primary-600 transition-colors"
+                className="text-white hover:text-neon-cyan transition-colors font-mono text-sm"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Habitaciones
+                &gt; Rooms.db
               </Link>
               <Link
                 to="/about"
-                className="text-gray-700 hover:text-primary-600 transition-colors"
+                className="text-white hover:text-neon-cyan transition-colors font-mono text-sm"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Nosotros
+                &gt; About.sys
               </Link>
               <Link
                 to="/contact"
-                className="text-gray-700 hover:text-primary-600 transition-colors"
+                className="text-white hover:text-neon-cyan transition-colors font-mono text-sm"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Contacto
+                &gt; Contact.net
               </Link>
               
               {user ? (
                 <>
-                  <div className="border-t border-gray-200 pt-4">
-                    <p className="text-sm text-gray-500 mb-2">Hola, {user.name}</p>
+                  <div className="border-t border-white/10 pt-4 mt-4">
+                    <div className="flex items-center space-x-3 mb-4">
+                      <div className="w-8 h-8 bg-gradient-to-br from-neon-cyan to-neon-pink rounded-lg flex items-center justify-center">
+                        <User className="h-4 w-4 text-white" />
+                      </div>
+                      <div>
+                        <p className="text-white font-medium">{user.name}</p>
+                        <p className="text-xs text-gray-400 font-mono">USER_ACTIVE</p>
+                      </div>
+                    </div>
                     <Link
                       to="/dashboard"
-                      className="block text-gray-700 hover:text-primary-600 transition-colors mb-2"
+                      className="block text-white hover:text-neon-cyan transition-colors mb-3 font-mono text-sm"
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      Mis Reservas
+                      &gt; Dashboard.exe
                     </Link>
                     <button
                       onClick={handleLogout}
-                      className="text-gray-700 hover:text-primary-600 transition-colors"
+                      className="text-white hover:text-neon-pink transition-colors font-mono text-sm"
                     >
-                      Cerrar Sesión
+                      &gt; Logout.sys
                     </button>
                   </div>
                 </>
               ) : (
-                <div className="border-t border-gray-200 pt-4 flex flex-col space-y-2">
+                <div className="border-t border-white/10 pt-4 mt-4 flex flex-col space-y-3">
                   <Link
                     to="/login"
-                    className="text-gray-700 hover:text-primary-600 transition-colors"
+                    className="text-white hover:text-neon-cyan transition-colors font-mono text-sm"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    Iniciar Sesión
+                    &gt; Login.auth
                   </Link>
                   <Link
                     to="/register"
-                    className="bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700 transition-colors text-center"
+                    className="cyber-button rounded-xl text-center"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    Registrarse
+                    &gt; Register.new
                   </Link>
                 </div>
               )}

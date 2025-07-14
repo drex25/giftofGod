@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { 
   Wifi, 
   MapPin, 
@@ -10,291 +11,359 @@ import {
   ArrowRight,
   CheckCircle,
   Shield,
-  Globe,
+  Heart,
   Sparkles,
-  Rocket,
-  Cpu,
-  Zap
+  Coffee,
+  Bed,
+  Utensils,
+  Car,
+  WashingMachine,
+  Tv,
+  Wifi as WifiIcon,
+  Building,
+  TreePine,
+  Mountain,
+  Waves,
+  Building2
 } from 'lucide-react';
 
 const Home: React.FC = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const { t } = useTranslation();
+  const [currentImage, setCurrentImage] = useState(0);
+
+  const heroImages = [
+    '/images/hero-1.jpg',
+    '/images/hero-2.jpg',
+    '/images/hero-3.jpg',
+  ];
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
   }, []);
 
-  const features = [
+  const amenities = [
+    { icon: WifiIcon, name: t('home.amenities.wifi'), description: t('home.amenities.wifiDesc') },
+    { icon: Coffee, name: t('home.amenities.breakfast'), description: t('home.amenities.breakfastDesc') },
+    { icon: Bed, name: t('home.amenities.beds'), description: t('home.amenities.bedsDesc') },
+    { icon: Utensils, name: t('home.amenities.kitchen'), description: t('home.amenities.kitchenDesc') },
+    { icon: Car, name: t('home.amenities.parking'), description: t('home.amenities.parkingDesc') },
+    { icon: WashingMachine, name: t('home.amenities.laundry'), description: t('home.amenities.laundryDesc') },
+    { icon: Tv, name: t('home.amenities.tv'), description: t('home.amenities.tvDesc') },
+    { icon: Building, name: t('home.amenities.security'), description: t('home.amenities.securityDesc') },
+  ];
+
+  const roomTypes = [
     {
-      icon: Cpu,
-      title: 'Smart Rooms',
-      description: 'Habitaciones inteligentes con tecnología IoT y control automatizado',
-      color: 'from-neon-cyan to-blue-500'
+      name: t('home.roomTypes.single.name'),
+      description: t('home.roomTypes.single.description'),
+      price: t('home.roomTypes.single.price'),
+      image: '/images/room-single.jpg',
+      features: t('home.roomTypes.single.features', { returnObjects: true }) as string[]
     },
     {
-      icon: Globe,
-      title: 'Global Network',
-      description: 'Conecta con viajeros de todo el mundo en nuestra red global',
-      color: 'from-neon-pink to-purple-500'
+      name: t('home.roomTypes.double.name'),
+      description: t('home.roomTypes.double.description'),
+      price: t('home.roomTypes.double.price'),
+      image: '/images/room-double.jpg',
+      features: t('home.roomTypes.double.features', { returnObjects: true }) as string[]
     },
     {
-      icon: Shield,
-      title: 'Quantum Security',
-      description: 'Seguridad de nivel cuántico para proteger tu información',
-      color: 'from-neon-green to-emerald-500'
+      name: t('home.roomTypes.family.name'),
+      description: t('home.roomTypes.family.description'),
+      price: t('home.roomTypes.family.price'),
+      image: '/images/room-family.jpg',
+      features: t('home.roomTypes.family.features', { returnObjects: true }) as string[]
     },
-    {
-      icon: Rocket,
-      title: 'Instant Booking',
-      description: 'Reservas instantáneas con confirmación en tiempo real',
-      color: 'from-neon-purple to-violet-500'
-    }
   ];
 
   const testimonials = [
     {
-      name: 'Alex Chen',
-      country: 'Neo Tokyo',
-      text: 'Una experiencia completamente futurista. Las habitaciones inteligentes son increíbles.',
+      name: t('home.testimonials.maria.name'),
+      country: t('home.testimonials.maria.country'),
+      text: t('home.testimonials.maria.text'),
       rating: 5,
-      avatar: '🤖'
+      avatar: '👩‍🦰'
     },
     {
-      name: 'Maya Rodriguez',
-      country: 'Cyber Madrid',
-      text: 'El diseño y la tecnología superaron todas mis expectativas. Volveré sin duda.',
+      name: t('home.testimonials.carlos.name'),
+      country: t('home.testimonials.carlos.country'),
+      text: t('home.testimonials.carlos.text'),
       rating: 5,
-      avatar: '🚀'
+      avatar: '👨‍🦱'
     },
     {
-      name: 'Kai Nakamura',
-      country: 'Digital Seoul',
-      text: 'Perfecto para nómadas digitales. WiFi cuántico y espacios de trabajo increíbles.',
+      name: t('home.testimonials.ana.name'),
+      country: t('home.testimonials.ana.country'),
+      text: t('home.testimonials.ana.text'),
       rating: 5,
-      avatar: '⚡'
+      avatar: '👩‍🦳'
     }
   ];
 
   const stats = [
-    { number: '10K+', label: 'Cyber Travelers', icon: Users },
-    { number: '50+', label: 'Smart Cities', icon: MapPin },
-    { number: '99.9%', label: 'Uptime', icon: Zap },
-    { number: '4.9★', label: 'Rating', icon: Star }
+    { number: '500+', label: t('home.stats.happyGuests'), icon: Users },
+    { number: '50+', label: t('home.stats.destinations'), icon: MapPin },
+    { number: '4.9★', label: t('home.stats.rating'), icon: Star },
+    { number: '24/7', label: t('home.stats.support'), icon: Shield }
   ];
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Cursor personalizado */}
-      <div 
-        className="fixed w-6 h-6 pointer-events-none z-50 mix-blend-difference"
-        style={{
-          left: mousePosition.x - 12,
-          top: mousePosition.y - 12,
-          background: 'radial-gradient(circle, rgba(0,255,255,0.8) 0%, transparent 70%)',
-          borderRadius: '50%',
-          transition: 'all 0.1s ease'
-        }}
-      />
-
-      {/* Hero Section Futurista */}
+    <div className="min-h-screen">
+      {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Fondo animado */}
-        <div className="absolute inset-0 hero-grid opacity-20"></div>
-        
-        {/* Elementos flotantes */}
+        {/* Background Images */}
         <div className="absolute inset-0">
-          {[...Array(20)].map((_, i) => (
+          {heroImages.map((image, index) => (
             <div
-              key={i}
-              className="absolute w-2 h-2 bg-neon-cyan rounded-full opacity-30 floating-element"
+              key={index}
+              className={`absolute inset-0 transition-opacity duration-1000 ${
+                index === currentImage ? 'opacity-100' : 'opacity-0'
+              }`}
               style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 6}s`,
-                animationDuration: `${6 + Math.random() * 4}s`
+                backgroundImage: `url(${image})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
               }}
             />
           ))}
+          <div className="absolute inset-0 bg-black/40"></div>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Contenido principal */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center lg:text-left"
-            >
-              <div className="mb-6">
-                <span className="inline-block px-4 py-2 bg-neon-cyan/10 border border-neon-cyan/30 rounded-full text-neon-cyan text-sm font-mono mb-4">
-                  NEXT-GEN HOSPITALITY
-                </span>
-              </div>
-              
-              <h1 className="text-5xl lg:text-7xl font-display font-bold mb-6 leading-tight">
-                <span className="gradient-text">Cyber</span>
-                <br />
-                <span className="text-white">Hostel</span>
-                <br />
-                <span className="text-2xl lg:text-3xl font-normal text-gray-400 font-mono">
-                  v2.0.25
-                </span>
-              </h1>
-              
-              <p className="text-xl lg:text-2xl text-gray-300 mb-8 leading-relaxed">
-                Experimenta el futuro del hospedaje. Habitaciones inteligentes, 
-                tecnología cuántica y una comunidad global de viajeros digitales.
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-white"
+          >
+            <div className="mb-6">
+              <span className="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full text-white text-sm font-medium mb-4">
+                ✨ {t('home.hero.tagline')}
+              </span>
+            </div>
+            
+            <h1 className="text-5xl lg:text-7xl font-display font-bold mb-6 leading-tight">
+              <span className="gradient-text-warm">{t('home.hero.title')}</span>
+              <br />
+              <span className="text-white">{t('home.hero.subtitle')}</span>
+            </h1>
+            
+            <p className="text-xl lg:text-2xl text-white/90 mb-8 leading-relaxed max-w-3xl mx-auto">
+              {t('home.hero.description')}
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              <Link
+                to="/rooms"
+                className="btn-primary group"
+              >
+                <span>{t('home.hero.exploreButton')}</span>
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Link>
+              <Link
+                to="/register"
+                className="btn-outline border-white text-white hover:bg-white hover:text-primary-600"
+              >
+                {t('home.hero.bookButton')}
+              </Link>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+              {stats.map((stat, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+                  className="text-center"
+                >
+                  <div className="flex items-center justify-center mb-2">
+                    <stat.icon className="w-6 h-6 text-primary-300 mr-2" />
+                    <span className="text-2xl font-bold text-white">{stat.number}</span>
+                  </div>
+                  <p className="text-white/80 text-sm">{stat.label}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Search Section */}
+      <section className="py-16 bg-gradient-to-br from-primary-50 to-secondary-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="card p-8 shadow-elegant"
+          >
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-display font-bold text-earth-800 mb-4">
+                {t('home.search.title')}
+              </h2>
+              <p className="text-earth-600">
+                {t('home.search.subtitle')}
               </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                <Link
-                  to="/rooms"
-                  className="cyber-button group"
-                >
-                  <span>Explorar Habitaciones</span>
-                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Link>
-                <Link
-                  to="/register"
-                  className="px-8 py-4 border border-white/20 rounded-lg text-white hover:bg-white/5 transition-all duration-300 font-semibold text-center"
-                >
-                  Unirse a la Red
-                </Link>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-earth-700 mb-2">
+                  {t('home.search.location')}
+                </label>
+                <input
+                  type="text"
+                  className="input-search"
+                  placeholder={t('home.search.locationPlaceholder')}
+                />
               </div>
-
-              {/* Stats */}
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                {stats.map((stat, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-                    className="text-center"
-                  >
-                    <div className="flex items-center justify-center mb-2">
-                      <stat.icon className="w-6 h-6 text-neon-cyan mr-2" />
-                      <span className="text-2xl font-bold text-white">{stat.number}</span>
-                    </div>
-                    <p className="text-gray-400 text-sm font-mono">{stat.label}</p>
-                  </motion.div>
-                ))}
+              <div>
+                <label className="block text-sm font-medium text-earth-700 mb-2">
+                  {t('home.search.checkIn')}
+                </label>
+                <input
+                  type="date"
+                  className="input-search"
+                  placeholder={t('home.search.checkIn')}
+                />
               </div>
-            </motion.div>
-
-            {/* Panel de búsqueda futurista */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
-            >
-              <div className="cyber-card p-8 data-stream">
-                <div className="flex items-center mb-6">
-                  <Sparkles className="w-6 h-6 text-neon-cyan mr-3" />
-                  <h3 className="text-2xl font-display font-bold text-white">
-                    Quantum Search
-                  </h3>
-                </div>
-                
-                <div className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2 font-mono">
-                        CHECK-IN
-                      </label>
-                      <input
-                        type="date"
-                        className="cyber-input"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2 font-mono">
-                        CHECK-OUT
-                      </label>
-                      <input
-                        type="date"
-                        className="cyber-input"
-                      />
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2 font-mono">
-                      TRAVELERS
-                    </label>
-                    <select className="cyber-input">
-                      <option>1 Traveler</option>
-                      <option>2 Travelers</option>
-                      <option>3 Travelers</option>
-                      <option>4+ Travelers</option>
-                    </select>
-                  </div>
-                  
-                  <button className="cyber-button w-full group">
-                    <Calendar className="w-5 h-5 mr-2" />
-                    <span>Iniciar Búsqueda Cuántica</span>
-                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </div>
-
-                {/* Indicadores de estado */}
-                <div className="mt-6 flex items-center justify-between text-xs font-mono">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
-                    <span className="text-gray-400">QUANTUM READY</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-neon-cyan rounded-full animate-pulse"></div>
-                    <span className="text-gray-400">REAL-TIME</span>
-                  </div>
-                </div>
+              <div>
+                <label className="block text-sm font-medium text-earth-700 mb-2">
+                  {t('home.search.checkOut')}
+                </label>
+                <input
+                  type="date"
+                  className="input-search"
+                  placeholder={t('home.search.checkOut')}
+                />
               </div>
-            </motion.div>
+              <div>
+                <label className="block text-sm font-medium text-earth-700 mb-2">
+                  {t('home.search.guests')}
+                </label>
+                <select className="input-search">
+                  <option>1 {t('common.person')}</option>
+                  <option>2 {t('common.people')}</option>
+                  <option>3 {t('common.people')}</option>
+                  <option>4+ {t('common.people')}</option>
+                </select>
+              </div>
+            </div>
+            
+            <div className="flex justify-center mt-6">
+              <button className="btn-primary w-full md:w-auto px-8 group">
+                <Calendar className="w-5 h-5 mr-2" />
+                <span>{t('home.search.searchButton')}</span>
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
+
+            <div className="text-center mt-4">
+              <p className="text-sm text-earth-500">
+                {t('home.search.tip')}
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Amenities Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl font-display font-bold text-earth-800 mb-4">
+              {t('home.amenities.title')}
+            </h2>
+            <p className="text-xl text-earth-600 max-w-3xl mx-auto">
+              {t('home.amenities.subtitle')}
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {amenities.map((amenity, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="text-center group"
+              >
+                <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-warm">
+                  <amenity.icon className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-lg font-semibold text-earth-800 mb-2">{amenity.name}</h3>
+                <p className="text-earth-600 text-sm">{amenity.description}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 relative">
+      {/* Room Types Section */}
+      <section className="py-20 bg-gradient-to-br from-earth-50 to-warm-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl lg:text-5xl font-display font-bold mb-6">
-              <span className="gradient-text">Next-Gen Features</span>
+            <h2 className="text-4xl font-display font-bold text-earth-800 mb-4">
+              {t('home.roomTypes.title')}
             </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              Tecnología avanzada que redefine la experiencia de hospedaje
+            <p className="text-xl text-earth-600 max-w-3xl mx-auto">
+              {t('home.roomTypes.subtitle')}
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {roomTypes.map((room, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="cyber-card group hover:scale-105 transition-all duration-500"
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className="card card-hover"
               >
-                <div className={`w-16 h-16 bg-gradient-to-br ${feature.color} rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                  <feature.icon className="w-8 h-8 text-white" />
+                <div className="h-48 bg-gradient-to-br from-primary-100 to-secondary-100 rounded-t-2xl flex items-center justify-center">
+                  <Bed className="w-16 h-16 text-primary-500" />
                 </div>
-                <h3 className="text-xl font-display font-semibold text-white mb-3 text-center">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-400 text-center leading-relaxed">
-                  {feature.description}
-                </p>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-earth-800 mb-2">{room.name}</h3>
+                  <p className="text-earth-600 mb-4">{room.description}</p>
+                  <div className="space-y-2 mb-6">
+                    {room.features.map((feature, featureIndex) => (
+                      <div key={featureIndex} className="flex items-center space-x-2">
+                        <CheckCircle className="w-4 h-4 text-primary-500" />
+                        <span className="text-sm text-earth-600">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-lg font-bold text-primary-600">{room.price}</span>
+                    <Link
+                      to="/rooms"
+                      className="btn-primary text-sm"
+                    >
+                      {t('home.roomTypes.viewDetails')}
+                    </Link>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -302,19 +371,20 @@ const Home: React.FC = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 relative">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl lg:text-5xl font-display font-bold mb-6">
-              <span className="gradient-text">Cyber Reviews</span>
+            <h2 className="text-4xl font-display font-bold text-earth-800 mb-4">
+              {t('home.testimonials.title')}
             </h2>
-            <p className="text-xl text-gray-400">
-              Lo que dicen nuestros viajeros digitales
+            <p className="text-xl text-earth-600 max-w-3xl mx-auto">
+              {t('home.testimonials.subtitle')}
             </p>
           </motion.div>
 
@@ -322,26 +392,25 @@ const Home: React.FC = () => {
             {testimonials.map((testimonial, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="cyber-card group"
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className="card p-6"
               >
                 <div className="flex items-center mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-neon-cyan fill-current" />
-                  ))}
-                </div>
-                <p className="text-gray-300 mb-6 italic">"{testimonial.text}"</p>
-                <div className="flex items-center">
-                  <div className="w-12 h-12 bg-gradient-to-br from-neon-cyan to-neon-pink rounded-full flex items-center justify-center text-2xl mr-4">
-                    {testimonial.avatar}
-                  </div>
+                  <div className="text-3xl mr-3">{testimonial.avatar}</div>
                   <div>
-                    <p className="font-semibold text-white">{testimonial.name}</p>
-                    <p className="text-sm text-gray-400 font-mono">{testimonial.country}</p>
+                    <h4 className="font-semibold text-earth-800">{testimonial.name}</h4>
+                    <p className="text-sm text-earth-600">{testimonial.country}</p>
+                  </div>
+                  <div className="ml-auto flex items-center">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 text-warm-500 fill-current" />
+                    ))}
                   </div>
                 </div>
+                <p className="text-earth-600 italic">"{testimonial.text}"</p>
               </motion.div>
             ))}
           </div>
@@ -349,34 +418,33 @@ const Home: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-neon-cyan/10 via-neon-purple/10 to-neon-pink/10"></div>
-        <div className="relative max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-gradient-to-br from-primary-500 to-secondary-500">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
           >
-            <h2 className="text-4xl lg:text-5xl font-display font-bold mb-6">
-              <span className="gradient-text">Ready to Jack In?</span>
+            <h2 className="text-4xl font-display font-bold text-white mb-4">
+              {t('home.cta.title')}
             </h2>
-            <p className="text-xl text-gray-300 mb-8">
-              Únete a la revolución del hospedaje digital y experimenta el futuro hoy
+            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+              {t('home.cta.subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/register"
-                className="cyber-button group"
+                className="btn-secondary group"
               >
-                <Rocket className="w-5 h-5 mr-2" />
-                <span>Crear Cuenta Neural</span>
+                <span>{t('home.cta.bookNow')}</span>
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
-                to="/rooms"
-                className="px-8 py-4 border border-white/20 rounded-lg text-white hover:bg-white/5 transition-all duration-300 font-semibold"
+                to="/contact"
+                className="btn-outline border-white text-white hover:bg-white hover:text-primary-600"
               >
-                Explorar Matrix
+                {t('home.cta.contact')}
               </Link>
             </div>
           </motion.div>

@@ -1,97 +1,135 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Search, Calendar, Users } from 'lucide-react';
-import { format, addDays } from 'date-fns';
-import Button from '../UI/Button';
-import Input from '../UI/Input';
+import { useTranslation } from 'react-i18next';
+import { Calendar, MapPin, Users, Search, Filter } from 'lucide-react';
 
-const SearchForm: React.FC = () => {
-  const navigate = useNavigate();
-  const [searchData, setSearchData] = useState({
-    check_in_date: format(new Date(), 'yyyy-MM-dd'),
-    check_out_date: format(addDays(new Date(), 1), 'yyyy-MM-dd'),
-    guests_count: 1,
+interface SearchFormProps {
+  onSearch?: (searchData: SearchData) => void;
+  className?: string;
+}
+
+export interface SearchData {
+  location: string;
+  checkIn: string;
+  checkOut: string;
+  guests: number;
+  roomType?: string;
+}
+
+const SearchForm: React.FC<SearchFormProps> = ({ onSearch, className = '' }) => {
+  const { t } = useTranslation();
+  const [formData, setFormData] = useState<SearchData>({
+    location: '',
+    checkIn: '',
+    checkOut: '',
+    guests: 1,
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const params = new URLSearchParams(searchData as any);
-    navigate(`/search?${params.toString()}`);
+    if (onSearch) {
+      onSearch(formData);
+    }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setSearchData(prev => ({
+  const handleInputChange = (field: keyof SearchData, value: string | number) => {
+    setFormData(prev => ({
       ...prev,
-      [name]: name === 'guests_count' ? parseInt(value) : value,
+      [field]: value
     }));
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-        Encuentra tu habitación perfecta
-      </h2>
-      
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              <Calendar className="inline h-4 w-4 mr-1" />
-              Check-in
-            </label>
-            <Input
-              type="date"
-              name="check_in_date"
-              value={searchData.check_in_date}
-              onChange={handleChange}
-              min={format(new Date(), 'yyyy-MM-dd')}
-              required
+    <form onSubmit={handleSubmit} className={`search-form ${className}`}>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Location */}
+        <div className="relative">
+          <label className="block text-sm font-medium text-earth-700 mb-2">
+            {t('home.search.location')}
+          </label>
+          <div className="relative">
+            <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-earth-400" />
+            <input
+              type="text"
+              value={formData.location}
+              onChange={(e) => handleInputChange('location', e.target.value)}
+              placeholder={t('home.search.locationPlaceholder')}
+              className="input-search pl-10"
             />
           </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              <Calendar className="inline h-4 w-4 mr-1" />
-              Check-out
-            </label>
-            <Input
+        </div>
+
+        {/* Check-in */}
+        <div>
+          <label className="block text-sm font-medium text-earth-700 mb-2">
+            {t('home.search.checkIn')}
+          </label>
+          <div className="relative">
+            <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-earth-400" />
+            <input
               type="date"
-              name="check_out_date"
-              value={searchData.check_out_date}
-              onChange={handleChange}
-              min={searchData.check_in_date}
-              required
+              value={formData.checkIn}
+              onChange={(e) => handleInputChange('checkIn', e.target.value)}
+              className="input-search pl-10"
             />
           </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              <Users className="inline h-4 w-4 mr-1" />
-              Huéspedes
-            </label>
+        </div>
+
+        {/* Check-out */}
+        <div>
+          <label className="block text-sm font-medium text-earth-700 mb-2">
+            {t('home.search.checkOut')}
+          </label>
+          <div className="relative">
+            <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-earth-400" />
+            <input
+              type="date"
+              value={formData.checkOut}
+              onChange={(e) => handleInputChange('checkOut', e.target.value)}
+              className="input-search pl-10"
+            />
+          </div>
+        </div>
+
+        {/* Guests */}
+        <div>
+          <label className="block text-sm font-medium text-earth-700 mb-2">
+            {t('home.search.guests')}
+          </label>
+          <div className="relative">
+            <Users className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-earth-400" />
             <select
-              name="guests_count"
-              value={searchData.guests_count}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-              required
+              value={formData.guests}
+              onChange={(e) => handleInputChange('guests', parseInt(e.target.value))}
+              className="input-search pl-10"
             >
-              {[1, 2, 3, 4, 5, 6].map(num => (
-                <option key={num} value={num}>
-                  {num} {num === 1 ? 'huésped' : 'huéspedes'}
-                </option>
-              ))}
+              <option value={1}>1 {t('common.person')}</option>
+              <option value={2}>2 {t('common.people')}</option>
+              <option value={3}>3 {t('common.people')}</option>
+              <option value={4}>4 {t('common.people')}</option>
+              <option value={5}>5+ {t('common.people')}</option>
             </select>
           </div>
         </div>
-        
-        <Button type="submit" size="lg" className="w-full">
-          <Search className="h-5 w-5 mr-2" />
-          Buscar Habitaciones
-        </Button>
-      </form>
-    </div>
+      </div>
+
+      {/* Search Button */}
+      <div className="flex justify-center mt-6">
+        <button
+          type="submit"
+          className="btn-primary group px-8 py-3"
+        >
+          <Search className="w-5 h-5 mr-2" />
+          <span>{t('home.search.searchButton')}</span>
+        </button>
+      </div>
+
+      {/* Tip */}
+      <div className="text-center mt-4">
+        <p className="text-sm text-earth-500">
+          {t('home.search.tip')}
+        </p>
+      </div>
+    </form>
   );
 };
 
