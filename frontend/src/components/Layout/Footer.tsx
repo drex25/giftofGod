@@ -10,9 +10,9 @@ import {
   Facebook, 
   Twitter,
   Heart,
-  ArrowUp
+  ArrowUp,
+  Building
 } from 'lucide-react';
-import Button from '../UI/Button';
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="bg-neutral-900 text-white">
       {/* Main Footer */}
-      <div className="container-modern py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand Section */}
           <div className="lg:col-span-1">
@@ -34,42 +34,42 @@ const Footer: React.FC = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">G</span>
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
+                  <Building className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold">Gift of God</h3>
+                  <h3 className="text-xl font-bold gradient-text">Gift of God</h3>
                   <p className="text-xs text-neutral-400 font-medium">
-                    {t('nav.tagline')}
+                    HOTEL & RESORT
                   </p>
                 </div>
               </div>
-              <p className="text-neutral-400 mb-6 leading-relaxed">
-                {t('footer.description')}
+              <p className="text-neutral-400 mb-6 leading-relaxed body-medium">
+                Descubre el lujo y la comodidad en nuestro exclusivo hotel. Ofrecemos experiencias únicas y servicios de primera clase para hacer de tu estadía algo inolvidable.
               </p>
               <div className="flex space-x-4">
                 <motion.a
                   href="#"
-                  whileHover={{ scale: 1.1 }}
+                  whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.9 }}
-                  className="w-10 h-10 bg-neutral-800 rounded-lg flex items-center justify-center text-neutral-400 hover:text-primary-500 transition-colors"
+                  className="w-10 h-10 bg-neutral-800 hover:bg-primary-500 rounded-lg flex items-center justify-center text-neutral-400 hover:text-white transition-all duration-300"
                 >
                   <Facebook className="w-5 h-5" />
                 </motion.a>
                 <motion.a
                   href="#"
-                  whileHover={{ scale: 1.1 }}
+                  whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.9 }}
-                  className="w-10 h-10 bg-neutral-800 rounded-lg flex items-center justify-center text-neutral-400 hover:text-primary-500 transition-colors"
+                  className="w-10 h-10 bg-neutral-800 hover:bg-primary-500 rounded-lg flex items-center justify-center text-neutral-400 hover:text-white transition-all duration-300"
                 >
                   <Instagram className="w-5 h-5" />
                 </motion.a>
                 <motion.a
                   href="#"
-                  whileHover={{ scale: 1.1 }}
+                  whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.9 }}
-                  className="w-10 h-10 bg-neutral-800 rounded-lg flex items-center justify-center text-neutral-400 hover:text-primary-500 transition-colors"
+                  className="w-10 h-10 bg-neutral-800 hover:bg-primary-500 rounded-lg flex items-center justify-center text-neutral-400 hover:text-white transition-all duration-300"
                 >
                   <Twitter className="w-5 h-5" />
                 </motion.a>
@@ -84,38 +84,38 @@ const Footer: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
           >
-            <h4 className="text-lg font-semibold mb-6">{t('footer.quickLinks')}</h4>
+            <h4 className="heading-4 mb-6 text-white">Enlaces Rápidos</h4>
             <ul className="space-y-3">
               <li>
                 <Link 
                   to="/rooms" 
-                  className="text-neutral-400 hover:text-white transition-colors duration-300"
+                  className="text-neutral-400 hover:text-primary-400 transition-colors duration-300 body-medium"
                 >
-                  {t('nav.rooms')}
+                  Habitaciones
                 </Link>
               </li>
               <li>
                 <Link 
                   to="/about" 
-                  className="text-neutral-400 hover:text-white transition-colors duration-300"
+                  className="text-neutral-400 hover:text-primary-400 transition-colors duration-300 body-medium"
                 >
-                  {t('nav.about')}
+                  Nosotros
                 </Link>
               </li>
               <li>
                 <Link 
                   to="/contact" 
-                  className="text-neutral-400 hover:text-white transition-colors duration-300"
+                  className="text-neutral-400 hover:text-primary-400 transition-colors duration-300 body-medium"
                 >
-                  {t('nav.contact')}
+                  Contacto
                 </Link>
               </li>
               <li>
                 <Link 
                   to="/dashboard" 
-                  className="text-neutral-400 hover:text-white transition-colors duration-300"
+                  className="text-neutral-400 hover:text-primary-400 transition-colors duration-300 body-medium"
                 >
-                  {t('nav.dashboard')}
+                  Mi Cuenta
                 </Link>
               </li>
             </ul>
@@ -128,26 +128,26 @@ const Footer: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h4 className="text-lg font-semibold mb-6">{t('footer.services')}</h4>
+            <h4 className="heading-4 mb-6 text-white">Servicios</h4>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-neutral-400 hover:text-white transition-colors duration-300">
-                  {t('footer.accommodation')}
+                <a href="#" className="text-neutral-400 hover:text-primary-400 transition-colors duration-300 body-medium">
+                  Alojamiento Premium
                 </a>
               </li>
               <li>
-                <a href="#" className="text-neutral-400 hover:text-white transition-colors duration-300">
-                  {t('footer.tours')}
+                <a href="#" className="text-neutral-400 hover:text-primary-400 transition-colors duration-300 body-medium">
+                  Tours Guiados
                 </a>
               </li>
               <li>
-                <a href="#" className="text-neutral-400 hover:text-white transition-colors duration-300">
-                  {t('footer.transport')}
+                <a href="#" className="text-neutral-400 hover:text-primary-400 transition-colors duration-300 body-medium">
+                  Transporte Privado
                 </a>
               </li>
               <li>
-                <a href="#" className="text-neutral-400 hover:text-white transition-colors duration-300">
-                  Airport Transfer
+                <a href="#" className="text-neutral-400 hover:text-primary-400 transition-colors duration-300 body-medium">
+                  Traslado Aeropuerto
                 </a>
               </li>
             </ul>
@@ -160,35 +160,35 @@ const Footer: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
           >
-            <h4 className="text-lg font-semibold mb-6">{t('footer.contact')}</h4>
+            <h4 className="heading-4 mb-6 text-white">Contacto</h4>
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center shadow-lg">
                   <Phone className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm text-neutral-400">Phone</p>
-                  <p className="text-white">+1 234 567 890</p>
+                  <p className="text-sm text-neutral-400 caption">Teléfono</p>
+                  <p className="text-white body-medium">+1 234 567 890</p>
                 </div>
               </div>
               
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center shadow-lg">
                   <Mail className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm text-neutral-400">Email</p>
-                  <p className="text-white">info@giftofgod.com</p>
+                  <p className="text-sm text-neutral-400 caption">Email</p>
+                  <p className="text-white body-medium">info@giftofgod.com</p>
                 </div>
               </div>
               
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center shadow-lg">
                   <MapPin className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm text-neutral-400">Address</p>
-                  <p className="text-white text-sm">{t('footer.address')}</p>
+                  <p className="text-sm text-neutral-400 caption">Dirección</p>
+                  <p className="text-white body-small">123 Paradise Street, Resort City, RC 12345</p>
                 </div>
               </div>
             </div>
@@ -198,17 +198,17 @@ const Footer: React.FC = () => {
 
       {/* Bottom Footer */}
       <div className="border-t border-neutral-800">
-        <div className="container-modern py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="flex items-center space-x-2 text-neutral-400"
+              className="flex items-center space-x-2 text-neutral-400 body-small"
             >
               <span>© 2024 Gift of God.</span>
-              <span>{t('footer.rights')}</span>
+              <span>Todos los derechos reservados.</span>
               <Heart className="w-4 h-4 text-primary-500" />
             </motion.div>
 
@@ -219,14 +219,14 @@ const Footer: React.FC = () => {
               viewport={{ once: true }}
               className="flex items-center space-x-6 text-sm text-neutral-400"
             >
-              <a href="#" className="hover:text-white transition-colors">
-                Privacy Policy
+              <a href="#" className="hover:text-primary-400 transition-colors body-small">
+                Política de Privacidad
               </a>
-              <a href="#" className="hover:text-white transition-colors">
-                Terms of Service
+              <a href="#" className="hover:text-primary-400 transition-colors body-small">
+                Términos de Servicio
               </a>
-              <a href="#" className="hover:text-white transition-colors">
-                Cookie Policy
+              <a href="#" className="hover:text-primary-400 transition-colors body-small">
+                Política de Cookies
               </a>
             </motion.div>
 
@@ -234,12 +234,12 @@ const Footer: React.FC = () => {
             <motion.button
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.1, y: -2 }}
               whileTap={{ scale: 0.9 }}
               transition={{ duration: 0.3 }}
               viewport={{ once: true }}
               onClick={scrollToTop}
-              className="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center text-white hover:bg-primary-600 transition-colors"
+              className="w-12 h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center text-white hover:shadow-lg transition-all duration-300 shadow-md"
             >
               <ArrowUp className="w-5 h-5" />
             </motion.button>
