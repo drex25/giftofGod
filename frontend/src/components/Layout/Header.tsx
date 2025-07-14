@@ -35,16 +35,16 @@ const Header: React.FC = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             <Link to="/" className="nav-link">
-              <span className="font-mono text-sm">&gt; Home.exe</span>
+              <span className="font-mono text-sm">> Home.exe</span>
             </Link>
             <Link to="/rooms" className="nav-link">
-              <span className="font-mono text-sm">&gt; Rooms.db</span>
+              <span className="font-mono text-sm">> Rooms.db</span>
             </Link>
             <Link to="/about" className="nav-link">
-              <span className="font-mono text-sm">&gt; About.sys</span>
+              <span className="font-mono text-sm">> About.sys</span>
             </Link>
             <Link to="/contact" className="nav-link">
-              <span className="font-mono text-sm">&gt; Contact.net</span>
+              <span className="font-mono text-sm">> Contact.net</span>
             </Link>
           </nav>
 
@@ -68,10 +68,10 @@ const Header: React.FC = () => {
                     <span>Mis Reservas</span>
                   </Link>
                   <div className="border-t border-white/10 my-2"></div>
-                                      <button
-                      onClick={handleLogout}
-                      className="w-full text-left block px-4 py-3 text-sm text-white hover:bg-white hover:bg-opacity-10 transition-colors flex items-center space-x-3"
-                    >
+                  <button
+                    onClick={handleLogout}
+                    className="w-full text-left block px-4 py-3 text-sm text-white hover:bg-white hover:bg-opacity-10 transition-colors flex items-center space-x-3"
+                  >
                     <LogOut className="h-4 w-4 text-neon-pink" />
                     <span>Cerrar Sesión</span>
                   </button>
@@ -83,13 +83,13 @@ const Header: React.FC = () => {
                   to="/login"
                   className="text-gray-300 hover:text-neon-cyan transition-colors font-mono text-sm"
                 >
-                  &gt; Login.auth
+                  > Login.auth
                 </Link>
                 <Link
                   to="/register"
                   className="cyber-button rounded-xl"
                 >
-                  &gt; Register.new
+                  > Register.new
                 </Link>
               </div>
             )}
@@ -113,28 +113,28 @@ const Header: React.FC = () => {
                 className="text-white hover:text-neon-cyan transition-colors font-mono text-sm"
                 onClick={() => setIsMenuOpen(false)}
               >
-                &gt; Home.exe
+                > Home.exe
               </Link>
               <Link
                 to="/rooms"
                 className="text-white hover:text-neon-cyan transition-colors font-mono text-sm"
                 onClick={() => setIsMenuOpen(false)}
               >
-                &gt; Rooms.db
+                > Rooms.db
               </Link>
               <Link
                 to="/about"
                 className="text-white hover:text-neon-cyan transition-colors font-mono text-sm"
                 onClick={() => setIsMenuOpen(false)}
               >
-                &gt; About.sys
+                > About.sys
               </Link>
               <Link
                 to="/contact"
                 className="text-white hover:text-neon-cyan transition-colors font-mono text-sm"
                 onClick={() => setIsMenuOpen(false)}
               >
-                &gt; Contact.net
+                > Contact.net
               </Link>
               
               {user ? (
@@ -154,13 +154,13 @@ const Header: React.FC = () => {
                       className="block text-white hover:text-neon-cyan transition-colors mb-3 font-mono text-sm"
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      &gt; Dashboard.exe
+                      > Dashboard.exe
                     </Link>
                     <button
                       onClick={handleLogout}
                       className="text-white hover:text-neon-pink transition-colors font-mono text-sm"
                     >
-                      &gt; Logout.sys
+                      > Logout.sys
                     </button>
                   </div>
                 </>
@@ -171,14 +171,14 @@ const Header: React.FC = () => {
                     className="text-white hover:text-neon-cyan transition-colors font-mono text-sm"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    &gt; Login.auth
+                    > Login.auth
                   </Link>
                   <Link
                     to="/register"
                     className="cyber-button rounded-xl text-center"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    &gt; Register.new
+                    > Register.new
                   </Link>
                 </div>
               )}

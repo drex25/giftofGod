@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
 import { 
   Wifi, 
   MapPin, 
@@ -20,10 +19,6 @@ import {
   WashingMachine,
   Tv,
   Building,
-  TreePine,
-  Mountain,
-  Waves,
-  Building2,
   Search,
   Clock,
   Award,
@@ -32,16 +27,33 @@ import {
   Mail,
   Instagram,
   Facebook,
-  Twitter
+  Twitter,
+  Zap,
+  Cpu,
+  Database,
+  Terminal,
+  Code,
+  Rocket,
+  Eye,
+  Brain,
+  Atom
 } from 'lucide-react';
-import Button from '../components/UI/Button';
-import Card, { CardHeader, CardBody, CardFooter } from '../components/UI/Card';
-import Input from '../components/UI/Input';
+import ParticleBackground from '../components/UI/ParticleBackground';
+import AnimatedGradient from '../components/UI/AnimatedGradient';
+import ShimmerButton from '../components/UI/ShimmerButton';
 
 const Home: React.FC = () => {
-  const { t } = useTranslation();
   const [currentImage, setCurrentImage] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   const heroImages = [
     '/images/hero-1.jpg',
@@ -56,106 +68,130 @@ const Home: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
-
   const amenities = [
-    { icon: Wifi, name: t('home.amenities.wifi'), description: t('home.amenities.wifiDesc') },
-    { icon: Coffee, name: t('home.amenities.breakfast'), description: t('home.amenities.breakfastDesc') },
-    { icon: Bed, name: t('home.amenities.beds'), description: t('home.amenities.bedsDesc') },
-    { icon: Utensils, name: t('home.amenities.kitchen'), description: t('home.amenities.kitchenDesc') },
-    { icon: Car, name: t('home.amenities.parking'), description: t('home.amenities.parkingDesc') },
-    { icon: WashingMachine, name: t('home.amenities.laundry'), description: t('home.amenities.laundryDesc') },
-    { icon: Tv, name: t('home.amenities.tv'), description: t('home.amenities.tvDesc') },
-    { icon: Building, name: t('home.amenities.security'), description: t('home.amenities.securityDesc') },
+    { icon: Wifi, name: 'Neural WiFi', description: 'Quantum-speed connection', color: 'neon-cyan' },
+    { icon: Coffee, name: 'Energy Pods', description: 'Molecular gastronomy', color: 'neon-pink' },
+    { icon: Bed, name: 'Sleep Chambers', description: 'Zero-gravity comfort', color: 'neon-purple' },
+    { icon: Utensils, name: 'Food Synthesizer', description: 'AI-powered nutrition', color: 'neon-green' },
+    { icon: Car, name: 'Hover Parking', description: 'Anti-gravity zones', color: 'neon-yellow' },
+    { icon: WashingMachine, name: 'Nano Cleaning', description: 'Molecular purification', color: 'neon-orange' },
+    { icon: Tv, name: 'Holographic Display', description: '8K neural interface', color: 'neon-cyan' },
+    { icon: Building, name: 'Quantum Security', description: 'Biometric encryption', color: 'neon-pink' },
   ];
 
   const roomTypes = [
     {
-      name: t('home.roomTypes.single.name'),
-      description: t('home.roomTypes.single.description'),
-      price: t('home.roomTypes.single.price'),
+      name: 'Cyber Pod',
+      description: 'Single neural interface chamber',
+      price: 'From ¥25/night',
       image: '/images/room-single.jpg',
-      features: t('home.roomTypes.single.features', { returnObjects: true }) as string[]
+      features: ['Neural bed', 'Holographic bathroom', 'Quantum WiFi', 'Energy breakfast'],
+      color: 'neon-cyan'
     },
     {
-      name: t('home.roomTypes.double.name'),
-      description: t('home.roomTypes.double.description'),
-      price: t('home.roomTypes.double.price'),
+      name: 'Dual Matrix',
+      description: 'Synchronized reality for two',
+      price: 'From ¥35/night',
       image: '/images/room-double.jpg',
-      features: t('home.roomTypes.double.features', { returnObjects: true }) as string[]
+      features: ['Twin neural beds', 'Shared holospace', 'Quantum WiFi', 'Energy breakfast'],
+      color: 'neon-pink'
     },
     {
-      name: t('home.roomTypes.family.name'),
-      description: t('home.roomTypes.family.description'),
-      price: t('home.roomTypes.family.price'),
+      name: 'Family Nexus',
+      description: 'Multi-dimensional family space',
+      price: 'From ¥50/night',
       image: '/images/room-family.jpg',
-      features: t('home.roomTypes.family.features', { returnObjects: true }) as string[]
+      features: ['4 neural beds', 'Family holospace', 'Quantum WiFi', 'Energy breakfast'],
+      color: 'neon-purple'
     },
   ];
 
   const testimonials = [
     {
-      name: t('home.testimonials.maria.name'),
-      country: t('home.testimonials.maria.country'),
-      text: t('home.testimonials.maria.text'),
+      name: 'Aria-7',
+      country: 'Neo Tokyo',
+      text: 'The neural interface was mind-blowing. Best sleep I\'ve had in the metaverse.',
       rating: 5,
-      avatar: '👩‍🦰'
+      avatar: '🤖',
+      color: 'neon-cyan'
     },
     {
-      name: t('home.testimonials.carlos.name'),
-      country: t('home.testimonials.carlos.country'),
-      text: t('home.testimonials.carlos.text'),
+      name: 'Zyx-Prime',
+      country: 'Cyber City',
+      text: 'Quantum amenities exceeded all expectations. Will definitely jack in again.',
       rating: 5,
-      avatar: '👨‍🦱'
+      avatar: '👾',
+      color: 'neon-pink'
     },
     {
-      name: t('home.testimonials.ana.name'),
-      country: t('home.testimonials.ana.country'),
-      text: t('home.testimonials.ana.text'),
+      name: 'Nova-X',
+      country: 'Digital Realm',
+      text: 'The holographic breakfast was incredible. Felt like I was in the future.',
       rating: 5,
-      avatar: '👩‍🦳'
+      avatar: '🚀',
+      color: 'neon-purple'
     }
   ];
 
   const stats = [
-    { number: '500+', label: t('home.stats.happyGuests'), icon: Users },
-    { number: '50+', label: t('home.stats.destinations'), icon: MapPin },
-    { number: '4.9★', label: t('home.stats.rating'), icon: Star },
-    { number: '24/7', label: t('home.stats.support'), icon: Shield }
+    { number: '∞', label: 'Digital Guests', icon: Users, color: 'neon-cyan' },
+    { number: '42', label: 'Dimensions', icon: MapPin, color: 'neon-pink' },
+    { number: '9.9★', label: 'Neural Rating', icon: Star, color: 'neon-purple' },
+    { number: '24/7', label: 'Quantum Support', icon: Shield, color: 'neon-green' }
   ];
 
   const features = [
-    { icon: Award, title: t('home.features.quality.title'), description: t('home.features.quality.description') },
-    { icon: Clock, title: t('home.features.service.title'), description: t('home.features.service.description') },
-    { icon: Globe, title: t('home.features.location.title'), description: t('home.features.location.description') },
-    { icon: Heart, title: t('home.features.comfort.title'), description: t('home.features.comfort.description') },
+    { 
+      icon: Brain, 
+      title: 'Neural Interface', 
+      description: 'Direct mind-machine connection for ultimate comfort',
+      color: 'neon-cyan'
+    },
+    { 
+      icon: Atom, 
+      title: 'Quantum Service', 
+      description: 'Instantaneous response across all dimensions',
+      color: 'neon-pink'
+    },
+    { 
+      icon: Rocket, 
+      title: 'Cosmic Location', 
+      description: 'Centrally located in the digital multiverse',
+      color: 'neon-purple'
+    },
+    { 
+      icon: Eye, 
+      title: 'Augmented Reality', 
+      description: 'Enhanced reality experiences in every room',
+      color: 'neon-green'
+    },
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen neural-bg relative overflow-hidden">
+      {/* Cursor personalizado */}
+      <div 
+        className="custom-cursor"
+        style={{
+          left: mousePosition.x,
+          top: mousePosition.y,
+        }}
+      />
+
+      {/* Fondo de partículas */}
+      <ParticleBackground />
+
+      {/* Línea de escaneo */}
+      <div className="scan-line" />
+
+      {/* Fondo Matrix */}
+      <div className="matrix-bg" />
+
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Images */}
-        <div className="absolute inset-0">
-          {heroImages.map((image, index) => (
-            <div
-              key={index}
-              className={`absolute inset-0 transition-opacity duration-1000 ${
-                index === currentImage ? 'opacity-100' : 'opacity-0'
-              }`}
-              style={{
-                backgroundImage: `url(${image})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-            />
-          ))}
-          <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/30 to-black/50"></div>
-        </div>
-
-        <div className="relative container-modern text-center">
+        <AnimatedGradient className="absolute inset-0" />
+        
+        <div className="relative container mx-auto px-4 text-center z-10">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -167,9 +203,10 @@ const Home: React.FC = () => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="inline-block px-6 py-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-full text-white text-sm font-medium mb-4"
+                className="inline-block px-6 py-3 glass-primary border border-neon-cyan/30 rounded-full text-neon-cyan text-sm font-mono mb-4 animate-pulse-neon"
               >
-                ✨ {t('home.hero.tagline')}
+                <Terminal className="inline w-4 h-4 mr-2" />
+                SYSTEM.ONLINE.READY
               </motion.span>
             </div>
             
@@ -177,20 +214,21 @@ const Home: React.FC = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="heading-1 mb-6"
+              className="text-6xl lg:text-8xl font-cyber font-bold mb-6"
             >
-              <span className="gradient-text-warm">{t('home.hero.title')}</span>
+              <span className="hologram-text">CYBER</span>
               <br />
-              <span className="text-white">{t('home.hero.subtitle')}</span>
+              <span className="neon-text">HOSTEL</span>
             </motion.h1>
             
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-xl lg:text-2xl text-white/90 mb-8 leading-relaxed max-w-3xl mx-auto"
+              className="text-xl lg:text-2xl text-gray-300 mb-8 leading-relaxed max-w-3xl mx-auto font-mono"
             >
-              {t('home.hero.description')}
+              <Code className="inline w-5 h-5 mr-2 text-neon-cyan" />
+              Experience the future of hospitality in our quantum-enhanced reality
             </motion.p>
             
             <motion.div
@@ -199,27 +237,18 @@ const Home: React.FC = () => {
               transition={{ duration: 0.8, delay: 0.5 }}
               className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
             >
-              <Button
-                variant="primary"
-                size="lg"
-                icon={ArrowRight}
-                iconPosition="right"
-                href="/rooms"
-                className="group"
-              >
-                {t('home.hero.exploreButton')}
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                href="/register"
-                className="border-white text-white hover:bg-white hover:text-primary-600"
-              >
-                {t('home.hero.bookButton')}
-              </Button>
+              <ShimmerButton className="group">
+                <Rocket className="w-5 h-5 mr-2" />
+                INITIALIZE.EXPERIENCE
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </ShimmerButton>
+              <button className="glass-primary px-8 py-4 rounded-xl border border-neon-pink/30 text-neon-pink hover:bg-neon-pink/10 transition-all duration-300 font-mono font-bold">
+                <Database className="w-5 h-5 mr-2 inline" />
+                ACCESS.MATRIX
+              </button>
             </motion.div>
 
-            {/* Stats */}
+            {/* Stats Futuristas */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -232,13 +261,13 @@ const Home: React.FC = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
-                  className="text-center"
+                  className="hologram-card p-4 text-center hover-levitate"
                 >
                   <div className="flex items-center justify-center mb-2">
-                    <stat.icon className="w-6 h-6 text-primary-300 mr-2" />
-                    <span className="text-2xl font-bold text-white">{stat.number}</span>
+                    <stat.icon className={`w-6 h-6 text-${stat.color} mr-2`} />
+                    <span className={`text-2xl font-bold text-${stat.color} font-cyber`}>{stat.number}</span>
                   </div>
-                  <p className="text-white/80 text-sm">{stat.label}</p>
+                  <p className="text-gray-300 text-sm font-mono">{stat.label}</p>
                 </motion.div>
               ))}
             </motion.div>
@@ -246,70 +275,62 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Search Section */}
-      <section className="section-modern bg-gradient-to-br from-primary-50 to-secondary-50">
-        <div className="container-modern">
+      {/* Search Section Cuántica */}
+      <section className="py-20 relative">
+        <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="card-elegant p-8 shadow-xl"
+            className="hologram-card p-8 max-w-4xl mx-auto hover-glow"
           >
             <div className="text-center mb-8">
-              <h2 className="heading-3 text-neutral-900 mb-4">
-                {t('home.search.title')}
+              <h2 className="text-4xl font-cyber font-bold neon-text mb-4">
+                <Search className="inline w-8 h-8 mr-3" />
+                QUANTUM.SEARCH.PROTOCOL
               </h2>
-              <p className="text-neutral-600">
-                {t('home.search.subtitle')}
+              <p className="text-gray-300 font-mono">
+                Initialize your neural booking sequence
               </p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-              <Input
+              <input
                 type="text"
-                variant="search"
-                placeholder={t('home.search.locationPlaceholder')}
-                icon={MapPin}
-                iconPosition="left"
+                placeholder="DESTINATION.COORDINATES"
+                className="quantum-input"
               />
-              <Input
+              <input
                 type="date"
-                variant="search"
-                placeholder={t('home.search.checkIn')}
-                icon={Calendar}
-                iconPosition="left"
+                placeholder="ENTRY.TIMESTAMP"
+                className="quantum-input"
               />
-              <Input
+              <input
                 type="date"
-                variant="search"
-                placeholder={t('home.search.checkOut')}
-                icon={Calendar}
-                iconPosition="left"
+                placeholder="EXIT.TIMESTAMP"
+                className="quantum-input"
               />
-              <select className="input-search">
-                <option>1 {t('common.person')}</option>
-                <option>2 {t('common.people')}</option>
-                <option>3 {t('common.people')}</option>
-                <option>4+ {t('common.people')}</option>
+              <select className="quantum-input">
+                <option>1 NEURAL.USER</option>
+                <option>2 NEURAL.USERS</option>
+                <option>3 NEURAL.USERS</option>
+                <option>4+ NEURAL.USERS</option>
               </select>
             </div>
             
             <div className="flex justify-center">
-              <Button
-                variant="primary"
-                size="lg"
-                icon={Search}
-                iconPosition="right"
-                className="w-full md:w-auto"
-              >
-                {t('home.search.searchButton')}
-              </Button>
+              <ShimmerButton className="w-full md:w-auto">
+                <Zap className="w-5 h-5 mr-2" />
+                EXECUTE.SEARCH.PROTOCOL
+                <Terminal className="w-5 h-5 ml-2" />
+              </ShimmerButton>
             </div>
 
             <div className="text-center mt-4">
-              <p className="text-sm text-neutral-500">
-                {t('home.search.tip')}
+              <p className="text-sm text-gray-400 font-mono">
+                <Sparkles className="inline w-4 h-4 mr-1" />
+                TIP: Book in advance for quantum discounts
               </p>
             </div>
           </motion.div>
@@ -317,8 +338,8 @@ const Home: React.FC = () => {
       </section>
 
       {/* Features Section */}
-      <section className="section-modern bg-white">
-        <div className="container-modern">
+      <section className="py-20 relative">
+        <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -326,11 +347,11 @@ const Home: React.FC = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="heading-2 text-neutral-900 mb-4">
-              {t('home.features.title')}
+            <h2 className="text-5xl font-cyber font-bold hologram-text mb-4">
+              NEURAL.FEATURES.ARRAY
             </h2>
-            <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
-              {t('home.features.subtitle')}
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto font-mono">
+              Experience next-generation hospitality technology
             </p>
           </motion.div>
 
@@ -342,16 +363,13 @@ const Home: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
+                className="hologram-card p-6 text-center hover-levitate data-stream"
               >
-                <Card variant="elegant" className="text-center h-full">
-                  <CardBody>
-                    <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                      <feature.icon className="w-8 h-8 text-white" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-neutral-900 mb-2">{feature.title}</h3>
-                    <p className="text-neutral-600 text-sm">{feature.description}</p>
-                  </CardBody>
-                </Card>
+                <div className={`w-16 h-16 bg-gradient-to-br from-${feature.color} to-neon-purple rounded-2xl flex items-center justify-center mx-auto mb-4 animate-quantum`}>
+                  <feature.icon className="w-8 h-8 text-white" />
+                </div>
+                <h3 className={`text-lg font-cyber font-bold text-${feature.color} mb-2`}>{feature.title}</h3>
+                <p className="text-gray-300 text-sm font-mono">{feature.description}</p>
               </motion.div>
             ))}
           </div>
@@ -359,8 +377,8 @@ const Home: React.FC = () => {
       </section>
 
       {/* Amenities Section */}
-      <section className="section-modern bg-gradient-to-br from-neutral-50 to-warm-50">
-        <div className="container-modern">
+      <section className="py-20 relative">
+        <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -368,11 +386,11 @@ const Home: React.FC = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="heading-2 text-neutral-900 mb-4">
-              {t('home.amenities.title')}
+            <h2 className="text-5xl font-cyber font-bold neon-text mb-4">
+              QUANTUM.AMENITIES.MATRIX
             </h2>
-            <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
-              {t('home.amenities.subtitle')}
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto font-mono">
+              Advanced technology for the ultimate experience
             </p>
           </motion.div>
 
@@ -384,13 +402,13 @@ const Home: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center group"
+                className="text-center group hover-morph"
               >
-                <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                <div className={`w-16 h-16 bg-gradient-to-br from-${amenity.color} to-neon-purple rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:animate-rotate-3d transition-all duration-300`}>
                   <amenity.icon className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-lg font-semibold text-neutral-900 mb-2">{amenity.name}</h3>
-                <p className="text-neutral-600 text-sm">{amenity.description}</p>
+                <h3 className={`text-lg font-cyber font-bold text-${amenity.color} mb-2`}>{amenity.name}</h3>
+                <p className="text-gray-300 text-sm font-mono">{amenity.description}</p>
               </motion.div>
             ))}
           </div>
@@ -398,8 +416,8 @@ const Home: React.FC = () => {
       </section>
 
       {/* Room Types Section */}
-      <section className="section-modern bg-white">
-        <div className="container-modern">
+      <section className="py-20 relative">
+        <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -407,11 +425,11 @@ const Home: React.FC = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="heading-2 text-neutral-900 mb-4">
-              {t('home.roomTypes.title')}
+            <h2 className="text-5xl font-cyber font-bold hologram-text mb-4">
+              NEURAL.CHAMBERS.CATALOG
             </h2>
-            <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
-              {t('home.roomTypes.subtitle')}
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto font-mono">
+              Choose your digital reality experience
             </p>
           </motion.div>
 
@@ -423,36 +441,31 @@ const Home: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
+                className="hologram-card hover-levitate"
               >
-                <Card variant="hover" className="h-full">
-                  <div className="h-48 bg-gradient-to-br from-primary-100 to-secondary-100 rounded-t-2xl flex items-center justify-center">
-                    <Bed className="w-16 h-16 text-primary-500" />
+                <div className={`h-48 bg-gradient-to-br from-${room.color}/20 to-neon-purple/20 rounded-t-2xl flex items-center justify-center relative overflow-hidden`}>
+                  <Bed className={`w-16 h-16 text-${room.color} animate-float`} />
+                  <div className="absolute inset-0 bg-cyber-grid opacity-30"></div>
+                </div>
+                <div className="p-6">
+                  <h3 className={`text-xl font-cyber font-bold text-${room.color} mb-2`}>{room.name}</h3>
+                  <p className="text-gray-300 mb-4 font-mono text-sm">{room.description}</p>
+                  <div className="space-y-2 mb-6">
+                    {room.features.map((feature, featureIndex) => (
+                      <div key={featureIndex} className="flex items-center space-x-2">
+                        <CheckCircle className={`w-4 h-4 text-${room.color}`} />
+                        <span className="text-sm text-gray-300 font-mono">{feature}</span>
+                      </div>
+                    ))}
                   </div>
-                  <CardBody>
-                    <h3 className="text-xl font-semibold text-neutral-900 mb-2">{room.name}</h3>
-                    <p className="text-neutral-600 mb-4">{room.description}</p>
-                    <div className="space-y-2 mb-6">
-                      {room.features.map((feature, featureIndex) => (
-                        <div key={featureIndex} className="flex items-center space-x-2">
-                          <CheckCircle className="w-4 h-4 text-primary-500" />
-                          <span className="text-sm text-neutral-600">{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </CardBody>
-                  <CardFooter>
-                    <div className="flex items-center justify-between w-full">
-                      <span className="text-lg font-bold text-primary-600">{room.price}</span>
-                      <Button
-                        variant="primary"
-                        size="sm"
-                        href="/rooms"
-                      >
-                        {t('home.roomTypes.viewDetails')}
-                      </Button>
-                    </div>
-                  </CardFooter>
-                </Card>
+                  <div className="flex items-center justify-between">
+                    <span className={`text-lg font-cyber font-bold text-${room.color}`}>{room.price}</span>
+                    <ShimmerButton variant="cyber">
+                      <Eye className="w-4 h-4 mr-2" />
+                      ACCESS.DATA
+                    </ShimmerButton>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -460,8 +473,8 @@ const Home: React.FC = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="section-modern bg-gradient-to-br from-neutral-50 to-warm-50">
-        <div className="container-modern">
+      <section className="py-20 relative">
+        <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -469,11 +482,11 @@ const Home: React.FC = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="heading-2 text-neutral-900 mb-4">
-              {t('home.testimonials.title')}
+            <h2 className="text-5xl font-cyber font-bold neon-text mb-4">
+              USER.FEEDBACK.LOGS
             </h2>
-            <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
-              {t('home.testimonials.subtitle')}
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto font-mono">
+              Neural testimonials from satisfied users
             </p>
           </motion.div>
 
@@ -485,24 +498,21 @@ const Home: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
+                className="hologram-card p-6 hover-glow"
               >
-                <Card variant="testimonial" className="h-full">
-                  <CardBody>
-                    <div className="flex items-center mb-4">
-                      <div className="text-3xl mr-3">{testimonial.avatar}</div>
-                      <div>
-                        <h4 className="font-semibold text-neutral-900">{testimonial.name}</h4>
-                        <p className="text-sm text-neutral-600">{testimonial.country}</p>
-                      </div>
-                      <div className="ml-auto flex items-center">
-                        {[...Array(testimonial.rating)].map((_, i) => (
-                          <Star key={i} className="w-4 h-4 text-warm-500 fill-current" />
-                        ))}
-                      </div>
-                    </div>
-                    <p className="text-neutral-600 italic">"{testimonial.text}"</p>
-                  </CardBody>
-                </Card>
+                <div className="flex items-center mb-4">
+                  <div className="text-3xl mr-3">{testimonial.avatar}</div>
+                  <div>
+                    <h4 className={`font-cyber font-bold text-${testimonial.color}`}>{testimonial.name}</h4>
+                    <p className="text-sm text-gray-400 font-mono">{testimonial.country}</p>
+                  </div>
+                  <div className="ml-auto flex items-center">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className={`w-4 h-4 text-${testimonial.color} fill-current`} />
+                    ))}
+                  </div>
+                </div>
+                <p className="text-gray-300 italic font-mono text-sm">"{testimonial.text}"</p>
               </motion.div>
             ))}
           </div>
@@ -510,109 +520,35 @@ const Home: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="section-modern bg-gradient-to-br from-primary-500 to-secondary-500">
-        <div className="container-modern text-center">
+      <section className="py-20 relative">
+        <AnimatedGradient className="absolute inset-0" />
+        <div className="container mx-auto px-4 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="heading-2 text-white mb-4">
-              {t('home.cta.title')}
+            <h2 className="text-5xl font-cyber font-bold hologram-text mb-4">
+              READY.TO.JACK.IN?
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              {t('home.cta.subtitle')}
+            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto font-mono">
+              Join the neural network and experience the future of hospitality
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                variant="secondary"
-                size="lg"
-                icon={ArrowRight}
-                iconPosition="right"
-                href="/register"
-              >
-                {t('home.cta.bookNow')}
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                href="/contact"
-                className="border-white text-white hover:bg-white hover:text-primary-600"
-              >
-                {t('home.cta.contact')}
-              </Button>
+              <ShimmerButton>
+                <Rocket className="w-5 h-5 mr-2" />
+                INITIALIZE.BOOKING
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </ShimmerButton>
+              <button className="glass-primary px-8 py-4 rounded-xl border border-neon-cyan/30 text-neon-cyan hover:bg-neon-cyan/10 transition-all duration-300 font-mono font-bold">
+                <Terminal className="w-5 h-5 mr-2 inline" />
+                CONTACT.ADMIN
+              </button>
             </div>
           </motion.div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-neutral-900 text-white py-16">
-        <div className="container-modern">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-xl font-bold mb-4">Gift of God</h3>
-              <p className="text-neutral-400 mb-4">
-                {t('footer.description')}
-              </p>
-              <div className="flex space-x-4">
-                <a href="#" className="text-neutral-400 hover:text-primary-500 transition-colors">
-                  <Facebook className="w-5 h-5" />
-                </a>
-                <a href="#" className="text-neutral-400 hover:text-primary-500 transition-colors">
-                  <Instagram className="w-5 h-5" />
-                </a>
-                <a href="#" className="text-neutral-400 hover:text-primary-500 transition-colors">
-                  <Twitter className="w-5 h-5" />
-                </a>
-              </div>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">{t('footer.quickLinks')}</h4>
-              <ul className="space-y-2">
-                <li><a href="/rooms" className="text-neutral-400 hover:text-white transition-colors">{t('nav.rooms')}</a></li>
-                <li><a href="/about" className="text-neutral-400 hover:text-white transition-colors">{t('nav.about')}</a></li>
-                <li><a href="/contact" className="text-neutral-400 hover:text-white transition-colors">{t('nav.contact')}</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">{t('footer.services')}</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-neutral-400 hover:text-white transition-colors">{t('footer.accommodation')}</a></li>
-                <li><a href="#" className="text-neutral-400 hover:text-white transition-colors">{t('footer.tours')}</a></li>
-                <li><a href="#" className="text-neutral-400 hover:text-white transition-colors">{t('footer.transport')}</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">{t('footer.contact')}</h4>
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2">
-                  <Phone className="w-4 h-4 text-primary-500" />
-                  <span className="text-neutral-400">+1 234 567 890</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Mail className="w-4 h-4 text-primary-500" />
-                  <span className="text-neutral-400">info@giftofgod.com</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <MapPin className="w-4 h-4 text-primary-500" />
-                  <span className="text-neutral-400">{t('footer.address')}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="border-t border-neutral-800 mt-8 pt-8 text-center">
-            <p className="text-neutral-400">
-              © 2024 Gift of God. {t('footer.rights')}
-            </p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };

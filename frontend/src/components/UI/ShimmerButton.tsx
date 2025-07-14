@@ -40,4 +40,4 @@ const ShimmerButton: React.FC<ShimmerButtonProps> = ({
   );
 };
 
-export default ShimmerButton; 
+export default ShimmerButton;

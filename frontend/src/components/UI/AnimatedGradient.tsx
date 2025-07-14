@@ -19,4 +19,4 @@ const AnimatedGradient: React.FC<AnimatedGradientProps> = ({ className = '', chi
   );
 };
 
-export default AnimatedGradient; 
+export default AnimatedGradient;
