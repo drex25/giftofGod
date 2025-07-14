@@ -1,168 +1,248 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { 
-  Heart, 
-  MapPin, 
   Phone, 
   Mail, 
-  Facebook, 
+  MapPin, 
   Instagram, 
-  Twitter, 
-  Youtube,
-  ArrowRight,
-  Building,
-  Users,
-  Shield,
-  Star
+  Facebook, 
+  Twitter,
+  Heart,
+  ArrowUp
 } from 'lucide-react';
+import Button from '../UI/Button';
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
-  const currentYear = new Date().getFullYear();
 
-  const quickLinks = [
-    { name: t('navigation.home'), href: '/' },
-    { name: t('navigation.rooms'), href: '/rooms' },
-    { name: t('navigation.about'), href: '/about' },
-    { name: t('navigation.contact'), href: '/contact' },
-  ];
-
-  const services = [
-    { name: t('home.amenities.wifi'), icon: Building },
-    { name: t('home.amenities.breakfast'), icon: Users },
-    { name: t('home.amenities.beds'), icon: Shield },
-    { name: t('home.amenities.kitchen'), icon: Star },
-  ];
-
-  const socialLinks = [
-    { name: 'Facebook', href: '#', icon: Facebook },
-    { name: 'Instagram', href: '#', icon: Instagram },
-    { name: 'Twitter', href: '#', icon: Twitter },
-    { name: 'YouTube', href: '#', icon: Youtube },
-  ];
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
-    <footer className="bg-gradient-to-br from-earth-900 via-earth-800 to-earth-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <footer className="bg-neutral-900 text-white">
+      {/* Main Footer */}
+      <div className="container-modern py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand Section */}
           <div className="lg:col-span-1">
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center">
-                <Heart className="h-6 w-6 text-white" />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">G</span>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold">Gift of God</h3>
+                  <p className="text-xs text-neutral-400 font-medium">
+                    {t('nav.tagline')}
+                  </p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-2xl font-display font-bold gradient-text-warm">Gift Of God</h3>
-                <p className="text-sm text-earth-300 font-medium">{t('footer.tagline')}</p>
-              </div>
-            </div>
-            <p className="text-earth-300 leading-relaxed mb-6">
-              {t('footer.description')}
-            </p>
-            <div className="flex space-x-4">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.href}
-                  className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center hover:bg-primary-500 transition-colors duration-300 group"
+              <p className="text-neutral-400 mb-6 leading-relaxed">
+                {t('footer.description')}
+              </p>
+              <div className="flex space-x-4">
+                <motion.a
+                  href="#"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="w-10 h-10 bg-neutral-800 rounded-lg flex items-center justify-center text-neutral-400 hover:text-primary-500 transition-colors"
                 >
-                  <social.icon className="w-5 h-5 text-white group-hover:scale-110 transition-transform duration-300" />
-                </a>
-              ))}
-            </div>
+                  <Facebook className="w-5 h-5" />
+                </motion.a>
+                <motion.a
+                  href="#"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="w-10 h-10 bg-neutral-800 rounded-lg flex items-center justify-center text-neutral-400 hover:text-primary-500 transition-colors"
+                >
+                  <Instagram className="w-5 h-5" />
+                </motion.a>
+                <motion.a
+                  href="#"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="w-10 h-10 bg-neutral-800 rounded-lg flex items-center justify-center text-neutral-400 hover:text-primary-500 transition-colors"
+                >
+                  <Twitter className="w-5 h-5" />
+                </motion.a>
+              </div>
+            </motion.div>
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h4 className="text-lg font-semibold mb-6 text-white">{t('footer.quickLinks')}</h4>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+          >
+            <h4 className="text-lg font-semibold mb-6">{t('footer.quickLinks')}</h4>
             <ul className="space-y-3">
-              {quickLinks.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    to={link.href}
-                    className="text-earth-300 hover:text-primary-400 transition-colors duration-300 flex items-center group"
-                  >
-                    <ArrowRight className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform duration-300" />
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link 
+                  to="/rooms" 
+                  className="text-neutral-400 hover:text-white transition-colors duration-300"
+                >
+                  {t('nav.rooms')}
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/about" 
+                  className="text-neutral-400 hover:text-white transition-colors duration-300"
+                >
+                  {t('nav.about')}
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/contact" 
+                  className="text-neutral-400 hover:text-white transition-colors duration-300"
+                >
+                  {t('nav.contact')}
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/dashboard" 
+                  className="text-neutral-400 hover:text-white transition-colors duration-300"
+                >
+                  {t('nav.dashboard')}
+                </Link>
+              </li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Services */}
-          <div>
-            <h4 className="text-lg font-semibold mb-6 text-white">{t('footer.services')}</h4>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <h4 className="text-lg font-semibold mb-6">{t('footer.services')}</h4>
             <ul className="space-y-3">
-              {services.map((service) => (
-                <li key={service.name} className="flex items-center space-x-3">
-                  <service.icon className="w-5 h-5 text-primary-400" />
-                  <span className="text-earth-300">{service.name}</span>
-                </li>
-              ))}
+              <li>
+                <a href="#" className="text-neutral-400 hover:text-white transition-colors duration-300">
+                  {t('footer.accommodation')}
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-neutral-400 hover:text-white transition-colors duration-300">
+                  {t('footer.tours')}
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-neutral-400 hover:text-white transition-colors duration-300">
+                  {t('footer.transport')}
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-neutral-400 hover:text-white transition-colors duration-300">
+                  Airport Transfer
+                </a>
+              </li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Contact Info */}
-          <div>
-            <h4 className="text-lg font-semibold mb-6 text-white">{t('footer.contactInfo')}</h4>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            viewport={{ once: true }}
+          >
+            <h4 className="text-lg font-semibold mb-6">{t('footer.contact')}</h4>
             <div className="space-y-4">
-              <div className="flex items-start space-x-3">
-                <MapPin className="w-5 h-5 text-primary-400 mt-1" />
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
+                  <Phone className="w-4 h-4 text-white" />
+                </div>
                 <div>
-                  <p className="text-earth-300">{t('footer.address')}</p>
-                  <p className="text-earth-300">{t('footer.city')}</p>
+                  <p className="text-sm text-neutral-400">Phone</p>
+                  <p className="text-white">+1 234 567 890</p>
                 </div>
               </div>
+              
               <div className="flex items-center space-x-3">
-                <Phone className="w-5 h-5 text-primary-400" />
-                <a
-                  href={`tel:${t('footer.phone')}`}
-                  className="text-earth-300 hover:text-primary-400 transition-colors duration-300"
-                >
-                  {t('footer.phone')}
-                </a>
+                <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
+                  <Mail className="w-4 h-4 text-white" />
+                </div>
+                <div>
+                  <p className="text-sm text-neutral-400">Email</p>
+                  <p className="text-white">info@giftofgod.com</p>
+                </div>
               </div>
+              
               <div className="flex items-center space-x-3">
-                <Mail className="w-5 h-5 text-primary-400" />
-                <a
-                  href={`mailto:${t('footer.email')}`}
-                  className="text-earth-300 hover:text-primary-400 transition-colors duration-300"
-                >
-                  {t('footer.email')}
-                </a>
+                <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
+                  <MapPin className="w-4 h-4 text-white" />
+                </div>
+                <div>
+                  <p className="text-sm text-neutral-400">Address</p>
+                  <p className="text-white text-sm">{t('footer.address')}</p>
+                </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
+      </div>
 
-        {/* Bottom Section */}
-        <div className="border-t border-earth-700 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-earth-400 text-sm">
-              {t('footer.copyright', { year: currentYear })}
-            </p>
-            <div className="flex space-x-6 text-sm">
-              <Link
-                to="/privacy"
-                className="text-earth-400 hover:text-primary-400 transition-colors duration-300"
-              >
-                {t('footer.privacy')}
-              </Link>
-              <Link
-                to="/terms"
-                className="text-earth-400 hover:text-primary-400 transition-colors duration-300"
-              >
-                {t('footer.terms')}
-              </Link>
-              <Link
-                to="/cookies"
-                className="text-earth-400 hover:text-primary-400 transition-colors duration-300"
-              >
-                {t('footer.cookies')}
-              </Link>
-            </div>
+      {/* Bottom Footer */}
+      <div className="border-t border-neutral-800">
+        <div className="container-modern py-6">
+          <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="flex items-center space-x-2 text-neutral-400"
+            >
+              <span>© 2024 Gift of God.</span>
+              <span>{t('footer.rights')}</span>
+              <Heart className="w-4 h-4 text-primary-500" />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="flex items-center space-x-6 text-sm text-neutral-400"
+            >
+              <a href="#" className="hover:text-white transition-colors">
+                Privacy Policy
+              </a>
+              <a href="#" className="hover:text-white transition-colors">
+                Terms of Service
+              </a>
+              <a href="#" className="hover:text-white transition-colors">
+                Cookie Policy
+              </a>
+            </motion.div>
+
+            {/* Scroll to Top Button */}
+            <motion.button
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{ duration: 0.3 }}
+              viewport={{ once: true }}
+              onClick={scrollToTop}
+              className="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center text-white hover:bg-primary-600 transition-colors"
+            >
+              <ArrowUp className="w-5 h-5" />
+            </motion.button>
           </div>
         </div>
       </div>

@@ -27,7 +27,7 @@
     "person": "personne",
     "people": "personnes"
   },
-  "navigation": {
+  "nav": {
     "home": "Accueil",
     "rooms": "Chambres",
     "about": "À propos",
@@ -39,7 +39,8 @@
     "reservations": "Réservations",
     "profile": "Profil",
     "settings": "Paramètres",
-    "admin": "Administration"
+    "admin": "Administration",
+    "tagline": "HOSPITALITÉ ET CONFORT"
   },
   "home": {
     "hero": {
@@ -60,6 +61,26 @@
       "guests": "Voyageurs",
       "searchButton": "Rechercher",
       "tip": "💡 Conseil : Réservez à l'avance pour obtenir les meilleurs prix"
+    },
+    "features": {
+      "title": "Pourquoi Choisir Gift Of God",
+      "subtitle": "Découvrez la différence avec nos services et équipements exceptionnels",
+      "quality": {
+        "title": "Qualité Premium",
+        "description": "Nous maintenons les plus hauts standards de propreté et de confort"
+      },
+      "service": {
+        "title": "Service 24/7",
+        "description": "Notre personnel est toujours disponible pour vous assister"
+      },
+      "location": {
+        "title": "Emplacement Idéal",
+        "description": "Situé au centre avec un accès facile aux attractions"
+      },
+      "comfort": {
+        "title": "Confort Maximum",
+        "description": "Conçu pour votre relaxation et commodité ultimes"
+      }
     },
     "amenities": {
       "title": "Services et Équipements",
@@ -167,19 +188,15 @@
     }
   },
   "footer": {
-    "tagline": "HOSPITALITÉ ET CONFORT",
     "description": "Où chaque invité est traité comme un membre de la famille. Découvrez le confort et l'hospitalité dans leur plus belle expression.",
     "quickLinks": "Liens Rapides",
     "services": "Nos Services",
-    "contactInfo": "Informations de Contact",
-    "address": "123 Rue Principale",
-    "city": "Ville, Pays 12345",
-    "phone": "+1 (555) 123-4567",
-    "email": "info@giftofgod.com",
-    "privacy": "Politique de Confidentialité",
-    "terms": "Conditions de Service",
-    "cookies": "Politique des Cookies",
-    "copyright": "© {{year}} Gift Of God Hostel. Tous droits réservés."
+    "contact": "Informations de Contact",
+    "accommodation": "Hébergement",
+    "tours": "Visites Guidées",
+    "transport": "Transport",
+    "address": "123 Rue Principale, Ville, Pays 12345",
+    "rights": "Tous droits réservés."
   },
   "auth": {
     "login": {

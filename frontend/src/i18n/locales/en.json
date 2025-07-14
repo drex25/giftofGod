@@ -27,7 +27,7 @@
     "person": "person",
     "people": "people"
   },
-  "navigation": {
+  "nav": {
     "home": "Home",
     "rooms": "Rooms",
     "about": "About",
@@ -39,7 +39,8 @@
     "reservations": "Reservations",
     "profile": "Profile",
     "settings": "Settings",
-    "admin": "Admin"
+    "admin": "Admin",
+    "tagline": "HOSPITALITY & COMFORT"
   },
   "home": {
     "hero": {
@@ -60,6 +61,26 @@
       "guests": "Guests",
       "searchButton": "Search",
       "tip": "💡 Tip: Book in advance to get the best prices"
+    },
+    "features": {
+      "title": "Why Choose Gift Of God",
+      "subtitle": "Experience the difference with our exceptional services and amenities",
+      "quality": {
+        "title": "Premium Quality",
+        "description": "We maintain the highest standards of cleanliness and comfort"
+      },
+      "service": {
+        "title": "24/7 Service",
+        "description": "Our staff is always available to assist you"
+      },
+      "location": {
+        "title": "Prime Location",
+        "description": "Centrally located with easy access to attractions"
+      },
+      "comfort": {
+        "title": "Maximum Comfort",
+        "description": "Designed for your ultimate relaxation and convenience"
+      }
     },
     "amenities": {
       "title": "Services & Amenities",
@@ -167,19 +188,15 @@
     }
   },
   "footer": {
-    "tagline": "HOSPITALITY & COMFORT",
     "description": "Where every guest is treated like family. Discover comfort and hospitality at its finest.",
     "quickLinks": "Quick Links",
     "services": "Our Services",
-    "contactInfo": "Contact Information",
-    "address": "123 Main Street",
-    "city": "City, Country 12345",
-    "phone": "+1 (555) 123-4567",
-    "email": "info@giftofgod.com",
-    "privacy": "Privacy Policy",
-    "terms": "Terms of Service",
-    "cookies": "Cookie Policy",
-    "copyright": "© {{year}} Gift Of God Hostel. All rights reserved."
+    "contact": "Contact Information",
+    "accommodation": "Accommodation",
+    "tours": "Guided Tours",
+    "transport": "Transportation",
+    "address": "123 Main Street, City, Country 12345",
+    "rights": "All rights reserved."
   },
   "auth": {
     "login": {

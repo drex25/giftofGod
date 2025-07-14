@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { useAuth } from '../../contexts/AuthContext';
 import Button from '../../components/UI/Button';
 import Input from '../../components/UI/Input';
+import Card from '../../components/UI/Card';
 
 const Login: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -46,81 +48,95 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Iniciar Sesión
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            ¿No tienes cuenta?{' '}
-            <Link to="/register" className="font-medium text-primary-600 hover:text-primary-500">
-              Regístrate aquí
-            </Link>
-          </p>
-        </div>
-        
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          {errors.general && (
-            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md">
-              {errors.general}
-            </div>
-          )}
-          
-          <div className="space-y-4">
-            <Input
-              label="Email"
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              error={errors.email}
-              required
-              autoComplete="email"
-            />
-            
-            <Input
-              label="Contraseña"
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              error={errors.password}
-              required
-              autoComplete="current-password"
-            />
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
-              />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                Recordarme
-              </label>
-            </div>
-
-            <div className="text-sm">
-              <Link to="/forgot-password" className="font-medium text-primary-600 hover:text-primary-500">
-                ¿Olvidaste tu contraseña?
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 to-secondary-50 py-12 px-4 sm:px-6 lg:px-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="w-full max-w-md"
+      >
+        <Card variant="elegant" className="p-8">
+          <div className="text-center mb-8">
+            <h2 className="heading-3 text-neutral-900 mb-2">
+              Iniciar Sesión
+            </h2>
+            <p className="text-neutral-600">
+              ¿No tienes cuenta?{' '}
+              <Link to="/register" className="text-primary-600 hover:text-primary-500 font-medium transition-colors">
+                Regístrate aquí
               </Link>
-            </div>
+            </p>
           </div>
+          
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            {errors.general && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-error-50 border border-error-200 text-error-600 px-4 py-3 rounded-xl"
+              >
+                {errors.general}
+              </motion.div>
+            )}
+            
+            <div className="space-y-4">
+              <Input
+                label="Email"
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                error={errors.email}
+                required
+                autoComplete="email"
+                fullWidth
+              />
+              
+              <Input
+                label="Contraseña"
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                error={errors.password}
+                required
+                autoComplete="current-password"
+                fullWidth
+              />
+            </div>
 
-          <Button
-            type="submit"
-            loading={loading}
-            className="w-full"
-            size="lg"
-          >
-            Iniciar Sesión
-          </Button>
-        </form>
-      </div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <input
+                  id="remember-me"
+                  name="remember-me"
+                  type="checkbox"
+                  className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-neutral-300 rounded"
+                />
+                <label htmlFor="remember-me" className="ml-2 block text-sm text-neutral-700">
+                  Recordarme
+                </label>
+              </div>
+
+              <div className="text-sm">
+                <Link to="/forgot-password" className="font-medium text-primary-600 hover:text-primary-500 transition-colors">
+                  ¿Olvidaste tu contraseña?
+                </Link>
+              </div>
+            </div>
+
+            <Button
+              type="submit"
+              variant="primary"
+              size="lg"
+              loading={loading}
+              fullWidth
+            >
+              Iniciar Sesión
+            </Button>
+          </form>
+        </Card>
+      </motion.div>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { 
   Wifi, 
@@ -19,17 +19,29 @@ import {
   Car,
   WashingMachine,
   Tv,
-  Wifi as WifiIcon,
   Building,
   TreePine,
   Mountain,
   Waves,
-  Building2
+  Building2,
+  Search,
+  Clock,
+  Award,
+  Globe,
+  Phone,
+  Mail,
+  Instagram,
+  Facebook,
+  Twitter
 } from 'lucide-react';
+import Button from '../components/UI/Button';
+import Card, { CardHeader, CardBody, CardFooter } from '../components/UI/Card';
+import Input from '../components/UI/Input';
 
 const Home: React.FC = () => {
   const { t } = useTranslation();
   const [currentImage, setCurrentImage] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
 
   const heroImages = [
     '/images/hero-1.jpg',
@@ -44,8 +56,12 @@ const Home: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
   const amenities = [
-    { icon: WifiIcon, name: t('home.amenities.wifi'), description: t('home.amenities.wifiDesc') },
+    { icon: Wifi, name: t('home.amenities.wifi'), description: t('home.amenities.wifiDesc') },
     { icon: Coffee, name: t('home.amenities.breakfast'), description: t('home.amenities.breakfastDesc') },
     { icon: Bed, name: t('home.amenities.beds'), description: t('home.amenities.bedsDesc') },
     { icon: Utensils, name: t('home.amenities.kitchen'), description: t('home.amenities.kitchenDesc') },
@@ -110,6 +126,13 @@ const Home: React.FC = () => {
     { number: '24/7', label: t('home.stats.support'), icon: Shield }
   ];
 
+  const features = [
+    { icon: Award, title: t('home.features.quality.title'), description: t('home.features.quality.description') },
+    { icon: Clock, title: t('home.features.service.title'), description: t('home.features.service.description') },
+    { icon: Globe, title: t('home.features.location.title'), description: t('home.features.location.description') },
+    { icon: Heart, title: t('home.features.comfort.title'), description: t('home.features.comfort.description') },
+  ];
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -129,10 +152,10 @@ const Home: React.FC = () => {
               }}
             />
           ))}
-          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/30 to-black/50"></div>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+        <div className="relative container-modern text-center">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -140,45 +163,75 @@ const Home: React.FC = () => {
             className="text-white"
           >
             <div className="mb-6">
-              <span className="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full text-white text-sm font-medium mb-4">
+              <motion.span
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="inline-block px-6 py-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-full text-white text-sm font-medium mb-4"
+              >
                 ✨ {t('home.hero.tagline')}
-              </span>
+              </motion.span>
             </div>
             
-            <h1 className="text-5xl lg:text-7xl font-display font-bold mb-6 leading-tight">
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="heading-1 mb-6"
+            >
               <span className="gradient-text-warm">{t('home.hero.title')}</span>
               <br />
               <span className="text-white">{t('home.hero.subtitle')}</span>
-            </h1>
+            </motion.h1>
             
-            <p className="text-xl lg:text-2xl text-white/90 mb-8 leading-relaxed max-w-3xl mx-auto">
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-xl lg:text-2xl text-white/90 mb-8 leading-relaxed max-w-3xl mx-auto"
+            >
               {t('home.hero.description')}
-            </p>
+            </motion.p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Link
-                to="/rooms"
-                className="btn-primary group"
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+            >
+              <Button
+                variant="primary"
+                size="lg"
+                icon={ArrowRight}
+                iconPosition="right"
+                href="/rooms"
+                className="group"
               >
-                <span>{t('home.hero.exploreButton')}</span>
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                to="/register"
-                className="btn-outline border-white text-white hover:bg-white hover:text-primary-600"
+                {t('home.hero.exploreButton')}
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                href="/register"
+                className="border-white text-white hover:bg-white hover:text-primary-600"
               >
                 {t('home.hero.bookButton')}
-              </Link>
-            </div>
+              </Button>
+            </motion.div>
 
             {/* Stats */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto"
+            >
               {stats.map((stat, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+                  transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
                   className="text-center"
                 >
                   <div className="flex items-center justify-center mb-2">
@@ -188,84 +241,74 @@ const Home: React.FC = () => {
                   <p className="text-white/80 text-sm">{stat.label}</p>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* Search Section */}
-      <section className="py-16 bg-gradient-to-br from-primary-50 to-secondary-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="section-modern bg-gradient-to-br from-primary-50 to-secondary-50">
+        <div className="container-modern">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="card p-8 shadow-elegant"
+            className="card-elegant p-8 shadow-xl"
           >
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-display font-bold text-earth-800 mb-4">
+              <h2 className="heading-3 text-neutral-900 mb-4">
                 {t('home.search.title')}
               </h2>
-              <p className="text-earth-600">
+              <p className="text-neutral-600">
                 {t('home.search.subtitle')}
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-earth-700 mb-2">
-                  {t('home.search.location')}
-                </label>
-                <input
-                  type="text"
-                  className="input-search"
-                  placeholder={t('home.search.locationPlaceholder')}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-earth-700 mb-2">
-                  {t('home.search.checkIn')}
-                </label>
-                <input
-                  type="date"
-                  className="input-search"
-                  placeholder={t('home.search.checkIn')}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-earth-700 mb-2">
-                  {t('home.search.checkOut')}
-                </label>
-                <input
-                  type="date"
-                  className="input-search"
-                  placeholder={t('home.search.checkOut')}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-earth-700 mb-2">
-                  {t('home.search.guests')}
-                </label>
-                <select className="input-search">
-                  <option>1 {t('common.person')}</option>
-                  <option>2 {t('common.people')}</option>
-                  <option>3 {t('common.people')}</option>
-                  <option>4+ {t('common.people')}</option>
-                </select>
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+              <Input
+                type="text"
+                variant="search"
+                placeholder={t('home.search.locationPlaceholder')}
+                icon={MapPin}
+                iconPosition="left"
+              />
+              <Input
+                type="date"
+                variant="search"
+                placeholder={t('home.search.checkIn')}
+                icon={Calendar}
+                iconPosition="left"
+              />
+              <Input
+                type="date"
+                variant="search"
+                placeholder={t('home.search.checkOut')}
+                icon={Calendar}
+                iconPosition="left"
+              />
+              <select className="input-search">
+                <option>1 {t('common.person')}</option>
+                <option>2 {t('common.people')}</option>
+                <option>3 {t('common.people')}</option>
+                <option>4+ {t('common.people')}</option>
+              </select>
             </div>
             
-            <div className="flex justify-center mt-6">
-              <button className="btn-primary w-full md:w-auto px-8 group">
-                <Calendar className="w-5 h-5 mr-2" />
-                <span>{t('home.search.searchButton')}</span>
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </button>
+            <div className="flex justify-center">
+              <Button
+                variant="primary"
+                size="lg"
+                icon={Search}
+                iconPosition="right"
+                className="w-full md:w-auto"
+              >
+                {t('home.search.searchButton')}
+              </Button>
             </div>
 
             <div className="text-center mt-4">
-              <p className="text-sm text-earth-500">
+              <p className="text-sm text-neutral-500">
                 {t('home.search.tip')}
               </p>
             </div>
@@ -273,9 +316,9 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Amenities Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Features Section */}
+      <section className="section-modern bg-white">
+        <div className="container-modern">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -283,10 +326,52 @@ const Home: React.FC = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-display font-bold text-earth-800 mb-4">
+            <h2 className="heading-2 text-neutral-900 mb-4">
+              {t('home.features.title')}
+            </h2>
+            <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
+              {t('home.features.subtitle')}
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <Card variant="elegant" className="text-center h-full">
+                  <CardBody>
+                    <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                      <feature.icon className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-neutral-900 mb-2">{feature.title}</h3>
+                    <p className="text-neutral-600 text-sm">{feature.description}</p>
+                  </CardBody>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Amenities Section */}
+      <section className="section-modern bg-gradient-to-br from-neutral-50 to-warm-50">
+        <div className="container-modern">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="heading-2 text-neutral-900 mb-4">
               {t('home.amenities.title')}
             </h2>
-            <p className="text-xl text-earth-600 max-w-3xl mx-auto">
+            <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
               {t('home.amenities.subtitle')}
             </p>
           </motion.div>
@@ -301,11 +386,11 @@ const Home: React.FC = () => {
                 viewport={{ once: true }}
                 className="text-center group"
               >
-                <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-warm">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
                   <amenity.icon className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-lg font-semibold text-earth-800 mb-2">{amenity.name}</h3>
-                <p className="text-earth-600 text-sm">{amenity.description}</p>
+                <h3 className="text-lg font-semibold text-neutral-900 mb-2">{amenity.name}</h3>
+                <p className="text-neutral-600 text-sm">{amenity.description}</p>
               </motion.div>
             ))}
           </div>
@@ -313,8 +398,8 @@ const Home: React.FC = () => {
       </section>
 
       {/* Room Types Section */}
-      <section className="py-20 bg-gradient-to-br from-earth-50 to-warm-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="section-modern bg-white">
+        <div className="container-modern">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -322,10 +407,10 @@ const Home: React.FC = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-display font-bold text-earth-800 mb-4">
+            <h2 className="heading-2 text-neutral-900 mb-4">
               {t('home.roomTypes.title')}
             </h2>
-            <p className="text-xl text-earth-600 max-w-3xl mx-auto">
+            <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
               {t('home.roomTypes.subtitle')}
             </p>
           </motion.div>
@@ -338,32 +423,36 @@ const Home: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className="card card-hover"
               >
-                <div className="h-48 bg-gradient-to-br from-primary-100 to-secondary-100 rounded-t-2xl flex items-center justify-center">
-                  <Bed className="w-16 h-16 text-primary-500" />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-earth-800 mb-2">{room.name}</h3>
-                  <p className="text-earth-600 mb-4">{room.description}</p>
-                  <div className="space-y-2 mb-6">
-                    {room.features.map((feature, featureIndex) => (
-                      <div key={featureIndex} className="flex items-center space-x-2">
-                        <CheckCircle className="w-4 h-4 text-primary-500" />
-                        <span className="text-sm text-earth-600">{feature}</span>
-                      </div>
-                    ))}
+                <Card variant="hover" className="h-full">
+                  <div className="h-48 bg-gradient-to-br from-primary-100 to-secondary-100 rounded-t-2xl flex items-center justify-center">
+                    <Bed className="w-16 h-16 text-primary-500" />
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-bold text-primary-600">{room.price}</span>
-                    <Link
-                      to="/rooms"
-                      className="btn-primary text-sm"
-                    >
-                      {t('home.roomTypes.viewDetails')}
-                    </Link>
-                  </div>
-                </div>
+                  <CardBody>
+                    <h3 className="text-xl font-semibold text-neutral-900 mb-2">{room.name}</h3>
+                    <p className="text-neutral-600 mb-4">{room.description}</p>
+                    <div className="space-y-2 mb-6">
+                      {room.features.map((feature, featureIndex) => (
+                        <div key={featureIndex} className="flex items-center space-x-2">
+                          <CheckCircle className="w-4 h-4 text-primary-500" />
+                          <span className="text-sm text-neutral-600">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </CardBody>
+                  <CardFooter>
+                    <div className="flex items-center justify-between w-full">
+                      <span className="text-lg font-bold text-primary-600">{room.price}</span>
+                      <Button
+                        variant="primary"
+                        size="sm"
+                        href="/rooms"
+                      >
+                        {t('home.roomTypes.viewDetails')}
+                      </Button>
+                    </div>
+                  </CardFooter>
+                </Card>
               </motion.div>
             ))}
           </div>
@@ -371,8 +460,8 @@ const Home: React.FC = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="section-modern bg-gradient-to-br from-neutral-50 to-warm-50">
+        <div className="container-modern">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -380,10 +469,10 @@ const Home: React.FC = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-display font-bold text-earth-800 mb-4">
+            <h2 className="heading-2 text-neutral-900 mb-4">
               {t('home.testimonials.title')}
             </h2>
-            <p className="text-xl text-earth-600 max-w-3xl mx-auto">
+            <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
               {t('home.testimonials.subtitle')}
             </p>
           </motion.div>
@@ -396,21 +485,24 @@ const Home: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className="card p-6"
               >
-                <div className="flex items-center mb-4">
-                  <div className="text-3xl mr-3">{testimonial.avatar}</div>
-                  <div>
-                    <h4 className="font-semibold text-earth-800">{testimonial.name}</h4>
-                    <p className="text-sm text-earth-600">{testimonial.country}</p>
-                  </div>
-                  <div className="ml-auto flex items-center">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-warm-500 fill-current" />
-                    ))}
-                  </div>
-                </div>
-                <p className="text-earth-600 italic">"{testimonial.text}"</p>
+                <Card variant="testimonial" className="h-full">
+                  <CardBody>
+                    <div className="flex items-center mb-4">
+                      <div className="text-3xl mr-3">{testimonial.avatar}</div>
+                      <div>
+                        <h4 className="font-semibold text-neutral-900">{testimonial.name}</h4>
+                        <p className="text-sm text-neutral-600">{testimonial.country}</p>
+                      </div>
+                      <div className="ml-auto flex items-center">
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 text-warm-500 fill-current" />
+                        ))}
+                      </div>
+                    </div>
+                    <p className="text-neutral-600 italic">"{testimonial.text}"</p>
+                  </CardBody>
+                </Card>
               </motion.div>
             ))}
           </div>
@@ -418,38 +510,109 @@ const Home: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-primary-500 to-secondary-500">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="section-modern bg-gradient-to-br from-primary-500 to-secondary-500">
+        <div className="container-modern text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-display font-bold text-white mb-4">
+            <h2 className="heading-2 text-white mb-4">
               {t('home.cta.title')}
             </h2>
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
               {t('home.cta.subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                to="/register"
-                className="btn-secondary group"
+              <Button
+                variant="secondary"
+                size="lg"
+                icon={ArrowRight}
+                iconPosition="right"
+                href="/register"
               >
-                <span>{t('home.cta.bookNow')}</span>
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                to="/contact"
-                className="btn-outline border-white text-white hover:bg-white hover:text-primary-600"
+                {t('home.cta.bookNow')}
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                href="/contact"
+                className="border-white text-white hover:bg-white hover:text-primary-600"
               >
                 {t('home.cta.contact')}
-              </Link>
+              </Button>
             </div>
           </motion.div>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="bg-neutral-900 text-white py-16">
+        <div className="container-modern">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-xl font-bold mb-4">Gift of God</h3>
+              <p className="text-neutral-400 mb-4">
+                {t('footer.description')}
+              </p>
+              <div className="flex space-x-4">
+                <a href="#" className="text-neutral-400 hover:text-primary-500 transition-colors">
+                  <Facebook className="w-5 h-5" />
+                </a>
+                <a href="#" className="text-neutral-400 hover:text-primary-500 transition-colors">
+                  <Instagram className="w-5 h-5" />
+                </a>
+                <a href="#" className="text-neutral-400 hover:text-primary-500 transition-colors">
+                  <Twitter className="w-5 h-5" />
+                </a>
+              </div>
+            </div>
+            
+            <div>
+              <h4 className="text-lg font-semibold mb-4">{t('footer.quickLinks')}</h4>
+              <ul className="space-y-2">
+                <li><a href="/rooms" className="text-neutral-400 hover:text-white transition-colors">{t('nav.rooms')}</a></li>
+                <li><a href="/about" className="text-neutral-400 hover:text-white transition-colors">{t('nav.about')}</a></li>
+                <li><a href="/contact" className="text-neutral-400 hover:text-white transition-colors">{t('nav.contact')}</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="text-lg font-semibold mb-4">{t('footer.services')}</h4>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-neutral-400 hover:text-white transition-colors">{t('footer.accommodation')}</a></li>
+                <li><a href="#" className="text-neutral-400 hover:text-white transition-colors">{t('footer.tours')}</a></li>
+                <li><a href="#" className="text-neutral-400 hover:text-white transition-colors">{t('footer.transport')}</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="text-lg font-semibold mb-4">{t('footer.contact')}</h4>
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2">
+                  <Phone className="w-4 h-4 text-primary-500" />
+                  <span className="text-neutral-400">+1 234 567 890</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Mail className="w-4 h-4 text-primary-500" />
+                  <span className="text-neutral-400">info@giftofgod.com</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <MapPin className="w-4 h-4 text-primary-500" />
+                  <span className="text-neutral-400">{t('footer.address')}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="border-t border-neutral-800 mt-8 pt-8 text-center">
+            <p className="text-neutral-400">
+              © 2024 Gift of God. {t('footer.rights')}
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
