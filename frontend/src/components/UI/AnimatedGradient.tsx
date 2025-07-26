@@ -1,21 +1,39 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 interface AnimatedGradientProps {
   className?: string;
   children?: React.ReactNode;
+  gradientColors?: string[];
+  duration?: number;
 }
 
-const AnimatedGradient: React.FC<AnimatedGradientProps> = ({ className = '', children }) => {
+const AnimatedGradient: React.FC<AnimatedGradientProps> = ({
+  className = '',
+  children,
+  gradientColors = ['#667eea', '#764ba2', '#f093fb', '#f5576c'],
+  duration = 8
+}) => {
   return (
-    <div className={`relative ${className}`}>
-      <div className="absolute inset-0 bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-pink opacity-20 animate-gradient"></div>
-      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-neon-cyan to-transparent animate-pulse-slow opacity-10"></div>
-      {children && (
-        <div className="relative z-10">
-          {children}
-        </div>
-      )}
-    </div>
+    <motion.div
+      className={`relative overflow-hidden ${className}`}
+      animate={{
+        background: [
+          `linear-gradient(45deg, ${gradientColors[0]}, ${gradientColors[1]})`,
+          `linear-gradient(45deg, ${gradientColors[1]}, ${gradientColors[2]})`,
+          `linear-gradient(45deg, ${gradientColors[2]}, ${gradientColors[3]})`,
+          `linear-gradient(45deg, ${gradientColors[3]}, ${gradientColors[0]})`,
+          `linear-gradient(45deg, ${gradientColors[0]}, ${gradientColors[1]})`
+        ]
+      }}
+      transition={{
+        duration,
+        repeat: Infinity,
+        ease: "linear"
+      }}
+    >
+      {children}
+    </motion.div>
   );
 };
 

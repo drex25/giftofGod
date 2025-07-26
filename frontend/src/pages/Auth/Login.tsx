@@ -20,11 +20,12 @@ const Login: React.FC = () => {
   
   const from = location.state?.from?.pathname || '/dashboard';
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: '' }));
+  const handleChange = (value: string, name?: string) => {
+    // name puede venir de e.target.name o del prop name
+    const field = name || '';
+    setFormData(prev => ({ ...prev, [field]: value }));
+    if (errors[field]) {
+      setErrors(prev => ({ ...prev, [field]: '' }));
     }
   };
 
@@ -55,7 +56,7 @@ const Login: React.FC = () => {
         transition={{ duration: 0.6 }}
         className="w-full max-w-md"
       >
-        <Card variant="elegant" className="p-8">
+        <Card className="p-8">
           <div className="text-center mb-8">
             <h2 className="heading-3 text-neutral-900 mb-2">
               Iniciar Sesión
@@ -85,7 +86,7 @@ const Login: React.FC = () => {
                 type="email"
                 name="email"
                 value={formData.email}
-                onChange={handleChange}
+                onChange={value => handleChange(value, 'email')}
                 error={errors.email}
                 required
                 autoComplete="email"
@@ -97,7 +98,7 @@ const Login: React.FC = () => {
                 type="password"
                 name="password"
                 value={formData.password}
-                onChange={handleChange}
+                onChange={value => handleChange(value, 'password')}
                 error={errors.password}
                 required
                 autoComplete="current-password"

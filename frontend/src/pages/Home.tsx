@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import Services from '../components/Landing/Services';
+import Gallery from '../components/Landing/Gallery';
 import { 
   CalendarDaysIcon,
   MapPinIcon,
   UsersIcon,
   StarIcon,
   WifiIcon,
-  CarIcon,
+  TruckIcon,
   BuildingOfficeIcon,
   ShieldCheckIcon,
   HeartIcon,
@@ -25,13 +27,19 @@ import {
   TvIcon,
   FireIcon,
   SunIcon,
-  MoonIcon
+  MoonIcon,
+  HomeModernIcon,
+  WifiIcon as WifiIconSolid,
+  PlayIcon,
+  PauseIcon
 } from '@heroicons/react/24/outline';
 import SearchForm from '../components/Booking/SearchForm';
+import ParticleBackground from '../components/UI/ParticleBackground';
 
 const Home: React.FC = () => {
   const { t } = useTranslation();
   const [searchData, setSearchData] = useState(null);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   const handleSearch = (data: any) => {
     setSearchData(data);
@@ -41,69 +49,73 @@ const Home: React.FC = () => {
   const features = [
     {
       icon: MapPinIcon,
-      title: 'Ubicación Privilegiada',
-      description: 'En el corazón de la ciudad, cerca de las principales atracciones',
-      color: 'primary'
+      title: t('home.features.location.title'),
+      description: t('home.features.location.description'),
+      color: 'primary',
+      gradient: 'from-blue-500 to-cyan-500'
     },
     {
       icon: ShieldCheckIcon,
-      title: 'Seguridad 24/7',
-      description: 'Personal de seguridad y monitoreo las 24 horas del día',
-      color: 'secondary'
+      title: t('home.features.security.title'),
+      description: t('home.features.security.description'),
+      color: 'secondary',
+      gradient: 'from-green-500 to-emerald-500'
     },
     {
       icon: SparklesIcon,
-      title: 'Instalaciones Modernas',
-      description: 'Equipamiento de última generación y espacios renovados',
-      color: 'primary'
+      title: t('home.features.modern.title'),
+      description: t('home.features.modern.description'),
+      color: 'primary',
+      gradient: 'from-purple-500 to-pink-500'
     },
     {
       icon: HeartIcon,
-      title: 'Atención Personalizada',
-      description: 'Servicio cálido y profesional para una experiencia única',
-      color: 'secondary'
+      title: t('home.features.service.title'),
+      description: t('home.features.service.description'),
+      color: 'secondary',
+      gradient: 'from-orange-500 to-red-500'
     }
   ];
 
   const amenities = [
-    { icon: WifiIcon, name: 'WiFi Gratuito', description: 'Internet de alta velocidad' },
-    { icon: CarIcon, name: 'Estacionamiento', description: 'Parking gratuito' },
-    { icon: TvIcon, name: 'TV Cable', description: 'Canales internacionales' },
-    { icon: FireIcon, name: 'Calefacción', description: 'Ambiente climatizado' },
-    { icon: CameraIcon, name: 'Seguridad', description: 'Cámaras de vigilancia' },
-    { icon: HomeIcon, name: 'Cocina Común', description: 'Totalmente equipada' },
-    { icon: SunIcon, name: 'Terraza', description: 'Espacio al aire libre' },
-    { icon: MoonIcon, name: 'Área de Descanso', description: 'Zona de relajación' }
+    { icon: WifiIconSolid, name: t('home.amenities.wifi'), description: t('home.amenities.wifiDesc') },
+    { icon: TruckIcon, name: t('home.amenities.parking'), description: t('home.amenities.parkingDesc') },
+    { icon: TvIcon, name: t('home.amenities.tv'), description: t('home.amenities.tvDesc') },
+    { icon: FireIcon, name: t('home.amenities.heating'), description: t('home.amenities.heatingDesc') },
+    { icon: CameraIcon, name: t('home.amenities.security'), description: t('home.amenities.securityDesc') },
+    { icon: HomeModernIcon, name: t('home.amenities.kitchen'), description: t('home.amenities.kitchenDesc') },
+    { icon: SunIcon, name: t('home.amenities.terrace'), description: t('home.amenities.terraceDesc') },
+    { icon: MoonIcon, name: t('home.amenities.rest'), description: t('home.amenities.restDesc') }
   ];
 
   const roomTypes = [
     {
       id: 1,
-      name: 'Habitación Individual',
-      description: 'Perfecta para viajeros solos que buscan comodidad y privacidad',
-      price: 'Desde $25/noche',
+      name: t('home.rooms.single.name'),
+      description: t('home.rooms.single.description'),
+      price: t('home.rooms.single.price'),
       image: 'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg',
-      features: ['Cama individual', 'Baño privado', 'WiFi gratuito', 'Escritorio'],
+      features: [t('home.rooms.single.features.bed'), t('home.rooms.single.features.bath'), t('home.rooms.single.features.wifi'), t('home.rooms.single.features.desk')],
       capacity: 1,
       popular: false
     },
     {
       id: 2,
-      name: 'Habitación Doble',
-      description: 'Ideal para parejas o amigos que viajan juntos',
-      price: 'Desde $35/noche',
+      name: t('home.rooms.double.name'),
+      description: t('home.rooms.double.description'),
+      price: t('home.rooms.double.price'),
       image: 'https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg',
-      features: ['Cama doble', 'Baño privado', 'WiFi gratuito', 'TV'],
+      features: [t('home.rooms.double.features.bed'), t('home.rooms.double.features.bath'), t('home.rooms.double.features.wifi'), t('home.rooms.double.features.tv')],
       capacity: 2,
       popular: true
     },
     {
       id: 3,
-      name: 'Dormitorio Compartido',
-      description: 'Opción económica para conocer otros viajeros',
-      price: 'Desde $15/noche',
+      name: t('home.rooms.shared.name'),
+      description: t('home.rooms.shared.description'),
+      price: t('home.rooms.shared.price'),
       image: 'https://images.pexels.com/photos/2029667/pexels-photo-2029667.jpeg',
-      features: ['Literas cómodas', 'Lockers', 'WiFi gratuito', 'Baño compartido'],
+      features: [t('home.rooms.shared.features.beds'), t('home.rooms.shared.features.lockers'), t('home.rooms.shared.features.wifi'), t('home.rooms.shared.features.bath')],
       capacity: 6,
       popular: false
     }
@@ -113,47 +125,107 @@ const Home: React.FC = () => {
     {
       name: 'María González',
       country: 'España',
-      text: 'Excelente ubicación y muy limpio. El personal fue súper amable y me ayudaron con todas mis consultas.',
+      text: t('home.testimonials.maria'),
       rating: 5,
       avatar: 'MG',
-      date: 'Hace 2 semanas'
+      date: t('home.testimonials.mariaDate'),
+      image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg'
     },
     {
       name: 'John Smith',
       country: 'Estados Unidos',
-      text: 'Great hostel! Perfect location, clean rooms and friendly staff. I would definitely stay here again.',
+      text: t('home.testimonials.john'),
       rating: 5,
       avatar: 'JS',
-      date: 'Hace 1 mes'
+      date: t('home.testimonials.johnDate'),
+      image: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg'
     },
     {
       name: 'Carlos Rodríguez',
       country: 'México',
-      text: 'Muy buena relación calidad-precio. Las instalaciones están en excelente estado y el ambiente es genial.',
+      text: t('home.testimonials.carlos'),
       rating: 5,
       avatar: 'CR',
-      date: 'Hace 3 semanas'
+      date: t('home.testimonials.carlosDate'),
+      image: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg'
     }
   ];
 
   const stats = [
-    { number: '1000+', label: 'Huéspedes Felices', icon: UsersIcon },
-    { number: '50', label: 'Habitaciones', icon: BuildingOfficeIcon },
-    { number: '4.9★', label: 'Calificación', icon: StarIcon },
-    { number: '24/7', label: 'Soporte', icon: ClockIcon }
+    { number: '1000+', label: t('home.stats.guests'), icon: UsersIcon, color: 'from-blue-500 to-cyan-500' },
+    { number: '50', label: t('home.stats.rooms'), icon: BuildingOfficeIcon, color: 'from-green-500 to-emerald-500' },
+    { number: '4.9★', label: t('home.stats.rating'), icon: StarIcon, color: 'from-yellow-500 to-orange-500' },
+    { number: '24/7', label: t('home.stats.support'), icon: ClockIcon, color: 'from-purple-500 to-pink-500' }
   ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6
+      }
+    }
+  };
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-500 via-secondary-500 to-primary-600">
-        <div className="absolute inset-0 bg-black/20"></div>
+      {/* Hero Section - Redesigned */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Video Background */}
+        <div className="absolute inset-0">
+          <video
+            autoPlay
+            muted
+            loop
+            className="w-full h-full object-cover"
+            poster="https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg"
+          >
+            <source src="https://player.vimeo.com/external/434045526.sd.mp4?s=c27eecc69a27dbc4ff2b87d38afc35f1a9e7c02d&profile_id=139&oauth2_token_id=57447761" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/70"></div>
+        </div>
+
+        {/* Particle Background */}
+        <ParticleBackground />
         
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}></div>
+        {/* Floating Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <motion.div
+            animate={{ 
+              y: [0, -20, 0],
+              rotate: [0, 5, 0]
+            }}
+            transition={{ duration: 6, repeat: Infinity }}
+            className="absolute top-20 left-10 w-32 h-32 bg-white/10 backdrop-blur-sm rounded-full"
+          />
+          <motion.div
+            animate={{ 
+              y: [0, 20, 0],
+              rotate: [0, -5, 0]
+            }}
+            transition={{ duration: 8, repeat: Infinity }}
+            className="absolute top-40 right-20 w-24 h-24 bg-white/10 backdrop-blur-sm rounded-full"
+          />
+          <motion.div
+            animate={{ 
+              y: [0, -15, 0],
+              x: [0, 10, 0]
+            }}
+            transition={{ duration: 7, repeat: Infinity }}
+            className="absolute bottom-40 left-20 w-20 h-20 bg-white/10 backdrop-blur-sm rounded-full"
+          />
         </div>
 
         <div className="relative container-modern text-center text-white z-10">
@@ -162,29 +234,42 @@ const Home: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
+            {/* Badge */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-8 border border-white/30"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 mb-8"
             >
-              <BuildingOfficeIcon className="h-10 w-10 text-white" />
+              <SparklesIcon className="h-5 w-5 text-yellow-400" />
+              <span className="text-sm font-medium">{t('home.hero.tagline')}</span>
             </motion.div>
             
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="heading-1 mb-6 text-white"
+              className="text-6xl md:text-8xl font-bold mb-6 text-white leading-tight"
             >
-              {t('home.hero.title')}
+              <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                {t('home.hero.title')}
+              </span>
             </motion.h1>
+            
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="text-2xl md:text-3xl font-light mb-8 text-white/80"
+            >
+              {t('home.hero.subtitle')}
+            </motion.h2>
             
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="body-large mb-8 max-w-2xl mx-auto text-white/90"
+              className="text-lg md:text-xl mb-12 max-w-3xl mx-auto text-white/90 leading-relaxed"
             >
               {t('home.hero.description')}
             </motion.p>
@@ -193,17 +278,29 @@ const Home: React.FC = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+              className="flex flex-col sm:flex-row gap-6 justify-center items-center"
             >
-              <Link to="/rooms" className="btn btn-primary btn-lg group">
-                <MagnifyingGlassIcon className="h-5 w-5" />
-                <span>{t('home.hero.exploreButton')}</span>
-                <ArrowRightIcon className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              <Link 
+                to="/rooms" 
+                className="group relative px-8 py-4 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full text-white font-semibold text-lg shadow-2xl hover:shadow-primary-500/25 transition-all duration-300 transform hover:scale-105"
+              >
+                <span className="relative z-10 flex items-center gap-3">
+                  <MagnifyingGlassIcon className="h-6 w-6" />
+                  {t('home.hero.exploreButton')}
+                  <ArrowRightIcon className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </Link>
-              <Link to="/contact" className="btn btn-secondary btn-lg bg-white/20 backdrop-blur-sm border-white/30 text-white hover:bg-white hover:text-primary-600">
-                <PhoneIcon className="h-5 w-5" />
-                <span>Contactar</span>
-              </Link>
+              
+              <button 
+                onClick={() => setIsVideoPlaying(!isVideoPlaying)}
+                className="group relative px-8 py-4 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full text-white font-semibold text-lg hover:bg-white hover:text-primary-600 transition-all duration-300 transform hover:scale-105"
+              >
+                <span className="relative z-10 flex items-center gap-3">
+                  {isVideoPlaying ? <PauseIcon className="h-6 w-6" /> : <PlayIcon className="h-6 w-6" />}
+                  {t('home.hero.contactButton')}
+                </span>
+              </button>
             </motion.div>
           </motion.div>
         </div>
@@ -225,285 +322,362 @@ const Home: React.FC = () => {
         </motion.div>
       </section>
 
-      {/* Search Section */}
+      {/* Search Section - Enhanced */}
       <section className="py-16 bg-white relative -mt-20 z-20">
         <div className="container-modern">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="max-w-4xl mx-auto"
+            className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100"
           >
-            <div className="card p-8 shadow-strong">
-              <div className="text-center mb-8">
-                <h2 className="heading-3 mb-4">{t('home.search.title')}</h2>
-                <p className="body-large text-neutral-600">{t('home.search.subtitle')}</p>
-              </div>
-              <SearchForm onSearch={handleSearch} />
+            <div className="text-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                {t('home.search.title')}
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                {t('home.search.subtitle')}
+              </p>
             </div>
+            <SearchForm onSearch={handleSearch} />
           </motion.div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-16 bg-neutral-50">
-        <div className="container-modern">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="text-center"
-              >
-                <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-medium">
-                  <stat.icon className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="heading-3 mb-2">{stat.number}</h3>
-                <p className="text-neutral-600 body-medium">{stat.label}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-16 bg-white">
+      {/* Features Section - Redesigned */}
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
         <div className="container-modern">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
-            <h2 className="heading-2 mb-4">¿Por qué elegir Gift Of God?</h2>
-            <p className="body-large text-neutral-600 max-w-2xl mx-auto">
-              Ofrecemos una experiencia única con servicios de primera clase y atención personalizada
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              {t('home.features.title')}
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              {t('home.features.subtitle')}
             </p>
           </motion.div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          >
             {features.map((feature, index) => (
               <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="card card-hover p-6 text-center group"
+                key={index}
+                variants={itemVariants}
+                className="group relative"
               >
-                <div className={`w-16 h-16 bg-gradient-to-br ${
-                  feature.color === 'primary' 
-                    ? 'from-primary-500 to-primary-600' 
-                    : 'from-secondary-500 to-secondary-600'
-                } rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-medium group-hover:scale-110 transition-transform duration-300`}>
-                  <feature.icon className="h-8 w-8 text-white" />
+                <div className="relative bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100">
+                  <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 rounded-3xl transition-opacity duration-500`}></div>
+                  
+                  <div className={`relative w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                    <feature.icon className="h-8 w-8 text-white" />
+                  </div>
+                  
+                  <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-primary-600 transition-colors duration-300">
+                    {feature.title}
+                  </h3>
+                  
+                  <p className="text-gray-600 leading-relaxed">
+                    {feature.description}
+                  </p>
+                  
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-b-3xl"></div>
                 </div>
-                <h3 className="heading-4 mb-2">{feature.title}</h3>
-                <p className="text-neutral-600 body-medium">{feature.description}</p>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Amenities Section */}
-      <section className="py-16 bg-neutral-50">
+      {/* Amenities Section - Redesigned */}
+      <section className="py-20 bg-white">
         <div className="container-modern">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
-            <h2 className="heading-2 mb-4">{t('home.amenities.title')}</h2>
-            <p className="body-large text-neutral-600 max-w-2xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              {t('home.amenities.title')}
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               {t('home.amenities.subtitle')}
             </p>
           </motion.div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
             {amenities.map((amenity, index) => (
               <motion.div
-                key={amenity.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="card card-hover p-6 text-center group"
+                key={index}
+                variants={itemVariants}
+                className="group relative bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100"
               >
-                <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center mx-auto mb-3 shadow-medium group-hover:scale-110 transition-transform duration-300">
-                  <amenity.icon className="h-6 w-6 text-white" />
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <amenity.icon className="h-6 w-6 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors duration-300">
+                      {amenity.name}
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      {amenity.description}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="font-semibold text-neutral-900 mb-1 body-medium">{amenity.name}</h3>
-                <p className="text-neutral-600 body-small">{amenity.description}</p>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Room Types Section */}
-      <section className="py-16 bg-white">
+      {/* Room Types Section - Kept as requested */}
+      <section className="py-20 bg-gradient-to-br from-neutral-50 to-white">
         <div className="container-modern">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
-            <h2 className="heading-2 mb-4">{t('home.roomTypes.title')}</h2>
-            <p className="body-large text-neutral-600 max-w-2xl mx-auto">
-              {t('home.roomTypes.subtitle')}
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              {t('home.rooms.title')}
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              {t('home.rooms.subtitle')}
             </p>
           </motion.div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
             {roomTypes.map((room, index) => (
               <motion.div
                 key={room.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className={`card card-hover overflow-hidden group relative ${
-                  room.popular ? 'card-featured' : ''
-                }`}
+                variants={itemVariants}
+                className="group relative bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
               >
                 {room.popular && (
-                  <div className="absolute top-4 right-4 z-10">
-                    <span className="bg-gradient-to-r from-primary-500 to-secondary-500 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-medium">
-                      Más Popular
+                  <div className="absolute top-4 left-4 z-10">
+                    <span className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
+                      {t('home.rooms.popular')}
                     </span>
                   </div>
                 )}
                 
-                <div className="relative h-48 overflow-hidden">
+                <div className="relative h-64 overflow-hidden">
                   <img
                     src={room.image}
                     alt={room.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <div className="flex items-center space-x-1">
-                      <UsersIcon className="h-4 w-4" />
-                      <span className="text-sm">{room.capacity} {room.capacity === 1 ? 'persona' : 'personas'}</span>
-                    </div>
-                  </div>
                 </div>
                 
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-3">
-                    <h3 className="heading-4">{room.name}</h3>
-                    <span className="text-primary-600 font-bold body-large">{room.price}</span>
+                <div className="p-8">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-2xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors duration-300">
+                      {room.name}
+                    </h3>
+                    <span className="text-2xl font-bold text-primary-600">
+                      {room.price}
+                    </span>
                   </div>
                   
-                  <p className="text-neutral-600 body-medium mb-4">{room.description}</p>
+                  <p className="text-gray-600 mb-6 leading-relaxed">
+                    {room.description}
+                  </p>
                   
-                  <div className="space-y-2 mb-6">
-                    {room.features.map((feature, idx) => (
-                      <div key={idx} className="flex items-center space-x-2">
-                        <CheckCircleIcon className="h-4 w-4 text-success-500" />
-                        <span className="text-neutral-700 body-small">{feature}</span>
+                  <div className="space-y-3 mb-6">
+                    {room.features.map((feature, featureIndex) => (
+                      <div key={featureIndex} className="flex items-center gap-3">
+                        <CheckCircleIcon className="h-5 w-5 text-green-500 flex-shrink-0" />
+                        <span className="text-gray-700">{feature}</span>
                       </div>
                     ))}
                   </div>
                   
-                  <Link
-                    to={`/rooms/${room.id}`}
-                    className="btn btn-primary w-full group"
-                  >
-                    <span>{t('home.roomTypes.viewDetails')}</span>
-                    <ArrowRightIcon className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-gray-600">
+                      <UsersIcon className="h-5 w-5" />
+                      <span>{room.capacity} {room.capacity === 1 ? t('common.person') : t('common.people')}</span>
+                    </div>
+                    <Link
+                      to={`/rooms/${room.id}`}
+                      className="btn btn-primary group"
+                    >
+                      {t('home.rooms.viewDetails')}
+                      <ArrowRightIcon className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-16 bg-neutral-50">
+      {/* Testimonials Section - Redesigned */}
+      <section className="py-20 bg-white">
         <div className="container-modern">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
-            <h2 className="heading-2 mb-4">{t('home.testimonials.title')}</h2>
-            <p className="body-large text-neutral-600 max-w-2xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              {t('home.testimonials.title')}
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               {t('home.testimonials.subtitle')}
             </p>
           </motion.div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          >
             {testimonials.map((testimonial, index) => (
               <motion.div
-                key={testimonial.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="card card-hover p-6 group"
+                key={index}
+                variants={itemVariants}
+                className="group relative bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100"
               >
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-full flex items-center justify-center mr-4 shadow-medium">
-                    <span className="text-white font-semibold">{testimonial.avatar}</span>
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="relative">
+                    <img
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      className="w-16 h-16 rounded-full object-cover border-4 border-white shadow-lg"
+                    />
+                    <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white flex items-center justify-center">
+                      <CheckCircleIcon className="h-3 w-3 text-white" />
+                    </div>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-neutral-900 body-medium">{testimonial.name}</h4>
-                    <p className="text-neutral-600 body-small">{testimonial.country}</p>
+                    <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
+                    <p className="text-sm text-gray-600">{testimonial.country}</p>
+                    <div className="flex items-center gap-1 mt-1">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <StarIcon key={i} className="h-4 w-4 text-yellow-400 fill-current" />
+                      ))}
+                    </div>
                   </div>
                 </div>
                 
-                <p className="text-neutral-700 body-medium mb-4 italic">"{testimonial.text}"</p>
+                <blockquote className="text-gray-700 leading-relaxed mb-4 italic">
+                  "{testimonial.text}"
+                </blockquote>
                 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-1">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <StarIcon key={i} className="h-4 w-4 text-warning-500 fill-current" />
-                    ))}
+                <div className="flex items-center justify-between text-sm text-gray-500">
+                  <span>{testimonial.date}</span>
+                  <div className="flex items-center gap-1">
+                    <GlobeAltIcon className="h-4 w-4" />
+                    <span>Verified Guest</span>
                   </div>
-                  <span className="text-neutral-500 body-small">{testimonial.date}</span>
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-br from-primary-500 to-secondary-500 relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/10"></div>
-        <div className="container-modern text-center relative z-10">
+      {/* Stats Section - Redesigned */}
+      <section className="py-20 bg-gradient-to-br from-primary-500 to-secondary-500">
+        <div className="container-modern">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-8"
+          >
+            {stats.map((stat, index) => (
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                className="text-center group"
+              >
+                <div className={`w-20 h-20 bg-gradient-to-br ${stat.color} rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                  <stat.icon className="h-10 w-10 text-white" />
+                </div>
+                <div className="text-4xl md:text-5xl font-bold text-white mb-2 group-hover:scale-110 transition-transform duration-300">
+                  {stat.number}
+                </div>
+                <div className="text-white/90 font-medium">
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA Section - Redesigned */}
+      <section className="py-20 bg-gradient-to-br from-gray-900 to-black">
+        <div className="container-modern text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="heading-2 text-white mb-4">{t('home.cta.title')}</h2>
-            <p className="body-large text-white/90 mb-8 max-w-2xl mx-auto">
-              {t('home.cta.subtitle')}
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              {t('home.cta.title')}
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed">
+              {t('home.cta.description')}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link to="/rooms" className="btn btn-lg bg-white text-primary-600 hover:bg-neutral-100 shadow-medium">
-                <MagnifyingGlassIcon className="h-5 w-5" />
-                <span>{t('home.cta.bookNow')}</span>
+            
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+              <Link 
+                to="/rooms" 
+                className="group relative px-8 py-4 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full text-white font-semibold text-lg shadow-2xl hover:shadow-primary-500/25 transition-all duration-300 transform hover:scale-105"
+              >
+                <span className="relative z-10 flex items-center gap-3">
+                  <MagnifyingGlassIcon className="h-6 w-6" />
+                  {t('home.cta.exploreButton')}
+                  <ArrowRightIcon className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </Link>
-              <Link to="/contact" className="btn btn-lg bg-white/20 backdrop-blur-sm border-white/30 text-white hover:bg-white hover:text-primary-600">
-                <PhoneIcon className="h-5 w-5" />
-                <span>{t('home.cta.contact')}</span>
+              
+              <Link 
+                to="/contact" 
+                className="group relative px-8 py-4 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full text-white font-semibold text-lg hover:bg-white hover:text-primary-600 transition-all duration-300 transform hover:scale-105"
+              >
+                <span className="relative z-10 flex items-center gap-3">
+                  <PhoneIcon className="h-6 w-6" />
+                  {t('home.cta.contactButton')}
+                </span>
               </Link>
             </div>
           </motion.div>

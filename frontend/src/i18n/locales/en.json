@@ -36,11 +36,26 @@
     "register": "Register",
     "logout": "Logout",
     "dashboard": "Dashboard",
-    "reservations": "Reservations",
+    "myReservations": "My Reservations",
     "profile": "Profile",
     "settings": "Settings",
     "admin": "Admin",
-    "tagline": "HOSPITALITY & COMFORT"
+    "activeUser": "Active User",
+    "tagline": "UNIQUE EXPERIENCE"
+  },
+  "search": {
+    "location": "Location",
+    "locationPlaceholder": "Where are you going?",
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "guests": "Guests",
+    "guest": "Guest",
+    "searchButton": "Search Rooms",
+    "quickFilters": {
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "nextWeek": "Next Week"
+    }
   },
   "home": {
     "hero": {
@@ -49,37 +64,30 @@
       "tagline": "UNIQUE EXPERIENCE",
       "description": "Discover comfort and hospitality at its finest. Where every guest is treated like family.",
       "exploreButton": "Explore Rooms",
-      "bookButton": "Book Now"
+      "contactButton": "Contact Us"
     },
     "search": {
       "title": "Find Your Perfect Room",
-      "subtitle": "Book easily with our intelligent search system",
-      "location": "Location",
-      "locationPlaceholder": "Where are you going?",
-      "checkIn": "Check-in",
-      "checkOut": "Check-out",
-      "guests": "Guests",
-      "searchButton": "Search",
-      "tip": "💡 Tip: Book in advance to get the best prices"
+      "subtitle": "Book easily with our intelligent search system"
     },
     "features": {
       "title": "Why Choose Gift Of God",
       "subtitle": "Experience the difference with our exceptional services and amenities",
-      "quality": {
-        "title": "Premium Quality",
-        "description": "We maintain the highest standards of cleanliness and comfort"
-      },
-      "service": {
-        "title": "24/7 Service",
-        "description": "Our staff is always available to assist you"
-      },
       "location": {
         "title": "Prime Location",
         "description": "Centrally located with easy access to attractions"
       },
-      "comfort": {
-        "title": "Maximum Comfort",
-        "description": "Designed for your ultimate relaxation and convenience"
+      "security": {
+        "title": "24/7 Security",
+        "description": "Continuous surveillance and monitoring"
+      },
+      "modern": {
+        "title": "Modern Facilities",
+        "description": "Latest equipment and renovated spaces"
+      },
+      "service": {
+        "title": "Personalized Service",
+        "description": "Warm and professional service for a unique experience"
       }
     },
     "amenities": {
@@ -87,74 +95,82 @@
       "subtitle": "Everything you need for a perfect and memorable stay",
       "wifi": "Free WiFi",
       "wifiDesc": "High-speed connection",
-      "breakfast": "Breakfast Included",
-      "breakfastDesc": "Daily continental breakfast",
-      "beds": "Comfortable Beds",
-      "bedsDesc": "Premium bedding",
-      "kitchen": "Equipped Kitchen",
-      "kitchenDesc": "Complete kitchen available",
       "parking": "Parking",
-      "parkingDesc": "Free parking",
-      "laundry": "Laundry",
-      "laundryDesc": "Laundry service",
+      "parkingDesc": "Free parking available",
       "tv": "Smart TV",
-      "tvDesc": "Smart televisions",
-      "security": "24/7 Security",
-      "securityDesc": "Continuous surveillance"
+      "tvDesc": "International channels",
+      "heating": "Heating",
+      "heatingDesc": "Climate controlled",
+      "security": "Security",
+      "securityDesc": "Surveillance cameras",
+      "kitchen": "Common Kitchen",
+      "kitchenDesc": "Fully equipped",
+      "terrace": "Terrace",
+      "terraceDesc": "Outdoor space",
+      "rest": "Rest Area",
+      "restDesc": "Relaxation zone"
     },
-    "roomTypes": {
+    "rooms": {
       "title": "Room Types",
       "subtitle": "Choose the option that best suits your needs",
+      "popular": "Most Popular",
+      "guests": "guests",
+      "viewDetails": "View Details",
       "single": {
         "name": "Single Room",
-        "description": "Perfect for solo travelers",
+        "description": "Perfect for solo travelers seeking comfort and privacy",
         "price": "From $25/night",
-        "features": ["1 single bed", "Private bathroom", "Free WiFi", "Breakfast included"]
+        "features": {
+          "bed": "Single bed",
+          "bath": "Private bathroom",
+          "wifi": "Free WiFi",
+          "desk": "Work desk"
+        }
       },
       "double": {
         "name": "Double Room",
-        "description": "Ideal for couples or friends",
+        "description": "Ideal for couples or friends traveling together",
         "price": "From $35/night",
-        "features": ["1 double bed", "Private bathroom", "Free WiFi", "Breakfast included"]
+        "features": {
+          "bed": "Double bed",
+          "bath": "Private bathroom",
+          "wifi": "Free WiFi",
+          "tv": "Smart TV"
+        }
       },
-      "family": {
-        "name": "Family Room",
-        "description": "Spacious for families",
-        "price": "From $50/night",
-        "features": ["2 double beds", "Private bathroom", "Free WiFi", "Breakfast included"]
-      },
-      "viewDetails": "View Details"
+      "shared": {
+        "name": "Shared Dormitory",
+        "description": "Economical option to meet other travelers",
+        "price": "From $15/night",
+        "features": {
+          "beds": "Comfortable bunk beds",
+          "lockers": "Secure lockers",
+          "wifi": "Free WiFi",
+          "bath": "Shared bathroom"
+        }
+      }
     },
     "testimonials": {
       "title": "What Our Guests Say",
       "subtitle": "Real experiences from travelers who chose Gift Of God",
-      "maria": {
-        "name": "Maria Gonzalez",
-        "country": "Spain",
-        "text": "Excellent attention and very clean rooms. The staff is very friendly and the breakfast is delicious."
-      },
-      "carlos": {
-        "name": "Carlos Rodriguez",
-        "country": "Mexico",
-        "text": "Perfect location, close to everything. The rooms are comfortable and the price is very good."
-      },
-      "ana": {
-        "name": "Ana Silva",
-        "country": "Brazil",
-        "text": "I loved the decoration and cozy atmosphere. I will definitely return."
-      }
+      "maria": "Excellent location and very clean. The staff was super friendly and helped me with all my questions.",
+      "mariaDate": "2 weeks ago",
+      "john": "Great hostel! Perfect location, clean rooms and friendly staff. I would definitely stay here again.",
+      "johnDate": "1 month ago",
+      "carlos": "Great value for money. The facilities are in excellent condition and the atmosphere is great.",
+      "carlosDate": "3 weeks ago"
     },
     "stats": {
-      "happyGuests": "Happy Guests",
-      "destinations": "Destinations",
+      "guests": "Happy Guests",
+      "rooms": "Rooms",
       "rating": "Rating",
       "support": "Support"
     },
     "cta": {
       "title": "Ready for Your Next Adventure?",
-      "subtitle": "Join hundreds of travelers who have chosen Gift Of God for their best experiences",
-      "bookNow": "Book Now",
-      "contact": "Contact"
+      "description": "Join hundreds of travelers who have chosen Gift Of God for their best experiences",
+      "exploreButton": "Explore Rooms",
+      "contactButton": "Contact Us"
     }
   },
   "rooms": {
@@ -164,6 +180,16 @@
     "noRooms": "No rooms found",
     "noRoomsDesc": "No rooms available with the selected filters. Try adjusting your search criteria.",
     "clearFilters": "Clear Filters",
+    "searchPlaceholder": "Search rooms...",
+    "bookNow": "Book Now",
+    "amenities": "Amenities",
+    "features": "Features",
+    "policies": "Policies",
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "guests": "guests",
+    "viewDetails": "View Details",
+    "popular": "Most Popular",
     "filters": {
       "title": "Filters",
       "roomType": "Room Type",
@@ -174,10 +200,13 @@
       "family": "Family",
       "minPrice": "Minimum Price",
       "maxPrice": "Maximum Price",
+      "capacity": "Capacity",
       "minCapacity": "Minimum Capacity",
       "anyCapacity": "Any capacity",
       "person": "person",
-      "people": "people"
+      "people": "people",
+      "priceRange": "Price Range",
+      "anyPrice": "Any price"
     },
     "card": {
       "perNight": "/night",
@@ -187,14 +216,32 @@
       "capacity_plural": "{{count}} People"
     }
   },
+  "amenities": {
+    "wifi": "Free WiFi",
+    "tv": "Smart TV",
+    "coffee": "Coffee",
+    "parking": "Parking",
+    "security": "Security",
+    "terrace": "Terrace",
+    "more": "more"
+  },
   "footer": {
     "description": "Where every guest is treated like family. Discover comfort and hospitality at its finest.",
-    "quickLinks": "Quick Links",
-    "services": "Our Services",
-    "contact": "Contact Information",
+    "company": "Company",
+    "services": "Services",
+    "support": "Support",
+    "about": "About Us",
+    "contact": "Contact",
+    "careers": "Careers",
+    "press": "Press",
     "accommodation": "Accommodation",
     "tours": "Guided Tours",
     "transport": "Transportation",
+    "events": "Events",
+    "help": "Help Center",
+    "faq": "FAQ",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
     "address": "123 Main Street, City, Country 12345",
     "rights": "All rights reserved."
   },
@@ -258,10 +305,37 @@
     "unauthorized": "You are not authorized to access this page",
     "forbidden": "Access forbidden"
   },
-  "success": {
-    "bookingCreated": "Booking created successfully!",
-    "profileUpdated": "Profile updated successfully!",
-    "passwordChanged": "Password changed successfully!",
-    "emailSent": "Email sent successfully!"
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back",
+    "reservations": "My Reservations",
+    "upcoming": "Upcoming",
+    "past": "Past",
+    "cancelled": "Cancelled",
+    "noReservations": "No reservations found",
+    "bookingNumber": "Booking #",
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "status": "Status",
+    "total": "Total",
+    "actions": "Actions",
+    "viewDetails": "View Details",
+    "cancel": "Cancel",
+    "modify": "Modify"
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "overview": "Overview",
+    "reservations": "Reservations",
+    "rooms": "Rooms",
+    "users": "Users",
+    "reports": "Reports",
+    "settings": "Settings",
+    "stats": {
+      "totalBookings": "Total Bookings",
+      "revenue": "Revenue",
+      "occupancy": "Occupancy Rate",
+      "guests": "Total Guests"
+    }
   }
 } 

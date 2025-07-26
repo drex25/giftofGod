@@ -1,315 +1,293 @@
 import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { 
-  Filter, 
   Search, 
+  Filter, 
+  Grid3X3, 
+  List, 
   MapPin, 
   Users, 
-  DollarSign,
-  X,
-  Bed,
   Star,
-  Heart
+  X
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import RoomCard from '../../components/Rooms/RoomCard';
-import SearchForm from '../../components/Booking/SearchForm';
-
-interface Room {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  capacity: number;
-  room_type: string;
-  amenities: string[];
-  rating: number;
-  image: string;
-  location: string;
-}
+import Button from '../../components/UI/Button';
+import Input from '../../components/UI/Input';
 
 const RoomsList: React.FC = () => {
   const { t } = useTranslation();
-  const [rooms, setRooms] = useState<Room[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [showFilters, setShowFilters] = useState(false);
-  const [filters, setFilters] = useState({
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedFilters, setSelectedFilters] = useState({
     roomType: '',
-    minPrice: '',
-    maxPrice: '',
-    minCapacity: '',
+    priceRange: '',
+    capacity: '',
+    amenities: [] as string[]
   });
 
   // Mock data - replace with API call
-  useEffect(() => {
-    const mockRooms: Room[] = [
-      {
-        id: 1,
-        name: 'Habitación Individual Premium',
-        description: 'Habitación individual con todas las comodidades para viajeros solos.',
-        price: 25,
-        capacity: 1,
-        room_type: 'single',
-        amenities: ['WiFi', 'Breakfast', 'TV', 'Private Bathroom'],
-        rating: 4.8,
-        image: '/images/room-1.jpg',
-        location: 'Centro de la ciudad'
-      },
-      {
-        id: 2,
-        name: 'Habitación Doble Deluxe',
-        description: 'Habitación doble perfecta para parejas o amigos.',
-        price: 35,
-        capacity: 2,
-        room_type: 'double',
-        amenities: ['WiFi', 'Breakfast', 'TV', 'Private Bathroom', 'Balcony'],
-        rating: 4.9,
-        image: '/images/room-2.jpg',
-        location: 'Centro de la ciudad'
-      },
-      {
-        id: 3,
-        name: 'Habitación Familiar Espaciosa',
-        description: 'Habitación familiar con espacio para toda la familia.',
-        price: 50,
-        capacity: 4,
-        room_type: 'family',
-        amenities: ['WiFi', 'Breakfast', 'TV', 'Private Bathroom', 'Kitchen', 'Parking'],
-        rating: 4.7,
-        image: '/images/room-3.jpg',
-        location: 'Centro de la ciudad'
-      },
-      {
-        id: 4,
-        name: 'Habitación Triple Comfort',
-        description: 'Habitación triple ideal para grupos pequeños.',
-        price: 45,
-        capacity: 3,
-        room_type: 'triple',
-        amenities: ['WiFi', 'Breakfast', 'TV', 'Private Bathroom'],
-        rating: 4.6,
-        image: '/images/room-4.jpg',
-        location: 'Centro de la ciudad'
-      }
-    ];
+  const rooms = [
+    {
+      id: 1,
+      name: 'Single Room',
+      description: 'Perfect for solo travelers seeking comfort and privacy',
+      price: 25,
+      originalPrice: 30,
+      image: 'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg',
+      rating: 4.8,
+      reviewCount: 124,
+      capacity: 1,
+      amenities: ['wifi', 'tv', 'coffee'],
+      location: 'Downtown',
+      popular: true,
+      discount: 15
+    },
+    {
+      id: 2,
+      name: 'Double Room',
+      description: 'Ideal for couples or friends traveling together',
+      price: 35,
+      originalPrice: 40,
+      image: 'https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg',
+      rating: 4.9,
+      reviewCount: 89,
+      capacity: 2,
+      amenities: ['wifi', 'tv', 'coffee', 'parking'],
+      location: 'Downtown',
+      popular: false
+    },
+    {
+      id: 3,
+      name: 'Shared Dormitory',
+      description: 'Economical option to meet other travelers',
+      price: 15,
+      image: 'https://images.pexels.com/photos/2029667/pexels-photo-2029667.jpeg',
+      rating: 4.6,
+      reviewCount: 203,
+      capacity: 6,
+      amenities: ['wifi', 'security'],
+      location: 'Downtown',
+      popular: false
+    }
+  ];
 
-    setTimeout(() => {
-      setRooms(mockRooms);
-      setLoading(false);
-    }, 1000);
-  }, []);
-
-  const handleSearch = (searchData: any) => {
-    console.log('Search data:', searchData);
-    // Implement search logic
-  };
-
-  const handleFilterChange = (filter: string, value: string) => {
-    setFilters(prev => ({
-      ...prev,
-      [filter]: value
-    }));
-  };
+  const filteredRooms = rooms.filter(room => {
+    const matchesSearch = room.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         room.description.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    const matchesType = !selectedFilters.roomType || room.name.includes(selectedFilters.roomType);
+    const matchesCapacity = !selectedFilters.capacity || room.capacity >= parseInt(selectedFilters.capacity);
+    
+    return matchesSearch && matchesType && matchesCapacity;
+  });
 
   const clearFilters = () => {
-    setFilters({
+    setSelectedFilters({
       roomType: '',
-      minPrice: '',
-      maxPrice: '',
-      minCapacity: '',
+      priceRange: '',
+      capacity: '',
+      amenities: []
     });
   };
 
-  const filteredRooms = rooms.filter(room => {
-    if (filters.roomType && room.room_type !== filters.roomType) return false;
-    if (filters.minPrice && room.price < parseInt(filters.minPrice)) return false;
-    if (filters.maxPrice && room.price > parseInt(filters.maxPrice)) return false;
-    if (filters.minCapacity && room.capacity < parseInt(filters.minCapacity)) return false;
-    return true;
-  });
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500 mx-auto mb-4"></div>
-          <p className="text-earth-600">{t('common.loading')}</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-earth-50 to-warm-50">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-500 to-secondary-500 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <h1 className="text-4xl lg:text-6xl font-display font-bold mb-6">
-              {t('rooms.title')}
-            </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              {t('rooms.subtitle')}
-            </p>
-          </motion.div>
-        </div>
-      </section>
+    <div className="min-h-screen bg-neutral-50 pt-20">
+      <div className="container-modern py-8">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-8"
+        >
+          <h1 className="heading-2 mb-4">{t('rooms.title')}</h1>
+          <p className="body-lg text-neutral-600 max-w-2xl mx-auto">
+            {t('rooms.subtitle')}
+          </p>
+        </motion.div>
 
-      {/* Search Section */}
-      <section className="py-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SearchForm onSearch={handleSearch} />
-        </div>
-      </section>
+        {/* Search and Filters Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="bg-white rounded-2xl p-6 shadow-lg mb-8"
+        >
+          <div className="flex flex-col lg:flex-row gap-4 items-center">
+            {/* Search */}
+            <div className="flex-1 w-full lg:w-auto">
+              <Input
+                type="search"
+                placeholder={t('rooms.searchPlaceholder')}
+                value={searchTerm}
+                onChange={setSearchTerm}
+                icon={Search}
+                fullWidth
+              />
+            </div>
 
-      {/* Filters and Results */}
-      <section className="py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-8">
-            {/* Filters Sidebar */}
-            <div className="lg:w-1/4">
-              <div className="card p-6 sticky top-8">
-                <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-lg font-semibold text-earth-800 flex items-center">
-                    <Filter className="w-5 h-5 mr-2" />
-                    {t('rooms.filters.title')}
-                  </h3>
-                  <button
-                    onClick={clearFilters}
-                    className="text-sm text-primary-600 hover:text-primary-700 transition-colors"
-                  >
-                    {t('rooms.clearFilters')}
-                  </button>
-                </div>
+            {/* Filters Button */}
+            <Button
+              variant="outline"
+              icon={Filter}
+              onClick={() => setShowFilters(!showFilters)}
+              className="whitespace-nowrap"
+            >
+              {t('rooms.filters.title')}
+            </Button>
 
-                {/* Room Type Filter */}
-                <div className="mb-6">
-                  <label className="block text-sm font-medium text-earth-700 mb-3">
+            {/* View Mode Toggle */}
+            <div className="flex bg-neutral-100 rounded-lg p-1">
+              <button
+                onClick={() => setViewMode('grid')}
+                className={`p-2 rounded-md transition-all ${
+                  viewMode === 'grid' 
+                    ? 'bg-white text-primary-600 shadow-sm' 
+                    : 'text-neutral-600 hover:text-neutral-900'
+                }`}
+              >
+                <Grid3X3 className="h-5 w-5" />
+              </button>
+              <button
+                onClick={() => setViewMode('list')}
+                className={`p-2 rounded-md transition-all ${
+                  viewMode === 'list' 
+                    ? 'bg-white text-primary-600 shadow-sm' 
+                    : 'text-neutral-600 hover:text-neutral-900'
+                }`}
+              >
+                <List className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Filters Panel */}
+          {showFilters && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="mt-6 pt-6 border-t border-neutral-200"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                {/* Room Type */}
+                <div>
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
                     {t('rooms.filters.roomType')}
                   </label>
                   <select
-                    value={filters.roomType}
-                    onChange={(e) => handleFilterChange('roomType', e.target.value)}
-                    className="input-search"
+                    value={selectedFilters.roomType}
+                    onChange={(e) => setSelectedFilters(prev => ({ ...prev, roomType: e.target.value }))}
+                    className="input-modern"
                   >
                     <option value="">{t('rooms.filters.allTypes')}</option>
-                    <option value="single">{t('rooms.filters.single')}</option>
-                    <option value="double">{t('rooms.filters.double')}</option>
-                    <option value="triple">{t('rooms.filters.triple')}</option>
-                    <option value="family">{t('rooms.filters.family')}</option>
+                    <option value="Single">Single</option>
+                    <option value="Double">Double</option>
+                    <option value="Shared">Shared</option>
+                  </select>
+                </div>
+
+                {/* Capacity */}
+                <div>
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
+                    {t('rooms.filters.capacity')}
+                  </label>
+                  <select
+                    value={selectedFilters.capacity}
+                    onChange={(e) => setSelectedFilters(prev => ({ ...prev, capacity: e.target.value }))}
+                    className="input-modern"
+                  >
+                    <option value="">{t('rooms.filters.anyCapacity')}</option>
+                    <option value="1">1 {t('rooms.filters.person')}</option>
+                    <option value="2">2 {t('rooms.filters.people')}</option>
+                    <option value="3">3+ {t('rooms.filters.people')}</option>
                   </select>
                 </div>
 
                 {/* Price Range */}
-                <div className="mb-6">
-                  <label className="block text-sm font-medium text-earth-700 mb-3">
-                    {t('rooms.filters.minPrice')}
-                  </label>
-                  <div className="flex items-center space-x-2">
-                    <DollarSign className="w-4 h-4 text-earth-500" />
-                    <input
-                      type="number"
-                      value={filters.minPrice}
-                      onChange={(e) => handleFilterChange('minPrice', e.target.value)}
-                      placeholder="0"
-                      className="input-search"
-                    />
-                  </div>
-                </div>
-
-                <div className="mb-6">
-                  <label className="block text-sm font-medium text-earth-700 mb-3">
-                    {t('rooms.filters.maxPrice')}
-                  </label>
-                  <div className="flex items-center space-x-2">
-                    <DollarSign className="w-4 h-4 text-earth-500" />
-                    <input
-                      type="number"
-                      value={filters.maxPrice}
-                      onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
-                      placeholder="1000"
-                      className="input-search"
-                    />
-                  </div>
-                </div>
-
-                {/* Capacity */}
-                <div className="mb-6">
-                  <label className="block text-sm font-medium text-earth-700 mb-3">
-                    {t('rooms.filters.minCapacity')}
-                  </label>
-                  <div className="flex items-center space-x-2">
-                    <Users className="w-4 h-4 text-earth-500" />
-                    <select
-                      value={filters.minCapacity}
-                      onChange={(e) => handleFilterChange('minCapacity', e.target.value)}
-                      className="input-search"
-                    >
-                      <option value="">{t('rooms.filters.anyCapacity')}</option>
-                      <option value="1">1 {t('rooms.filters.person')}</option>
-                      <option value="2">2 {t('rooms.filters.people')}</option>
-                      <option value="3">3 {t('rooms.filters.people')}</option>
-                      <option value="4">4+ {t('rooms.filters.people')}</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Results */}
-            <div className="lg:w-3/4">
-              {/* Results Header */}
-              <div className="flex items-center justify-between mb-8">
                 <div>
-                  <h2 className="text-2xl font-semibold text-earth-800">
-                    {t('rooms.availableRooms')}
-                  </h2>
-                  <p className="text-earth-600">
-                    {filteredRooms.length} {filteredRooms.length === 1 ? 'habitación' : 'habitaciones'} encontradas
-                  </p>
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
+                    {t('rooms.filters.priceRange')}
+                  </label>
+                  <select
+                    value={selectedFilters.priceRange}
+                    onChange={(e) => setSelectedFilters(prev => ({ ...prev, priceRange: e.target.value }))}
+                    className="input-modern"
+                  >
+                    <option value="">{t('rooms.filters.anyPrice')}</option>
+                    <option value="0-20">$0 - $20</option>
+                    <option value="20-40">$20 - $40</option>
+                    <option value="40+">$40+</option>
+                  </select>
                 </div>
-              </div>
 
-              {/* Rooms Grid */}
-              {filteredRooms.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {filteredRooms.map((room, index) => (
-                    <motion.div
-                      key={room.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                    >
-                      <RoomCard room={room} />
-                    </motion.div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-12">
-                  <Bed className="w-16 h-16 text-earth-300 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-earth-800 mb-2">
-                    {t('rooms.noRooms')}
-                  </h3>
-                  <p className="text-earth-600 mb-6">
-                    {t('rooms.noRoomsDesc')}
-                  </p>
-                  <button
+                {/* Clear Filters */}
+                <div className="flex items-end">
+                  <Button
+                    variant="ghost"
+                    icon={X}
                     onClick={clearFilters}
-                    className="btn-primary"
+                    className="w-full"
                   >
                     {t('rooms.clearFilters')}
-                  </button>
+                  </Button>
                 </div>
-              )}
-            </div>
-          </div>
+              </div>
+            </motion.div>
+          )}
+        </motion.div>
+
+        {/* Results Count */}
+        <div className="flex justify-between items-center mb-6">
+          <p className="text-neutral-600">
+            {filteredRooms.length} {t('rooms.availableRooms')}
+          </p>
         </div>
-      </section>
+
+        {/* Rooms Grid/List */}
+        {filteredRooms.length > 0 ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className={
+              viewMode === 'grid' 
+                ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'
+                : 'space-y-4'
+            }
+          >
+            {filteredRooms.map((room, index) => (
+              <motion.div
+                key={room.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <RoomCard room={room} />
+              </motion.div>
+            ))}
+          </motion.div>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center py-12"
+          >
+            <div className="w-24 h-24 bg-neutral-200 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Search className="h-12 w-12 text-neutral-400" />
+            </div>
+            <h3 className="heading-4 mb-2">{t('rooms.noRooms')}</h3>
+            <p className="text-neutral-600 mb-6">{t('rooms.noRoomsDesc')}</p>
+            <Button
+              variant="outline"
+              onClick={clearFilters}
+            >
+              {t('rooms.clearFilters')}
+            </Button>
+          </motion.div>
+        )}
+      </div>
     </div>
   );
 };

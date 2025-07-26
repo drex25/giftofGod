@@ -15,7 +15,9 @@ import {
   CalendarDaysIcon,
   GlobeAltIcon,
   ChevronDownIcon,
-  CheckIcon
+  CheckIcon,
+  InformationCircleIcon,
+  PhoneIcon
 } from '@heroicons/react/24/outline';
 import { useAuth } from '../../contexts/AuthContext';
 import LanguageSelector from '../UI/LanguageSelector';
@@ -40,11 +42,8 @@ const Navbar: React.FC = () => {
   const navItems = [
     { name: t('nav.home'), path: '/', icon: HomeIcon },
     { name: t('nav.rooms'), path: '/rooms', icon: BuildingOfficeIcon },
-  ];
-
-  const authItems = [
-    { name: t('nav.login'), path: '/login', icon: ArrowRightOnRectangleIcon },
-    { name: t('nav.register'), path: '/register', icon: UserPlusIcon },
+    { name: t('nav.about'), path: '/about', icon: InformationCircleIcon },
+    { name: t('nav.contact'), path: '/contact', icon: PhoneIcon },
   ];
 
   const userMenuItems = [
@@ -182,13 +181,6 @@ const Navbar: React.FC = () => {
                     <ArrowRightOnRectangleIcon className="w-4 h-4" />
                     <span>{t('nav.login')}</span>
                   </Link>
-                  <Link
-                    to="/register"
-                    className="btn btn-primary"
-                  >
-                    <UserPlusIcon className="w-4 h-4" />
-                    <span>{t('nav.register')}</span>
-                  </Link>
                 </div>
               )}
             </div>
@@ -290,21 +282,18 @@ const Navbar: React.FC = () => {
                     transition={{ delay: 0.2 }}
                     className="border-t border-neutral-200 pt-4 space-y-2"
                   >
-                    {authItems.map((item) => (
-                      <Link
-                        key={item.path}
-                        to={item.path}
-                        onClick={() => setIsOpen(false)}
-                        className={`flex items-center space-x-3 p-3 rounded-xl transition-all duration-300 ${
-                          isActive(item.path)
-                            ? 'bg-primary-50 text-primary-600 border border-primary-200'
-                            : 'text-neutral-600 hover:bg-neutral-50 hover:text-primary-600'
-                        }`}
-                      >
-                        <item.icon className="w-5 h-5" />
-                        <span className="font-medium">{item.name}</span>
-                      </Link>
-                    ))}
+                    <Link
+                      to="/login"
+                      onClick={() => setIsOpen(false)}
+                      className={`flex items-center space-x-3 p-3 rounded-xl transition-all duration-300 ${
+                        isActive('/login')
+                          ? 'bg-primary-50 text-primary-600 border border-primary-200'
+                          : 'text-neutral-600 hover:bg-neutral-50 hover:text-primary-600'
+                      }`}
+                    >
+                      <ArrowRightOnRectangleIcon className="w-5 h-5" />
+                      <span className="font-medium">{t('nav.login')}</span>
+                    </Link>
                   </motion.div>
                 )}
 

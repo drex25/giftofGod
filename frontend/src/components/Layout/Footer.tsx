@@ -1,252 +1,198 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
 import { 
-  PhoneIcon, 
-  EnvelopeIcon, 
-  MapPinIcon, 
-  BuildingOfficeIcon,
-  HeartIcon,
-  ArrowUpIcon,
-  GlobeAltIcon,
-  CalendarDaysIcon,
-  UserIcon,
-  Cog6ToothIcon
-} from '@heroicons/react/24/outline';
+  Building, 
+  MapPin, 
+  Phone, 
+  Mail, 
+  Globe, 
+  Facebook, 
+  Instagram, 
+  Twitter,
+  Youtube,
+  ArrowUp
+} from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
+  const currentYear = new Date().getFullYear();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const quickLinks = [
-    { name: t('nav.home'), path: '/' },
-    { name: t('nav.rooms'), path: '/rooms' },
-    { name: 'Nosotros', path: '/about' },
-    { name: 'Contacto', path: '/contact' },
-  ];
-
-  const services = [
-    { name: t('footer.accommodation'), path: '/rooms' },
-    { name: t('footer.tours'), path: '/tours' },
-    { name: t('footer.transport'), path: '/transport' },
-    { name: 'Eventos', path: '/events' },
-  ];
+  const footerLinks = {
+    company: [
+      { name: t('footer.about'), href: '/about' },
+      { name: t('footer.contact'), href: '/contact' },
+      { name: t('footer.careers'), href: '/careers' },
+      { name: t('footer.press'), href: '/press' }
+    ],
+    services: [
+      { name: t('footer.accommodation'), href: '/rooms' },
+      { name: t('footer.tours'), href: '/tours' },
+      { name: t('footer.transport'), href: '/transport' },
+      { name: t('footer.events'), href: '/events' }
+    ],
+    support: [
+      { name: t('footer.help'), href: '/help' },
+      { name: t('footer.faq'), href: '/faq' },
+      { name: t('footer.terms'), href: '/terms' },
+      { name: t('footer.privacy'), href: '/privacy' }
+    ]
+  };
 
   const socialLinks = [
-    { name: 'Facebook', url: '#', icon: '📘' },
-    { name: 'Instagram', url: '#', icon: '📷' },
-    { name: 'Twitter', url: '#', icon: '🐦' },
-    { name: 'YouTube', url: '#', icon: '📺' },
+    { name: 'Facebook', icon: Facebook, href: 'https://facebook.com' },
+    { name: 'Instagram', icon: Instagram, href: 'https://instagram.com' },
+    { name: 'Twitter', icon: Twitter, href: 'https://twitter.com' },
+    { name: 'YouTube', icon: Youtube, href: 'https://youtube.com' }
   ];
 
   return (
-    <footer className="bg-neutral-900 text-white">
-      {/* Main Footer */}
-      <div className="container-modern py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Brand Section */}
-          <div className="lg:col-span-1">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center shadow-medium">
-                  <BuildingOfficeIcon className="h-6 w-6 text-white" />
+    <footer className="bg-neutral-900 text-white relative">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }}></div>
+      </div>
+
+      <div className="container-modern relative z-10">
+        {/* Main Footer Content */}
+        <div className="py-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+            {/* Brand Section */}
+            <div className="lg:col-span-2">
+              <Link to="/" className="flex items-center space-x-3 mb-6 group">
+                <div className="relative">
+                  <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <Building className="h-6 w-6 text-white" />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold gradient-text">Gift of God</h3>
-                  <p className="text-xs text-neutral-400 font-medium">
-                    HOSTEL & EXPERIENCES
-                  </p>
+                  <span className="text-2xl font-bold gradient-text">Gift of God</span>
+                  <p className="text-sm text-neutral-400">HOTEL & RESORT</p>
                 </div>
-              </div>
-              <p className="text-neutral-400 mb-6 leading-relaxed body-medium">
+              </Link>
+              
+              <p className="body-lg text-neutral-300 mb-6 max-w-md">
                 {t('footer.description')}
               </p>
-              <div className="flex space-x-4">
-                {socialLinks.map((social) => (
+
+              {/* Contact Info */}
+              <div className="space-y-3">
+                <div className="flex items-center space-x-3">
+                  <MapPin className="h-5 w-5 text-primary-400" />
+                  <span className="text-neutral-300">{t('footer.address')}</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Phone className="h-5 w-5 text-primary-400" />
+                  <span className="text-neutral-300">+1 (555) 123-4567</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Mail className="h-5 w-5 text-primary-400" />
+                  <span className="text-neutral-300">info@giftofgod.com</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Globe className="h-5 w-5 text-primary-400" />
+                  <span className="text-neutral-300">www.giftofgod.com</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Company Links */}
+            <div>
+              <h3 className="heading-6 mb-6 text-white">{t('footer.company')}</h3>
+              <ul className="space-y-3">
+                {footerLinks.company.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      to={link.href}
+                      className="text-neutral-300 hover:text-primary-400 transition-colors duration-300"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Services Links */}
+            <div>
+              <h3 className="heading-6 mb-6 text-white">{t('footer.services')}</h3>
+              <ul className="space-y-3">
+                {footerLinks.services.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      to={link.href}
+                      className="text-neutral-300 hover:text-primary-400 transition-colors duration-300"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Support Links */}
+            <div>
+              <h3 className="heading-6 mb-6 text-white">{t('footer.support')}</h3>
+              <ul className="space-y-3">
+                {footerLinks.support.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      to={link.href}
+                      className="text-neutral-300 hover:text-primary-400 transition-colors duration-300"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Section */}
+        <div className="border-t border-neutral-800 py-8">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            {/* Copyright */}
+            <div className="text-neutral-400 text-sm">
+              © {currentYear} Gift of God. {t('footer.rights')}
+            </div>
+
+            {/* Social Links */}
+            <div className="flex items-center space-x-4">
+              {socialLinks.map((social) => {
+                const Icon = social.icon;
+                return (
                   <motion.a
                     key={social.name}
-                    href={social.url}
-                    whileHover={{ scale: 1.1, y: -2 }}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-neutral-800 hover:bg-primary-600 rounded-lg flex items-center justify-center transition-all duration-300 group"
+                    whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    className="w-10 h-10 bg-neutral-800 hover:bg-primary-500 rounded-lg flex items-center justify-center text-neutral-400 hover:text-white transition-all duration-300 shadow-medium"
                   >
-                    <span className="text-lg">{social.icon}</span>
+                    <Icon className="h-5 w-5 text-neutral-400 group-hover:text-white transition-colors" />
                   </motion.a>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Quick Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-          >
-            <h4 className="heading-4 mb-6 text-white">{t('footer.quickLinks')}</h4>
-            <ul className="space-y-3">
-              {quickLinks.map((link) => (
-                <li key={link.path}>
-                  <Link 
-                    to={link.path} 
-                    className="text-neutral-400 hover:text-primary-400 transition-colors duration-300 body-medium hover:translate-x-1 inline-block"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Services */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <h4 className="heading-4 mb-6 text-white">{t('footer.services')}</h4>
-            <ul className="space-y-3">
-              {services.map((service) => (
-                <li key={service.path}>
-                  <Link 
-                    to={service.path} 
-                    className="text-neutral-400 hover:text-primary-400 transition-colors duration-300 body-medium hover:translate-x-1 inline-block"
-                  >
-                    {service.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <h4 className="heading-4 mb-6 text-white">{t('footer.contact')}</h4>
-            <div className="space-y-4">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center shadow-medium">
-                  <PhoneIcon className="w-4 h-4 text-white" />
-                </div>
-                <div>
-                  <p className="text-sm text-neutral-400">Teléfono</p>
-                  <p className="text-white body-medium">+1 234 567 890</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center shadow-medium">
-                  <EnvelopeIcon className="w-4 h-4 text-white" />
-                </div>
-                <div>
-                  <p className="text-sm text-neutral-400">Email</p>
-                  <p className="text-white body-medium">info@giftofgod.com</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center shadow-medium">
-                  <MapPinIcon className="w-4 h-4 text-white" />
-                </div>
-                <div>
-                  <p className="text-sm text-neutral-400">Dirección</p>
-                  <p className="text-white body-small">{t('footer.address')}</p>
-                </div>
-              </div>
+                );
+              })}
             </div>
-          </motion.div>
-        </div>
-      </div>
 
-      {/* Newsletter Section */}
-      <div className="border-t border-neutral-800">
-        <div className="container-modern py-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <h4 className="heading-4 mb-4 text-white">Mantente Conectado</h4>
-            <p className="text-neutral-400 body-medium mb-6 max-w-2xl mx-auto">
-              Suscríbete a nuestro newsletter para recibir ofertas especiales y noticias
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Tu email"
-                className="flex-1 px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg text-white placeholder-neutral-400 focus:outline-none focus:border-primary-500 transition-colors"
-              />
-              <button className="btn btn-primary px-6 py-3">
-                Suscribirse
-              </button>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Bottom Footer */}
-      <div className="border-t border-neutral-800">
-        <div className="container-modern py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="flex items-center space-x-2 text-neutral-400 body-small"
-            >
-              <span>© 2024 Gift of God.</span>
-              <span>{t('footer.rights')}</span>
-              <HeartIcon className="w-4 h-4 text-primary-500" />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="flex items-center space-x-6 text-sm text-neutral-400"
-            >
-              <Link to="/privacy" className="hover:text-primary-400 transition-colors body-small">
-                Política de Privacidad
-              </Link>
-              <Link to="/terms" className="hover:text-primary-400 transition-colors body-small">
-                Términos de Servicio
-              </Link>
-              <Link to="/cookies" className="hover:text-primary-400 transition-colors body-small">
-                Política de Cookies
-              </Link>
-            </motion.div>
-
-            {/* Scroll to Top Button */}
+            {/* Back to Top */}
             <motion.button
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              whileHover={{ scale: 1.1, y: -2 }}
-              whileTap={{ scale: 0.9 }}
-              transition={{ duration: 0.3 }}
-              viewport={{ once: true }}
               onClick={scrollToTop}
-              className="w-12 h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center text-white hover:shadow-glow transition-all duration-300 shadow-medium"
+              className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
-              <ArrowUpIcon className="w-5 h-5" />
+              <ArrowUp className="h-5 w-5 text-white" />
             </motion.button>
           </div>
         </div>

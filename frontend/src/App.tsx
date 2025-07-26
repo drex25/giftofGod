@@ -4,8 +4,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import './i18n'; // Import i18n configuration
 
 // Layout Components
-import Navbar from './components/Layout/Navbar';
-import Footer from './components/Layout/Footer';
+import MainLayout from './components/Layout/MainLayout';
 
 // Pages
 import Home from './pages/Home';
@@ -25,23 +24,19 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="min-h-screen flex flex-col">
-          <Navbar />
-          <main className="flex-grow">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/rooms" element={<RoomsList />} />
-              <Route path="/rooms/:id" element={<RoomDetail />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/user-dashboard" element={<UserDashboard />} />
-              <Route path="/reservations" element={<Reservations />} />
-              <Route path="/admin" element={<AdminDashboard />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
+        <Routes>
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/rooms" element={<RoomsList />} />
+            <Route path="/rooms/:id" element={<RoomDetail />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/user-dashboard" element={<UserDashboard />} />
+            <Route path="/reservations" element={<Reservations />} />
+            <Route path="/admin" element={<AdminDashboard />} />
+          </Route>
+        </Routes>
       </Router>
     </AuthProvider>
   );

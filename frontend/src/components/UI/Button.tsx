@@ -4,16 +4,16 @@ import { LucideIcon } from 'lucide-react';
 
 interface ButtonProps {
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'success' | 'error' | 'warning';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'outline' | 'danger';
   size?: 'sm' | 'md' | 'lg' | 'xl';
   icon?: LucideIcon;
   iconPosition?: 'left' | 'right';
   disabled?: boolean;
   loading?: boolean;
   fullWidth?: boolean;
-  className?: string;
   onClick?: () => void;
   type?: 'button' | 'submit' | 'reset';
+  className?: string;
   href?: string;
   target?: string;
 }
@@ -27,48 +27,50 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   loading = false,
   fullWidth = false,
-  className = '',
   onClick,
   type = 'button',
+  className = '',
   href,
-  target,
+  target
 }) => {
-  const baseClasses = 'btn inline-flex items-center justify-center gap-2 font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+  const baseClasses = 'inline-flex items-center justify-center font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
   
   const variantClasses = {
-    primary: 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg hover:shadow-xl hover:scale-105 focus:ring-primary-500',
-    secondary: 'bg-gradient-to-r from-secondary-500 to-secondary-600 text-white shadow-lg hover:shadow-xl hover:scale-105 focus:ring-secondary-500',
-    outline: 'border-2 border-primary-500 text-primary-600 bg-white/80 backdrop-blur-sm hover:bg-primary-500 hover:text-white focus:ring-primary-500',
-    ghost: 'text-neutral-600 hover:text-primary-600 hover:bg-primary-50 focus:ring-primary-500',
-    success: 'bg-gradient-to-r from-success-500 to-emerald-600 text-white shadow-lg hover:shadow-xl hover:scale-105 focus:ring-success-500',
-    error: 'bg-gradient-to-r from-error-500 to-red-600 text-white shadow-lg hover:shadow-xl hover:scale-105 focus:ring-error-500',
-    warning: 'bg-gradient-to-r from-warning-500 to-amber-600 text-white shadow-lg hover:shadow-xl hover:scale-105 focus:ring-warning-500',
+    primary: 'bg-gradient-to-r from-primary-500 to-primary-600 text-white hover:from-primary-600 hover:to-primary-700 focus:ring-primary-500 shadow-lg hover:shadow-xl',
+    secondary: 'bg-gradient-to-r from-secondary-500 to-secondary-600 text-white hover:from-secondary-600 hover:to-secondary-700 focus:ring-secondary-500 shadow-lg hover:shadow-xl',
+    ghost: 'bg-transparent text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 focus:ring-neutral-500',
+    outline: 'bg-transparent border-2 border-neutral-300 text-neutral-700 hover:bg-neutral-50 hover:border-neutral-400 focus:ring-neutral-500',
+    danger: 'bg-gradient-to-r from-error-500 to-error-600 text-white hover:from-error-600 hover:to-error-700 focus:ring-error-500 shadow-lg hover:shadow-xl'
   };
 
   const sizeClasses = {
-    sm: 'px-3 py-2 text-sm rounded-lg',
-    md: 'px-4 py-2.5 text-sm rounded-lg',
-    lg: 'px-6 py-3 text-base rounded-xl',
-    xl: 'px-8 py-4 text-lg rounded-xl',
+    sm: 'px-3 py-1.5 text-sm rounded-lg gap-1.5',
+    md: 'px-4 py-2 text-sm rounded-lg gap-2',
+    lg: 'px-6 py-3 text-base rounded-xl gap-2',
+    xl: 'px-8 py-4 text-lg rounded-xl gap-3'
   };
 
   const widthClass = fullWidth ? 'w-full' : '';
-  const loadingClass = loading ? 'cursor-wait' : '';
+  const iconSize = size === 'sm' ? 'h-4 w-4' : size === 'lg' || size === 'xl' ? 'h-5 w-5' : 'h-4 w-4';
 
-  const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${widthClass} ${loadingClass} ${className}`;
+  const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${widthClass} ${className}`;
 
-  const buttonContent = (
+  const content = (
     <>
       {loading && (
         <motion.div
           animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-          className="w-4 h-4 border-2 border-current border-t-transparent rounded-full"
+          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+          className={`${iconSize} border-2 border-current border-t-transparent rounded-full`}
         />
       )}
-      {Icon && iconPosition === 'left' && !loading && <Icon className="w-4 h-4" />}
+      {!loading && Icon && iconPosition === 'left' && (
+        <Icon className={iconSize} />
+      )}
       <span>{children}</span>
-      {Icon && iconPosition === 'right' && !loading && <Icon className="w-4 h-4" />}
+      {!loading && Icon && iconPosition === 'right' && (
+        <Icon className={iconSize} />
+      )}
     </>
   );
 
@@ -79,11 +81,10 @@ const Button: React.FC<ButtonProps> = ({
         target={target}
         rel={target === '_blank' ? 'noopener noreferrer' : undefined}
         className={classes}
-        whileHover={{ scale: disabled ? 1 : 1.05 }}
-        whileTap={{ scale: disabled ? 1 : 0.95 }}
-        onClick={onClick}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
       >
-        {buttonContent}
+        {content}
       </motion.a>
     );
   }
@@ -91,13 +92,13 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <motion.button
       type={type}
-      className={classes}
-      disabled={disabled || loading}
       onClick={onClick}
-      whileHover={{ scale: disabled || loading ? 1 : 1.05 }}
-      whileTap={{ scale: disabled || loading ? 1 : 0.95 }}
+      disabled={disabled || loading}
+      className={classes}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
     >
-      {buttonContent}
+      {content}
     </motion.button>
   );
 };
